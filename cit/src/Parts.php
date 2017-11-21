@@ -16,6 +16,16 @@ class Parts
     /** @Column(type="integer") **/
     protected $parent;
 
+    /**
+     * Many Parts have Many Users.
+     * @ManyToMany(targetEntity="User", mappedBy="parts")
+     */
+    protected $users;
+
+    public function __construct() {
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     public function getId()
     {
         return $this->id;

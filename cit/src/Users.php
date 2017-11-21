@@ -18,6 +18,16 @@ class Users
     /** @Column(type="integer") **/
     protected $role;
 
+    /**
+     * Many Users have Many Parts.
+     * @ManyToMany(targetEntity="Parts", inversedBy="users")
+     * @JoinTable(name="usersparts")
+     */
+    protected $parts;
+
+    public function __construct() {
+        $this->parts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     public function getId()
     {

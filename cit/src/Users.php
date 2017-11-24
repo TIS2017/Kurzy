@@ -1,16 +1,16 @@
 <?php
-// src/Users.php
+// src/User.php
 
 /**
  * @Entity @Table(name="users")
  **/
-class Users
+class User
 {
      /** @Id @Column(type="integer") @GeneratedValue **/
     protected $id;
     
     /** @Column(type="string") **/
-    protected $userName;
+    protected $login;
     
     /** @Column(type="string") **/
     protected $password;
@@ -19,14 +19,14 @@ class Users
     protected $role;
 
     /**
-     * Many Users have Many Parts.
-     * @ManyToMany(targetEntity="Parts", inversedBy="users")
-     * @JoinTable(name="usersparts")
+     * Many Users have Many Workplaces.
+     * @ManyToMany(targetEntity="Workplace", inversedBy="users")
+     * @JoinTable(name="user_workspaces")
      */
-    protected $parts;
+    protected $workplaces;
 
     public function __construct() {
-        $this->parts = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->workplaces = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getId()
@@ -34,14 +34,14 @@ class Users
         return $this->id;
     }
 
-    public function getUserName()
+    public function getLogin()
     {
-        return $this->userName;
+        return $this->login;
     }
 
-    public function setUserName($userName)
+    public function setLogin($login)
     {
-        $this->userName = $userName;
+        $this->login = $login;
     }
 
     public function getPassword(){

@@ -1,17 +1,17 @@
 <?php
-// src/UserParts.php
+// src/UserWorkplaces.php
 
 /**
- * @Entity @Table(name="userparts")
+ * @Entity @Table(name="user_workplaces")
  **/
-class UserParts
+class UserWorkplaces
 {
      /** @Id @Column(type="integer") @GeneratedValue **/
     protected $id;
     
 
     /** @Column(type="integer") **/
-    protected $partId;
+    protected $workplaceId;
     
     /** @Column(type="integer") **/
     protected $userId;
@@ -21,14 +21,14 @@ class UserParts
         return $this->id;
     }
 
-    public function getPardId()
+    public function getWorkplaceId()
     {
-        return $this->partId;
+        return $this->workplaceId;
     }
 
-    public function setPartId($partId)
+    public function setWorkplaceId($workplaceId)
     {
-        $this->partId = $partId;
+        $this->workplaceId = $workplaceId;
     }
 
     public function getUserId(){

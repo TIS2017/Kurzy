@@ -1,10 +1,10 @@
 <?php
-// src/Roles.php
+// src/Role.php
 
 /**
  * @Entity @Table(name="roles")
  **/
-class Roles
+class Role
 {
      /** @Id @Column(type="integer") @GeneratedValue **/
     protected $id;

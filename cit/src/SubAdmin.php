@@ -1,10 +1,10 @@
 <?php
-// src/SubAdmins.php
+// src/SubAdmin.php
 
 /**
  * @Entity @Table(name="subadmins")
  **/
-class SubAdmins
+class SubAdmin
 {
      /** @Id @Column(type="integer") @GeneratedValue **/
     protected $id;
@@ -14,7 +14,7 @@ class SubAdmins
     protected $userId;
     
     /** @Column(type="integer") **/
-    protected $courseId;
+    protected $partId;
 
     public function getId()
     {
@@ -31,12 +31,12 @@ class SubAdmins
         $this->userId = $userId;
     }
 
-    public function getCourseId(){
-        return $this->courseId;
+    public function getPartId(){
+        return $this->partId;
     }
 
-    public function setCourseId($courseId)
+    public function setPartId($partId)
     {
-        $this->courseId = $courseId;
+        $this->partId = $partId;
     }
 }

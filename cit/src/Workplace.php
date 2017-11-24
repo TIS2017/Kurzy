@@ -1,24 +1,24 @@
 <?php
-// src/Parts.php
+// src/Workplace.php
 
 /**
- * @Entity @Table(name="parts")
+ * @Entity @Table(name="workplaces")
  **/
-class Parts
+class Workplace
 {
      /** @Id @Column(type="integer") @GeneratedValue **/
     protected $id;
     
 
-    /** @Column(type="integer") **/
+    /** @Column(type="string") **/
     protected $name;
     
     /** @Column(type="integer") **/
     protected $parent;
 
     /**
-     * Many Parts have Many Users.
-     * @ManyToMany(targetEntity="User", mappedBy="parts")
+     * Many Workplaces have Many Users.
+     * @ManyToMany(targetEntity="User", mappedBy="workplaces")
      */
     protected $users;
 

@@ -1,17 +1,16 @@
 <?php
-// src/Prereq.php
+// src/CourseHardPrerequisite.php
 
 /**
- * @Entity @Table(name="prereq")
+ * @Entity @Table(name="course_hard_prerequisites")
  **/
-class Prereq
+class CourseHardPrerequisite
 {
     /** @Id @Column(type="integer") @GeneratedValue **/
     protected $id;
 
-
     /** @Column(type="integer") **/
-    protected $course;
+    protected $courseTypeId;
     
     /** @Column(type="integer") **/
     protected $prerequisite;
@@ -21,14 +20,14 @@ class Prereq
         return $this->id;
     }
 
-    public function getCourse()
+    public function getCourseTypeId()
     {
-        return $this->course;
+        return $this->courseTypeId;
     }
 
-    public function setCourse($course)
+    public function setCourseTypeId($courseTypeId)
     {
-        $this->course = $course;
+        $this->courseTypeId = $courseTypeId;
     }
 
     public function getPrerequisite(){

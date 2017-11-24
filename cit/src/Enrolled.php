@@ -10,14 +10,14 @@ class Enrolled
     protected $id;
     
 
-    /** @Column(type="integer") **/             //TODO prerobit integer->boolean
+    /** @Column(type="boolean") **/
     protected $graduated;
     
     /** @Column(type="integer") **/
     protected $userId;
 
     /** @Column(type="integer") **/
-    protected $courseId;
+    protected $courseInstanceId;
 
 
     public function getId()
@@ -44,13 +44,13 @@ class Enrolled
         $this->userId = $userId;
     }
 
-    public function getCourseId(){
-        return $this->courseId;
+    public function getCourseInstanceId(){
+        return $this->courseInstanceId;
     }
 
-    public function setCourseId($courseId)
+    public function setCourseInstanceId($courseInstanceId)
     {
-        $this->courseId = $courseId;
+        $this->courseInstanceId = $courseInstanceId;
     }
 
 }

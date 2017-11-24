@@ -1,9 +1,9 @@
 <?php
-// src/TypesOfCourses.php
+// src/CourseType.php
 /**
- * @Entity(repositoryClass="TypesOfCoursesRepository") @Table(name="typesofcourses")
+ * @Entity(repositoryClass="CourseTypesRepository") @Table(name="course_types")
  */
-class TypesOfCourses
+class CourseType
 {
     /**
      * @Id @Column(type="integer") @GeneratedValue
@@ -17,8 +17,8 @@ class TypesOfCourses
     protected $name;
     
     /**
-     * @Column(type="string")
-     * @var string
+     * @Column(type="text")             //TODO text?
+     * @var text
      */
     protected $description;
     
@@ -26,17 +26,17 @@ class TypesOfCourses
      * @Column(type="string")
      * @var string
      */
-    protected $soft_prerequisites;      
+    protected $softPrerequisities;      
 
     /**
-     * @Column(type="integer")          //TODO prerobit integer->boolean
-     * @var integer
+     * @Column(type="boolean")          
+     * @var boolean
      */
     protected $visibility;
 
     /**
-     * @Column(type="integer")          //TODO prerobit integer->boolean
-     * @var integer
+     * @Column(type="boolean")          
+     * @var boolean
      */
     protected $deleted;
 
@@ -44,7 +44,7 @@ class TypesOfCourses
      * @Column(type="integer")     
      * @var integer
      */
-    protected $garant;
+    protected $garantUserId;
 
     public function getId()
     {
@@ -71,14 +71,14 @@ class TypesOfCourses
         $this->description = $description;
     }
 
-    public function getSoft_prerequisites()
+    public function getSoftPrerequisities()
     {
-        return $this->soft_prerequisites;
+        return $this->softPrerequisities;
     }
 
-    public function setSoft_prerequisites(DateTime $soft_prerequisites)
+    public function setSoftPrerequisities($softPrerequisities)
     {
-        $this->soft_prerequisites = $soft_prerequisites;
+        $this->softPrerequisities = $softPrerequisities;
     }
 
     public function getVisibility()
@@ -101,14 +101,14 @@ class TypesOfCourses
         $this->deleted = $deleted;
     }
 
-    public function getGarant()
+    public function getGarantUserId()
     {
-        return $this->garant;
+        return $this->garantUserId;
     }
 
-    public function setGarant($garant)
+    public function setGarantUserId($garantUserId)
     {
-        $this->garant = $garant;
+        $this->garantUserId = $garantUserId;
     }
 
 }

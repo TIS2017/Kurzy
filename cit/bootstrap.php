@@ -13,9 +13,12 @@ $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/src"), $i
 //$config = Setup::createYAMLMetadataConfiguration(array(__DIR__."/config/yaml"), $isDevMode);
 
 // database configuration parameters
-$connectionOptions = array(
-    'driver'   => 'pdo_sqlite',
-    'path' => __DIR__ . '/db.sqlite',
+$connectionOptions = array(    
+	'driver'   => 'pdo_mysql',
+    'host'     => 'localhost',
+    'dbname'   => 'test_doctrine',
+    'user'     => 'test_doctrine',
+    'password' => 'test_doctrine'
 );
 
 // obtaining the entity manager

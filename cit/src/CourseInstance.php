@@ -40,6 +40,11 @@ class CourseInstance
      */
     protected $supervisorUserId;
 
+    /**
+     * @Column(type="datetime")
+     * @var datetime
+     */
+    protected $disenrollDate
 
     public function getId()
     {
@@ -94,6 +99,16 @@ class CourseInstance
     public function setSupervisorUserId($supervisorUserId)
     {
         $this->supervisorUserId = $supervisorUserId;
+    }
+
+    public function getDisenrollDate()
+    {
+        return $this->disenrollDate;
+    }
+
+    public function setSupervisorUserId($disenrollDate)
+    {
+        $this->disenrollDate = $disenrollDate;
     }
 
 }

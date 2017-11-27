@@ -15,6 +15,9 @@ class User
     /** @Column(type="string") **/
     protected $password;
 
+	/** @Column(type="integer") **/
+    protected $selectedEmailInteger;
+
     /** @Column(type="integer") **/
     protected $role;
 
@@ -24,6 +27,8 @@ class User
      * @JoinTable(name="user_workspaces")
      */
     protected $workplaces;
+
+
 
     public function __construct() {
         $this->workplaces = new \Doctrine\Common\Collections\ArrayCollection();
@@ -51,6 +56,15 @@ class User
     public function setPassword($password)
     {
         $this->userId = $userId;
+    }
+
+	public function getSelectedEmailInteger($selectedEmailInteger){
+        return $this->selectedEmailInteger;
+    }
+
+    public function setSelectedEmailInteger($selectedEmailInteger)
+    {
+        $this->selectedEmailInteger = $selectedEmailInteger;
     }
 
     public function getRole() 

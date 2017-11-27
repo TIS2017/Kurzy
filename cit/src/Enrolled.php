@@ -19,6 +19,8 @@ class Enrolled
     /** @Column(type="integer") **/
     protected $courseInstanceId;
 
+    /** @Column(type="string") **/
+    protected $comment
 
     public function getId()
     {
@@ -27,7 +29,7 @@ class Enrolled
 
     public function getGraduated()
     {
-        return $this->graduated;
+        return $this->graduated
     }
 
     public function setName($graduated)
@@ -51,6 +53,16 @@ class Enrolled
     public function setCourseInstanceId($courseInstanceId)
     {
         $this->courseInstanceId = $courseInstanceId;
+    }
+
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
     }
 
 }

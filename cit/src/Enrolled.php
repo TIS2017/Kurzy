@@ -20,7 +20,7 @@ class Enrolled
     protected $courseInstanceId;
 
     /** @Column(type="string") **/
-    protected $comment
+    protected $comment;
 
     public function getId()
     {
@@ -29,7 +29,7 @@ class Enrolled
 
     public function getGraduated()
     {
-        return $this->graduated
+        return $this->graduated;
     }
 
     public function setName($graduated)

@@ -44,7 +44,7 @@ class CourseInstance
      * @Column(type="datetime")
      * @var datetime
      */
-    protected $disenrollDate
+    protected $disenrollDate;
 
     public function getId()
     {
@@ -106,7 +106,7 @@ class CourseInstance
         return $this->disenrollDate;
     }
 
-    public function setSupervisorUserId($disenrollDate)
+    public function setDisenrollDate($disenrollDate)
     {
         $this->disenrollDate = $disenrollDate;
     }

@@ -2,16 +2,13 @@
 // src/CourseSoftPrerequisite.php
 
 /**
- * @Entity @Table(name="course_soft_prerequisites")
+ * @Entity(repositoryClass="CourseSoftPrerequisite") @Table(name="course_soft_prerequisites")
  **/
 class CourseSoftPrerequisite
 {
     /** @Id @Column(type="integer") @GeneratedValue **/
     protected $id;
 
-    /** @Column(type="integer") **/
-    protected $courseTypeId;
-    
     /** @Column(type="string") **/
     protected $value;
 
@@ -38,4 +35,12 @@ class CourseSoftPrerequisite
     {
         $this->value = $value;
     }
+
+    /**
+     * Many CourseSoftPrerequisites have One courseType.
+     * @ManyToOne(targetEntity="CourseType", inversedBy="course_soft_prerequisites")
+     * @JoinColumn(name="course_type_id", referencedColumnName="id")
+     */
+    private $courseType;
+
 }

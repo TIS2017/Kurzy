@@ -2,7 +2,7 @@
 // src/Workplace.php
 
 /**
- * @Entity @Table(name="workplaces")
+ * @Entity(repositoryClass="Workplace") @Table(name="workplaces")
  **/
 class Workplace
 {
@@ -16,14 +16,38 @@ class Workplace
     /** @Column(type="integer") **/
     protected $parent;
 
+    //vazby
     /**
      * Many Workplaces have Many Users.
      * @ManyToMany(targetEntity="User", mappedBy="workplaces")
      */
-    protected $users;
+    protected $users;       // TODO
+
+    /**
+     * One Workplace has Many Places.
+     * @OneToMany(targetEntity="Place", mappedBy="workplaces")
+     */
+    private $places;
+
+    /**
+     * Many Workplaces have Many Users(subadmins).
+     * @ManyToMany(targetEntity="User", mappedBy="workplaces")
+     */
+    protected $subadmins;       // TODO
+
+    /**
+     * Many Workplaces have Many Course Types.
+     * @ManyToMany(targetEntity="CourseType", mappedBy="workplaces")
+     */
+    private $courseTypes;
+
+
 
     public function __construct() {
+        $this->places = new \Doctrine\Common\Collections\ArrayCollection();
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->subadmins = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->courseTypes = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getId()

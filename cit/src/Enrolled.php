@@ -2,7 +2,7 @@
 // src/Enrolled.php
 
 /**
- * @Entity @Table(name="enrolled")
+ * @Entity(repositoryClass="Enrolled") @Table(name="enrolled")
  **/
 class Enrolled
 {
@@ -16,11 +16,26 @@ class Enrolled
     /** @Column(type="integer") **/
     protected $userId;
 
-    /** @Column(type="integer") **/
-    protected $courseInstanceId;
-
     /** @Column(type="string") **/
     protected $comment;
+
+    /** @Column(type="boolean") **/
+    protected $attended;
+
+    //vazby
+    /**
+     * Many Enrolled have One Course Instance.
+     * @ManyToOne(targetEntity="CourseInstance", inversedBy="enrolled")
+     * @JoinColumn(name="course_instance_id", referencedColumnName="id")
+     */
+    protected $courseInstance;
+
+    /**
+     * Many Enrolled have One User.
+     * @ManyToOne(targetEntity="User", inversedBy="enrolled")
+     * @JoinColumn(name="enrolled_id", referencedColumnName="id")
+     */
+    protected $enrolled;
 
     public function getId()
     {
@@ -64,5 +79,15 @@ class Enrolled
     {
         $this->comment = $comment;
     }
+
+    public function getAttended()
+    {
+        return $this->attended;
+    }
+
+    public function setAttended($attended)
+    {
+        $this->attended = $attended;
+    }    
 
 }

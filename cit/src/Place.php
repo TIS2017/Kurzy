@@ -1,7 +1,7 @@
 <?php
 // src/Place.php
 /**
- * @Table(name="places")
+ * @Entity(repositoryClass="Place") @Table(name="places")
  */
 class Place
 {
@@ -16,12 +16,6 @@ class Place
      * @var string
      */
     protected $name;
-    
-    /**
-     * @Column(type="integer")             
-     * @var integer
-     */
-    protected $workplaceId;
     
     /**
      * @Column(type="integer")
@@ -46,6 +40,20 @@ class Place
      * @var boolean
      */
     protected $deleted;
+
+    //vazby
+    /**
+     * One Place has Many course instances.
+     * @OneToMany(targetEntity="CourseInstance", mappedBy="places")
+     */
+    protected $course_instances;
+
+    /**
+     * Many Places have One workplace.
+     * @ManyToOne(targetEntity="Workplace", inversedBy="places")
+     * @JoinColumn(name="workplace_id", referencedColumnName="id")
+     */
+    protected $workplace;
 
     public function getId()
     {

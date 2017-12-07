@@ -1,7 +1,7 @@
 <?php
 // src/CourseType.php
 /**
- * @Entity(repositoryClass="CourseTypesRepository") @Table(name="course_types")
+ * @Entity(repositoryClass="CourseType") @Table(name="course_types")
  */
 class CourseType
 {
@@ -26,7 +26,7 @@ class CourseType
      * @Column(type="string")
      * @var string
      */
-    protected $softPrerequisities;      
+    protected $softPrerequisites;      
 
     /**
      * @Column(type="boolean")          
@@ -40,11 +40,44 @@ class CourseType
      */
     protected $deleted;
 
+
+    //vazby 
     /**
-     * @Column(type="integer")     
-     * @var integer
+     * One CourseType has Many CourseSoftPrerequisites.
+     * @OneToMany(targetEntity="CourseSoftPrerequisite", mappedBy="CourseType")
      */
-    protected $garantUserId;
+    protected $courseSoftPrerequisites;
+    
+     /**
+     * Many CourseTypes have One User.
+     * @ManyToOne(targetEntity="User", inversedBy="course_types")
+     * @JoinColumn(name="garant_id", referencedColumnName="id")
+     */
+    private $garant_user_id;
+
+    /**
+     * One CourseType has Many Course Instances.
+     * @OneToMany(targetEntity="CourseInstance", mappedBy="course_types")
+     */
+    private $courseInstances;
+
+     /**
+     * Many Course Types have Many Workplaces.
+     * @ManyToMany(targetEntity="Workplace")
+     * @JoinTable(name="course_workplaces",
+     *      joinColumns={@JoinColumn(name="course_type_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="workplace_id", referencedColumnName="id")}
+     *      )
+     */
+    private $workplaces;
+
+    //TODO course_hard_prerequisites
+
+    public function __construct() {
+        $this->courseInstances = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->courseSoftPrerequisites = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->workplaces = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     public function getId()
     {

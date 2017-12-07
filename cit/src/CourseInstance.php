@@ -20,31 +20,46 @@ class CourseInstance
      * @Column(type="integer")
      * @var integer
      */
-    protected $place;
-    
-    /**
-     * @Column(type="integer")
-     * @var integer
-     */
     protected $capacity;
-
-    /**
-     * @Column(type="integer")
-     * @var integer
-     */
-    protected $courseType;
-
-    /**
-     * @Column(type="integer")          
-     * @var integer
-     */
-    protected $supervisorUserId;
 
     /**
      * @Column(type="datetime")
      * @var datetime
      */
     protected $disenrollDate;
+
+    //vazby
+    /**
+     * Many CourseInstances have One Place.
+     * @ManyToOne(targetEntity="Place", inversedBy="course_instances")
+     * @JoinColumn(name="place", referencedColumnName="id")
+     */
+    protected $place;
+
+    /**
+     * One CourseInstances has Many Enrolled.
+     * @OneToMany(targetEntity="Enrolled", mappedBy="course_instances")
+     */
+    protected $enrolleds;
+
+     /**
+     * Many Course Instances have One Course Type.
+     * @ManyToOne(targetEntity="CourseType", inversedBy="course_instances")
+     * @JoinColumn(name="course_type", referencedColumnName="id")
+     */
+    private $courseType;
+
+
+    /**
+     * Many Course Instances have One User(supervisor).
+     * @ManyToOne(targetEntity="User", inversedBy="course_instances")
+     * @JoinColumn(name="supervisor_user_id", referencedColumnName="id")
+     */
+    private $supervisor;
+
+    public function __construct() {
+        $this->enrolleds = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     public function getId()
     {

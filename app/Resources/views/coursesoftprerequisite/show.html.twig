@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Coursesoftprerequisite</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ courseSoftPrerequisite.id }}</td>
+            </tr>
+            <tr>
+                <th>Value</th>
+                <td>{{ courseSoftPrerequisite.value }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('coursesoftprerequisite_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('coursesoftprerequisite_edit', { 'id': courseSoftPrerequisite.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

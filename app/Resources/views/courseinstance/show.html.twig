@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Courseinstance</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ courseInstance.id }}</td>
+            </tr>
+            <tr>
+                <th>Timestamp</th>
+                <td>{% if courseInstance.timeStamp %}{{ courseInstance.timeStamp|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Capacity</th>
+                <td>{{ courseInstance.capacity }}</td>
+            </tr>
+            <tr>
+                <th>Disenrolldate</th>
+                <td>{% if courseInstance.disenrollDate %}{{ courseInstance.disenrollDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('courseinstance_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('courseinstance_edit', { 'id': courseInstance.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

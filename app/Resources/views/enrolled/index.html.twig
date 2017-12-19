@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Enrolleds list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Graduated</th>
+                <th>Userid</th>
+                <th>Comment</th>
+                <th>Attended</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for enrolled in enrolleds %}
+            <tr>
+                <td><a href="{{ path('enrolled_show', { 'id': enrolled.id }) }}">{{ enrolled.id }}</a></td>
+                <td>{% if enrolled.graduated %}Yes{% else %}No{% endif %}</td>
+                <td>{{ enrolled.userId }}</td>
+                <td>{{ enrolled.comment }}</td>
+                <td>{% if enrolled.attended %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('enrolled_show', { 'id': enrolled.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('enrolled_edit', { 'id': enrolled.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('enrolled_new') }}">Create a new enrolled</a>
+        </li>
+    </ul>
+{% endblock %}

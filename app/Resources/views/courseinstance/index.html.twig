@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Courseinstances list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Timestamp</th>
+                <th>Capacity</th>
+                <th>Disenrolldate</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for courseInstance in courseInstances %}
+            <tr>
+                <td><a href="{{ path('courseinstance_show', { 'id': courseInstance.id }) }}">{{ courseInstance.id }}</a></td>
+                <td>{% if courseInstance.timeStamp %}{{ courseInstance.timeStamp|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ courseInstance.capacity }}</td>
+                <td>{% if courseInstance.disenrollDate %}{{ courseInstance.disenrollDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('courseinstance_show', { 'id': courseInstance.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('courseinstance_edit', { 'id': courseInstance.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('courseinstance_new') }}">Create a new courseInstance</a>
+        </li>
+    </ul>
+{% endblock %}

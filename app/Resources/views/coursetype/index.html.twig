@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Coursetypes list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Softprerequisites</th>
+                <th>Visibility</th>
+                <th>Deleted</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for courseType in courseTypes %}
+            <tr>
+                <td><a href="{{ path('coursetype_show', { 'id': courseType.id }) }}">{{ courseType.id }}</a></td>
+                <td>{{ courseType.name }}</td>
+                <td>{{ courseType.description }}</td>
+                <td>{{ courseType.softPrerequisites }}</td>
+                <td>{% if courseType.visibility %}Yes{% else %}No{% endif %}</td>
+                <td>{% if courseType.deleted %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('coursetype_show', { 'id': courseType.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('coursetype_edit', { 'id': courseType.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('coursetype_new') }}">Create a new courseType</a>
+        </li>
+    </ul>
+{% endblock %}

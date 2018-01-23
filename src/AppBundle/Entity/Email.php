@@ -58,4 +58,8 @@ class Email
     {
         $this->email = $email;
     }
+    public function __toString()
+    {
+        return (string) $this->email;
+    }
 }

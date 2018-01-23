@@ -1,9 +1,16 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+    Users
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" class="css">
+{% endblock %}
+
 {% block body %}
     <h1>Users list</h1>
-
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th>Id</th>

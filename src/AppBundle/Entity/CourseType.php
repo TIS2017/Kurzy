@@ -79,11 +79,28 @@ class CourseType
      */
     private $workplaces;
 
-    //TODO course_hard_prerequisites
+    /**
+     * Many CourseTypes have Many Hard Prerequisites.
+     * @ORM\ManyToMany(targetEntity="CourseType")
+     * @ORM\JoinTable(name="course_hard_prerequisites",
+     *      joinColumns={@ORM\JoinColumn(name="course_type_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="required_type_of_course_id", referencedColumnName="id")}
+     *      )
+     */
+    private $hardPrerequisites;
+
+    /**
+     * Many CourseTypes are hard prerequisites of Many CourseTypes.
+     * @ORM\ManyToMany(targetEntity="CourseType", mappedBy="course_types")
+     */
+    private $hardPrerequisitesOf;
+
 
     public function __construct() {
         $this->courseInstances = new \Doctrine\Common\Collections\ArrayCollection();
         $this->courseSoftPrerequisites = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->hardPrerequisitesOf = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->hardPrerequisites = new \Doctrine\Common\Collections\ArrayCollection();
         $this->workplaces = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -152,6 +169,27 @@ class CourseType
         $this->garantId = $garantId;
     }
 
+
+    public function getHardPrerequisites()
+    {
+        return $this->hardPrerequisites;
+    }
+
+    public function setHardPrerequisites($hardPrerequisites)
+    {
+        $this->hardPrerequisites = $hardPrerequisites;
+    }
+
+
+    public function getHardPrerequisitesOf()
+    {
+        return $this->hardPrerequisitesOf;
+    }
+
+    public function setHardPrerequisitesOf($hardPrerequisitesOf)
+    {
+        $this->hardPrerequisitesOf = $hardPrerequisitesOf;
+    }
 
     public function getWorkplaces()
     {

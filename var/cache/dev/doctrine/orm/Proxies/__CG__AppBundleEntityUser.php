@@ -64,10 +64,10 @@ class User extends \AppBundle\Entity\User implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', 'id', 'login', 'password', 'workplaces', 'enrolleds', 'emails', 'role', 'course_types', 'courseInstances', '' . "\0" . 'AppBundle\\Entity\\User' . "\0" . 'subadminWorkplaces', '' . "\0" . 'AppBundle\\Entity\\User' . "\0" . 'selectedEmail'];
+            return ['__isInitialized__', 'id', 'login', 'password', 'workplaces', 'enrolleds', 'emails', 'role', 'courseTypes', 'courseInstances', '' . "\0" . 'AppBundle\\Entity\\User' . "\0" . 'subadminWorkplaces', '' . "\0" . 'AppBundle\\Entity\\User' . "\0" . 'selectedEmail'];
         }
 
-        return ['__isInitialized__', 'id', 'login', 'password', 'workplaces', 'enrolleds', 'emails', 'role', 'course_types', 'courseInstances', '' . "\0" . 'AppBundle\\Entity\\User' . "\0" . 'subadminWorkplaces', '' . "\0" . 'AppBundle\\Entity\\User' . "\0" . 'selectedEmail'];
+        return ['__isInitialized__', 'id', 'login', 'password', 'workplaces', 'enrolleds', 'emails', 'role', 'courseTypes', 'courseInstances', '' . "\0" . 'AppBundle\\Entity\\User' . "\0" . 'subadminWorkplaces', '' . "\0" . 'AppBundle\\Entity\\User' . "\0" . 'selectedEmail'];
     }
 
     /**
@@ -329,6 +329,94 @@ class User extends \AppBundle\Entity\User implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, '__toString', []);
 
         return parent::__toString();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCourseTypes()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCourseTypes', []);
+
+        return parent::getCourseTypes();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setCourseTypes($courseTypes)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCourseTypes', [$courseTypes]);
+
+        return parent::setCourseTypes($courseTypes);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function serialize()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'serialize', []);
+
+        return parent::serialize();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function unserialize($serialized)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'unserialize', [$serialized]);
+
+        return parent::unserialize($serialized);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRoles()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getRoles', []);
+
+        return parent::getRoles();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSalt()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSalt', []);
+
+        return parent::getSalt();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUsername()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUsername', []);
+
+        return parent::getUsername();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function eraseCredentials()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'eraseCredentials', []);
+
+        return parent::eraseCredentials();
     }
 
 }

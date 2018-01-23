@@ -558,7 +558,17 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
 
         }
 
-        elseif (0 === strpos($pathinfo, '/user')) {
+        // login
+        if ('/login' === $pathinfo) {
+            return array (  '_controller' => 'AppBundle\\Controller\\SecurityController::login',  '_route' => 'login',);
+        }
+
+        // logout
+        if ('/logout' === $pathinfo) {
+            return array('_route' => 'logout');
+        }
+
+        if (0 === strpos($pathinfo, '/user')) {
             // user_index
             if ('/user' === $trimmedPathinfo) {
                 if ('GET' !== $canonicalMethod) {

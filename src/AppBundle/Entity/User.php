@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 // src/User.php
 
@@ -10,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @ORM\Table(name="users")
  **/
-class User
+class User implements UserInterface, \Serializable
 {
      /**
       * @ORM\Id
@@ -55,7 +57,7 @@ class User
      * One User(garant) has Many Course Types.
      * @ORM\OneToMany(targetEntity="CourseType", mappedBy="users")
      */
-    protected $course_types;
+    protected $courseTypes;
 
     /**
     * One User(supervisor) has Many Course Instances.
@@ -71,7 +73,7 @@ class User
      *      inverseJoinColumns={@ORM\JoinColumn(name="workplace_id", referencedColumnName="id")}
      *      )
      */
-    private $subadminWorkplaces;    //TODO takto? ci tiez do workplaces ?
+    private $subadminWorkplaces;
     
     /**
      * One User has one Active email (relation - hasselected).
@@ -155,6 +157,96 @@ class User
 
     public function __toString()
     {
-        return $this->login;
+        return (string) $this->login;
+    }
+
+    public function getCourseTypes()
+    {
+        return $this->courseTypes;
+    }
+
+    public function setCourseTypes($courseTypes)
+    {
+        $this->courseTypes = $courseTypes;
+    }
+
+    /**
+     * String representation of object
+     * @link http://php.net/manual/en/serializable.serialize.php
+     * @return string the string representation of the object or null
+     * @since 5.1.0
+     */
+    public function serialize()
+    {
+        // TODO: Implement serialize() method.
+    }
+
+    /**
+     * Constructs the object
+     * @link http://php.net/manual/en/serializable.unserialize.php
+     * @param string $serialized <p>
+     * The string representation of the object.
+     * </p>
+     * @return void
+     * @since 5.1.0
+     */
+    public function unserialize($serialized)
+    {
+        // TODO: Implement unserialize() method.
+    }
+
+    /**
+     * Returns the roles granted to the user.
+     *
+     * <code>
+     * public function getRoles()
+     * {
+     *     return array('ROLE_USER');
+     * }
+     * </code>
+     *
+     * Alternatively, the roles might be stored on a ``roles`` property,
+     * and populated in any number of different ways when the user object
+     * is created.
+     *
+     * @return (Role|string)[] The user roles
+     */
+    public function getRoles()
+    {
+        $nameOfRole = (string) $this->getRole();
+        return array($nameOfRole);
+    }
+
+    /**
+     * Returns the salt that was originally used to encode the password.
+     *
+     * This can return null if the password was not encoded using a salt.
+     *
+     * @return string|null The salt
+     */
+    public function getSalt()
+    {
+        return null;
+    }
+
+    /**
+     * Returns the username used to authenticate the user.
+     *
+     * @return string The username
+     */
+    public function getUsername()
+    {
+        // TODO: Implement getUsername() method.
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
+     */
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
     }
 }

@@ -43,9 +43,11 @@ class CourseTypeController extends Controller
         $form = $this->createForm('AppBundle\Form\CourseTypeType', $courseType);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($courseType);
+
             $em->flush();
 
             return $this->redirectToRoute('coursetype_show', array('id' => $courseType->getId()));

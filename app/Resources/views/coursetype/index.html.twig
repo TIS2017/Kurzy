@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+{% if is_granted('ROLE_USER') %}
     <h1>Coursetypes list</h1>
 
     <table>
@@ -44,4 +45,5 @@
             <a href="{{ path('coursetype_new') }}">Create a new courseType</a>
         </li>
     </ul>
+{% endif %}
 {% endblock %}

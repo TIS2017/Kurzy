@@ -21,61 +21,65 @@ class __TwigTemplate_6cc8bc90df66f8cb3425acea464c3a52d1b2714217895b4ae3a66106eaa
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_b67b0a6a5d21c95f901ba12140b051e7e707d3b546024b32340f80b39b5b813f = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_b67b0a6a5d21c95f901ba12140b051e7e707d3b546024b32340f80b39b5b813f->enter($__internal_b67b0a6a5d21c95f901ba12140b051e7e707d3b546024b32340f80b39b5b813f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "enrolled/new.html.twig"));
+        $__internal_8beb2ae8b9129f2188248c9dbff933c385b07a28a3336cb0f1c68658669a4211 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_8beb2ae8b9129f2188248c9dbff933c385b07a28a3336cb0f1c68658669a4211->enter($__internal_8beb2ae8b9129f2188248c9dbff933c385b07a28a3336cb0f1c68658669a4211_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "enrolled/new.html.twig"));
 
-        $__internal_465f0b8f9e395321c58b78a86f78738828e3e4e8cf77c1cb13b0ad2beb0b9e74 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_465f0b8f9e395321c58b78a86f78738828e3e4e8cf77c1cb13b0ad2beb0b9e74->enter($__internal_465f0b8f9e395321c58b78a86f78738828e3e4e8cf77c1cb13b0ad2beb0b9e74_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "enrolled/new.html.twig"));
+        $__internal_b004ad78f3d6cbd3f23cad049f2f08f5560175470583cdadda2d7d710e87062f = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_b004ad78f3d6cbd3f23cad049f2f08f5560175470583cdadda2d7d710e87062f->enter($__internal_b004ad78f3d6cbd3f23cad049f2f08f5560175470583cdadda2d7d710e87062f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "enrolled/new.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_b67b0a6a5d21c95f901ba12140b051e7e707d3b546024b32340f80b39b5b813f->leave($__internal_b67b0a6a5d21c95f901ba12140b051e7e707d3b546024b32340f80b39b5b813f_prof);
+        $__internal_8beb2ae8b9129f2188248c9dbff933c385b07a28a3336cb0f1c68658669a4211->leave($__internal_8beb2ae8b9129f2188248c9dbff933c385b07a28a3336cb0f1c68658669a4211_prof);
 
         
-        $__internal_465f0b8f9e395321c58b78a86f78738828e3e4e8cf77c1cb13b0ad2beb0b9e74->leave($__internal_465f0b8f9e395321c58b78a86f78738828e3e4e8cf77c1cb13b0ad2beb0b9e74_prof);
+        $__internal_b004ad78f3d6cbd3f23cad049f2f08f5560175470583cdadda2d7d710e87062f->leave($__internal_b004ad78f3d6cbd3f23cad049f2f08f5560175470583cdadda2d7d710e87062f_prof);
 
     }
 
     // line 3
     public function block_body($context, array $blocks = array())
     {
-        $__internal_cde2d9b8d9bcdd0c1f042ad7494cc85f8a9d86422f9ada6ecac17b25b69b2c91 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_cde2d9b8d9bcdd0c1f042ad7494cc85f8a9d86422f9ada6ecac17b25b69b2c91->enter($__internal_cde2d9b8d9bcdd0c1f042ad7494cc85f8a9d86422f9ada6ecac17b25b69b2c91_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
+        $__internal_62a3d4ed05d4bf4ce0ae831f68b5a609a9315b72e90cd75cc9541357c982a9b0 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_62a3d4ed05d4bf4ce0ae831f68b5a609a9315b72e90cd75cc9541357c982a9b0->enter($__internal_62a3d4ed05d4bf4ce0ae831f68b5a609a9315b72e90cd75cc9541357c982a9b0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
 
-        $__internal_585cb623e9cb459aafc93469b26d5f6088bad5374bcbd29602b1625516ab019d = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_585cb623e9cb459aafc93469b26d5f6088bad5374bcbd29602b1625516ab019d->enter($__internal_585cb623e9cb459aafc93469b26d5f6088bad5374bcbd29602b1625516ab019d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
+        $__internal_f9c3f85005a9a4572c764b9271e3c21b6a3ffa88a0889fd5e322f542ee575fc4 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_f9c3f85005a9a4572c764b9271e3c21b6a3ffa88a0889fd5e322f542ee575fc4->enter($__internal_f9c3f85005a9a4572c764b9271e3c21b6a3ffa88a0889fd5e322f542ee575fc4_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
 
         // line 4
-        echo "    <h1>Enrolled creation</h1>
+        echo "     ";
+        if ($this->env->getExtension('Symfony\Bridge\Twig\Extension\SecurityExtension')->isGranted("ROLE_USER")) {
+            // line 5
+            echo "    <h1>Enrolled creation</h1>
 
     ";
-        // line 6
-        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock(($context["form"] ?? $this->getContext($context, "form")), 'form_start');
-        echo "
+            // line 7
+            echo             $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock(($context["form"] ?? $this->getContext($context, "form")), 'form_start');
+            echo "
         ";
-        // line 7
-        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(($context["form"] ?? $this->getContext($context, "form")), 'widget');
-        echo "
+            // line 8
+            echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(($context["form"] ?? $this->getContext($context, "form")), 'widget');
+            echo "
         <input type=\"submit\" value=\"Create\" />
     ";
-        // line 9
-        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock(($context["form"] ?? $this->getContext($context, "form")), 'form_end');
-        echo "
+            // line 10
+            echo             $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock(($context["form"] ?? $this->getContext($context, "form")), 'form_end');
+            echo "
 
     <ul>
         <li>
             <a href=\"";
-        // line 13
-        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("enrolled_index");
-        echo "\">Back to the list</a>
+            // line 14
+            echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("enrolled_index");
+            echo "\">Back to the list</a>
         </li>
     </ul>
-";
+    ";
+        }
         
-        $__internal_585cb623e9cb459aafc93469b26d5f6088bad5374bcbd29602b1625516ab019d->leave($__internal_585cb623e9cb459aafc93469b26d5f6088bad5374bcbd29602b1625516ab019d_prof);
+        $__internal_f9c3f85005a9a4572c764b9271e3c21b6a3ffa88a0889fd5e322f542ee575fc4->leave($__internal_f9c3f85005a9a4572c764b9271e3c21b6a3ffa88a0889fd5e322f542ee575fc4_prof);
 
         
-        $__internal_cde2d9b8d9bcdd0c1f042ad7494cc85f8a9d86422f9ada6ecac17b25b69b2c91->leave($__internal_cde2d9b8d9bcdd0c1f042ad7494cc85f8a9d86422f9ada6ecac17b25b69b2c91_prof);
+        $__internal_62a3d4ed05d4bf4ce0ae831f68b5a609a9315b72e90cd75cc9541357c982a9b0->leave($__internal_62a3d4ed05d4bf4ce0ae831f68b5a609a9315b72e90cd75cc9541357c982a9b0_prof);
 
     }
 
@@ -91,7 +95,7 @@ class __TwigTemplate_6cc8bc90df66f8cb3425acea464c3a52d1b2714217895b4ae3a66106eaa
 
     public function getDebugInfo()
     {
-        return array (  69 => 13,  62 => 9,  57 => 7,  53 => 6,  49 => 4,  40 => 3,  11 => 1,);
+        return array (  72 => 14,  65 => 10,  60 => 8,  56 => 7,  52 => 5,  49 => 4,  40 => 3,  11 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -107,6 +111,7 @@ class __TwigTemplate_6cc8bc90df66f8cb3425acea464c3a52d1b2714217895b4ae3a66106eaa
         return new Twig_Source("{% extends 'base.html.twig' %}
 
 {% block body %}
+     {% if is_granted('ROLE_USER') %}
     <h1>Enrolled creation</h1>
 
     {{ form_start(form) }}
@@ -119,7 +124,8 @@ class __TwigTemplate_6cc8bc90df66f8cb3425acea464c3a52d1b2714217895b4ae3a66106eaa
             <a href=\"{{ path('enrolled_index') }}\">Back to the list</a>
         </li>
     </ul>
+    {% endif %}
 {% endblock %}
-", "enrolled/new.html.twig", "/home/patricia/Desktop/kurzy_projekt/kurzy/app/Resources/views/enrolled/new.html.twig");
+", "enrolled/new.html.twig", "/home/dana/Kurzy/app/Resources/views/enrolled/new.html.twig");
     }
 }

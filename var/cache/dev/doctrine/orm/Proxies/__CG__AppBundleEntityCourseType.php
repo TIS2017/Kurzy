@@ -64,10 +64,10 @@ class CourseType extends \AppBundle\Entity\CourseType implements \Doctrine\ORM\P
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', 'id', 'name', 'description', 'softPrerequisites', 'visibility', 'deleted', 'courseSoftPrerequisites', '' . "\0" . 'AppBundle\\Entity\\CourseType' . "\0" . 'garantId', '' . "\0" . 'AppBundle\\Entity\\CourseType' . "\0" . 'courseInstances', '' . "\0" . 'AppBundle\\Entity\\CourseType' . "\0" . 'workplaces'];
+            return ['__isInitialized__', 'id', 'name', 'description', 'softPrerequisites', 'visibility', 'deleted', 'courseSoftPrerequisites', '' . "\0" . 'AppBundle\\Entity\\CourseType' . "\0" . 'garantId', '' . "\0" . 'AppBundle\\Entity\\CourseType' . "\0" . 'courseInstances', '' . "\0" . 'AppBundle\\Entity\\CourseType' . "\0" . 'workplaces', '' . "\0" . 'AppBundle\\Entity\\CourseType' . "\0" . 'hardPrerequisites', '' . "\0" . 'AppBundle\\Entity\\CourseType' . "\0" . 'hardPrerequisitesOf'];
         }
 
-        return ['__isInitialized__', 'id', 'name', 'description', 'softPrerequisites', 'visibility', 'deleted', 'courseSoftPrerequisites', '' . "\0" . 'AppBundle\\Entity\\CourseType' . "\0" . 'garantId', '' . "\0" . 'AppBundle\\Entity\\CourseType' . "\0" . 'courseInstances', '' . "\0" . 'AppBundle\\Entity\\CourseType' . "\0" . 'workplaces'];
+        return ['__isInitialized__', 'id', 'name', 'description', 'softPrerequisites', 'visibility', 'deleted', 'courseSoftPrerequisites', '' . "\0" . 'AppBundle\\Entity\\CourseType' . "\0" . 'garantId', '' . "\0" . 'AppBundle\\Entity\\CourseType' . "\0" . 'courseInstances', '' . "\0" . 'AppBundle\\Entity\\CourseType' . "\0" . 'workplaces', '' . "\0" . 'AppBundle\\Entity\\CourseType' . "\0" . 'hardPrerequisites', '' . "\0" . 'AppBundle\\Entity\\CourseType' . "\0" . 'hardPrerequisitesOf'];
     }
 
     /**
@@ -318,6 +318,50 @@ class CourseType extends \AppBundle\Entity\CourseType implements \Doctrine\ORM\P
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setGarantId', [$garantId]);
 
         return parent::setGarantId($garantId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getHardPrerequisites()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getHardPrerequisites', []);
+
+        return parent::getHardPrerequisites();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setHardPrerequisites($hardPrerequisites)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setHardPrerequisites', [$hardPrerequisites]);
+
+        return parent::setHardPrerequisites($hardPrerequisites);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getHardPrerequisitesOf()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getHardPrerequisitesOf', []);
+
+        return parent::getHardPrerequisitesOf();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setHardPrerequisitesOf($hardPrerequisitesOf)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setHardPrerequisitesOf', [$hardPrerequisitesOf]);
+
+        return parent::setHardPrerequisitesOf($hardPrerequisitesOf);
     }
 
     /**

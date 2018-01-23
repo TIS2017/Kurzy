@@ -178,7 +178,7 @@ class User implements UserInterface, \Serializable
      */
     public function serialize()
     {
-        // TODO: Implement serialize() method.
+        return serialize(array($this->id, $this->login, $this->password));
     }
 
     /**
@@ -192,7 +192,7 @@ class User implements UserInterface, \Serializable
      */
     public function unserialize($serialized)
     {
-        // TODO: Implement unserialize() method.
+        list($this->id, $this->login, $this->password) = unserialize($serialized);
     }
 
     /**

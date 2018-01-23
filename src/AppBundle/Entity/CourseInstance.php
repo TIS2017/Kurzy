@@ -135,4 +135,5 @@ class CourseInstance
         $this->disenrollDate = $disenrollDate;
     }
 
+
 }

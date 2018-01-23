@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Enrolled;
+use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -40,12 +41,20 @@ class EnrolledController extends Controller
     public function newAction(Request $request)
     {
         $enrolled = new Enrolled();
+
         $form = $this->createForm('AppBundle\Form\EnrolledType', $enrolled);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $user = $this->getUser();
+            $enrolled->setUserId($user->getId());
+            $enrolled->setAttended(false);
+            $enrolled->setGraduated(false);
+
             $em->persist($enrolled);
+
+
             $em->flush();
 
             return $this->redirectToRoute('enrolled_show', array('id' => $enrolled->getId()));

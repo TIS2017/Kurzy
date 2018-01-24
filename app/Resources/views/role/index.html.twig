@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% if is_granted('ROLE_USER') %}
     <h1>Roles list</h1>
 
     <table>
@@ -36,4 +37,5 @@
             <a href="{{ path('role_new') }}">Create a new role</a>
         </li>
     </ul>
+{% endif %}
 {% endblock %}

@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% if is_granted('ROLE_USER') %}
     <h1>Emails list</h1>
 
     <table>
@@ -36,4 +37,5 @@
             <a href="{{ path('email_new') }}">Create a new email</a>
         </li>
     </ul>
+{% endif %}
 {% endblock %}

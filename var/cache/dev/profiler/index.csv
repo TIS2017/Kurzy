@@ -503,3 +503,7 @@ d85494,127.0.0.1,GET,http://localhost:8000/,1516800825,,200
 28c974,127.0.0.1,GET,http://127.0.0.1:8000/,1516803072,,200
 89f485,127.0.0.1,GET,http://127.0.0.1:8000/,1516803149,,200
 efd0b2,127.0.0.1,GET,http://localhost:8000/,1516802535,,200
+93febe,127.0.0.1,GET,http://localhost:8001/enrolled/new,1516803834,,200
+e8ee36,127.0.0.1,GET,http://localhost:8001/enrolled/new,1516803876,,200
+5be4c3,127.0.0.1,GET,http://localhost:8001/enrolled/new,1516803884,,200
+f74b01,127.0.0.1,GET,http://localhost:8001/enrolled/new,1516803910,,200

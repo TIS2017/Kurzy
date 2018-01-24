@@ -24,9 +24,6 @@ class Enrolled
      * @var boolean
      **/
     protected $graduated;
-    
-    /** @ORM\Column(type="integer") **/
-    protected $userId;
 
     /** @ORM\Column(type="string") **/
     protected $comment;
@@ -48,9 +45,9 @@ class Enrolled
     /**
      * Many Enrolled have One User.
      * @ORM\ManyToOne(targetEntity="User", inversedBy="enrolled")
-     * @ORM\JoinColumn(name="enrolled_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    protected $enrolled;
+    protected $userId;
 
     public function getId()
     {

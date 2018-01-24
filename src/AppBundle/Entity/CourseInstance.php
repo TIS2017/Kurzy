@@ -135,5 +135,14 @@ class CourseInstance
         $this->disenrollDate = $disenrollDate;
     }
 
+    public function getEnrolleds()
+    {
+        return $this->enrolleds;
+    }
+
+    public function setEnrolleds($enrolleds)
+    {
+        $this->enrolleds = $enrolleds;
+    }
 
 }

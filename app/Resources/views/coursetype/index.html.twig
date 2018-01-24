@@ -2,25 +2,70 @@
 
 {% block body %}
 {% if is_granted('ROLE_USER') %}
-    <h1>Coursetypes list</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Softprerequisites</th>
-                <th>Visibility</th>
-                <th>Deleted</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
         {% for courseType in courseTypes %}
-            <tr>
-                <td><a href="{{ path('coursetype_show', { 'id': courseType.id }) }}">{{ courseType.id }}</a></td>
-                <td>{{ courseType.name }}</td>
+            <p class="container-fluid">
+           <table width="700" class="table-striped">
+               <tr>
+                   <th class="alert-danger">{{ courseType.name }}</th>
+               </tr>
+               <tr>
+                   <th class="btn-group btn-group-justified">
+
+                       <a href="#" class="btn btn-default"> O KURZE</a>
+                       <a href="#" class="btn btn-default">TERMÍNY</a>
+
+                   </th>
+               </tr>
+
+
+               <tr>
+                   <td>{{ courseType.description }}</td>
+               </tr>
+               <tr>
+                   <td><b>Soft - mimoaplikačné:</b></td>
+                   <td><b>Hard - vnútroaplikačné:</b></td>
+               </tr>
+               <tr>
+                   <td>
+                       <ol>
+                           {% set spSet = courseType.softPrerequisites|split(', ') %}
+                           {% for sp in spSet %}
+                               <li>{{ sp }}</li>
+                           {% endfor %}
+                       </ol>
+                   </td>
+                   <td>
+                       <ol>
+                           {% for hp in courseType.hardPrerequisites %}
+                               <li>{{ hp.name }}</li>
+                           {% endfor %}
+                       </ol>
+                   </td>
+               </tr>
+
+                <tr>
+                    <table  width="700" class="table-striped">
+                        <tr >
+                            <th>Dátum konania </th>
+                            <th>Čas konania </th>
+                            <th>Miesto konania </th>
+                            <th>Školiteľ </th>
+                            <th>Obsadenosť </th>
+                            <th>Prihlásenie</th>
+                        </tr>
+                    {#    {% for instance in courseType.courseInstances %}
+                            <tr>
+                                <td>{{ instance.timestamp }}</td>
+                            </tr>
+                        {% endfor %}
+                     #}
+                    </table>
+                </tr>
+
+
+               <!--       <tr>
+            <td><a href="{{ path('coursetype_show', { 'id': courseType.id }) }}">{{ courseType.id }}</a></td>
                 <td>{{ courseType.description }}</td>
                 <td>{{ courseType.softPrerequisites }}</td>
                 <td>{% if courseType.visibility %}Yes{% else %}No{% endif %}</td>
@@ -35,15 +80,16 @@
                         </li>
                     </ul>
                 </td>
-            </tr>
+               </tr> -->
+           </table>
+            </p>
         {% endfor %}
-        </tbody>
-    </table>
 
-    <ul>
+
+  <!--  <ul>
         <li>
             <a href="{{ path('coursetype_new') }}">Create a new courseType</a>
         </li>
-    </ul>
+    </ul> -->
 {% endif %}
 {% endblock %}

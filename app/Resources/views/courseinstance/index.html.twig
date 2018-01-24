@@ -22,6 +22,12 @@
                 <td>{% if courseInstance.timeStamp %}{{ courseInstance.timeStamp|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ courseInstance.capacity }}</td>
                 <td>{% if courseInstance.disenrollDate %}{{ courseInstance.disenrollDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+               <!-- <td>
+                  {#   {%  for enroll in courseInstance.enrolleds %}
+                        {{  enroll.id }}
+                    {%  endfor %}
+                  #}
+                </td> -->
                 <td>
                     <ul>
                         <li>

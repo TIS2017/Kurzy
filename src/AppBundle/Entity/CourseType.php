@@ -201,6 +201,14 @@ class CourseType
         $this->workplaces = $workplaces;
     }
 
+    public function getCourseInstances(){
+        return $this->courseInstances;
+    }
+
+    public function setCourseInstances($courseInstances){
+        $this->courseInstances = $courseInstances;
+    }
+
     public function __toString()
     {
         return $this->name;

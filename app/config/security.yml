@@ -31,6 +31,7 @@ security:
             form_login:
                 login_path: login
                 check_path: login
+                default_target_path: /
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
             #http_basic: ~
@@ -43,7 +44,7 @@ security:
 
             logout:
                 path:   /logout
-                target: /login
+                target: /
 
     role_hierarchy:
           ROLE_SUPERVISOR: ROLE_USER

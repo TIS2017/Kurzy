@@ -7,37 +7,72 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" class="css">
     <link rel="stylesheet" href="{{ asset('css/headerStylesheet.css') }}" class="css">
+    <link rel="stylesheet" href="{{ asset('css/mainStylesheet.css') }}" class="css">
 
 </head>
 <body>
 <header>
     <div class="mainHeader">
         <div class="container">
-            <div class="row" style="padding: 20px 0;">
-
-                <div class="col-lg-2">
+            <div class="row" id="logoName">
+                <div class="col-lg-1" style="padding: 0;">
                         <span id="logo">
                             <a href="/" title="Domov" ><img src="../images/index.png" width="95" height="94" alt="logo"></a>
                         </span>
                 </div>
 
                 <div class="col-lg-8">
-                    <span id="title" style="padding: 10px 0;">
+                    <span id="title" style="padding: 5px 0;">
                             <b>Univerzita Komenského<br/>v Bratislave</b>
                         </span>
                 </div>
 
-                <div class="col-lg-2" style="text-align: right;">
-                        <span id="logo">
-                            <a href="/" title="Domov" ><img src="../images/logo_cit.png" width="95" height="94" alt="logo"></a>
-                        </span>
+                <div class="col-lg-3" style="text-align: right;">
+                    <div class="row" >
+                        <div class="col-lg-12">
+                            <div class="span12">
+                                <form id="custom-search-form" class="form-search form-horizontal pull-right" style="float: right; clear: both;">
+                                    <div class="input-append span12" style="float: right; clear: both;">
+                                        <input type="text" class="search-query" placeholder="Hladat..." >
+                                        <button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-8 col-lg-offset-2" style="padding: 0; margin-top: 2px; text-align: center;">
+                            <span id="logo">
+                                <a href="/" title="Domov" ><img src="../images/logo_cit.png" width="auto" height="70" alt="logo"></a>
+                            </span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
+
+
+            <div class="row" id="infoBar">
+                <div class="col-lg-5" id="menu">
+                    <ul class="menuList">
+                        <li><a href="/">Kurzy</a></li>
+                        <li><a href="/">Moje kurzy</a></li>
+                    </ul>
+
+                </div>
+
+                <div class="col-lg-7" id="status">
+                    Ste prihlaseny ako <strong>Patricia Marmanova</strong> | <a href="/logout">Odhlasit</a>
+                </div>
+            </div>
+
+
         </div>
     </div>
 </header>
 <div class="container">
-    <div class="row" style="margin: 20px 0;">
+    <div class="row" id="bodyContainer">
         <div class="col-lg-8 col-lg-offset-2">
             {% block body %}{% endblock %}
             {% block javascripts %}{% endblock %}

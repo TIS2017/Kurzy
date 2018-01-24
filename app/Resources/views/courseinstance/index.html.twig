@@ -3,6 +3,7 @@
 
 
 {% block body %}
+    {% if is_granted('ROLE_USER') %}
     <h1>Courseinstances list</h1>
 
     <table>
@@ -42,4 +43,5 @@
             <a href="{{ path('courseinstance_new') }}">Create a new courseInstance</a>
         </li>
     </ul>
+{% endif %}
 {% endblock %}

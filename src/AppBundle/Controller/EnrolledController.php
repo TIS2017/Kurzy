@@ -48,7 +48,7 @@ class EnrolledController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $user = $this->getUser();
-            $enrolled->setUserId($user->getId());
+            $enrolled->setUserId($user);
             $enrolled->setAttended(false);
             $enrolled->setGraduated(false);
 

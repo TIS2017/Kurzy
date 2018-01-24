@@ -473,4 +473,17 @@ c381b3,127.0.0.1,GET,http://localhost:8000/coursetype/,1516732034,,200
 a711f6,127.0.0.1,GET,http://localhost:8000/coursetype/,1516732047,,200
 d32eb6,127.0.0.1,GET,http://0.0.0.0:8000/,1516789330,,200
 806cc0,127.0.0.1,GET,http://0.0.0.0:8000/,1516789380,,200
+<<<<<<< HEAD
 eea1fb,127.0.0.1,GET,http://localhost:8000/user/,1516792724,,200
+=======
+ba6402,127.0.0.1,GET,http://localhost:8000/user,1516792682,,301
+a9e49e,127.0.0.1,GET,http://localhost:8000/user/,1516792683,,200
+9926d3,127.0.0.1,GET,http://localhost:8000/user/,1516792929,,200
+4875c3,127.0.0.1,GET,http://localhost:8000/enrolled,1516792933,,301
+3f0ec1,127.0.0.1,GET,http://localhost:8000/enrolled/,1516792933,,200
+ab71a0,127.0.0.1,GET,http://localhost:8000/enrolled/new,1516792968,,200
+8e186a,127.0.0.1,GET,http://localhost:8000/login,1516792972,,200
+f9d1c4,127.0.0.1,POST,http://localhost:8000/login,1516792977,,302
+4884f6,127.0.0.1,GET,http://localhost:8000/,1516792977,,200
+c76e20,127.0.0.1,GET,http://localhost:8000/enrolled/new,1516792991,,200
+>>>>>>> a40de895517d7b604e92cb8c6d2bc51f50df4c71

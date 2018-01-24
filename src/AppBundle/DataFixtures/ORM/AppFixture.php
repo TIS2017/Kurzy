@@ -34,14 +34,16 @@ class AppFixture extends Fixture
         for ($i = 0; $i < 10; $i++) {
             $user = new User();
             $user->setLogin('user' . $i);
-            $user->setPassword('pass' . $i);
+            $pass = 'pass' . $i;
+            $user->setPassword(password_hash($pass, PASSWORD_DEFAULT));
 
-            $user->setRole($arrayOfRole[random_int(0,4)]);
+            $user->setRole($arrayOfRole[random_int(0, 4)]);
 
             $manager->persist($user);
         }
 
         $manager->flush();
+
     }
 
 }

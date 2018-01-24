@@ -1,0 +1,13 @@
+.mainHeader{
+    background-image: url('../images/header.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 133px;
+    background-color: #151B21;
+}
+
+#title{
+    font-size: 25px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+}

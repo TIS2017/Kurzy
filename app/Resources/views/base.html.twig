@@ -5,9 +5,43 @@
         <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" class="css">
+        <link rel="stylesheet" href="{{ asset('css/headerStylesheet.css') }}" class="css">
+
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+    <header>
+        <div class="mainHeader">
+            <div class="container">
+                <div class="row" style="padding: 20px 0;">
+
+                    <div class="col-lg-2">
+                        <span id="logo">
+                            <a href="/" title="Domov" ><img src="../images/index.png" width="95" height="94" alt="logo"></a>
+                        </span>
+                    </div>
+
+                    <div class="col-lg-8"
+                    <span id="title" style="padding: 10px 0;">
+                            <b>Univerzita Komenského<br/>v Bratislave</b>
+                        </span>
+                </div>
+
+                <div class="col-lg-2">
+                        <span id="logo">
+                            <a href="/" title="Domov" ><img src="../images/index.png" width="95" height="94" alt="logo"></a>
+                        </span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="row" style="margin: 20px 0;">
+            <div class="col-lg-8 col-lg-offset-2">
+                {% block body %}{% endblock %}
+                {% block javascripts %}{% endblock %}
+            </div>
+        </div>
+    </div>
     </body>
 </html>

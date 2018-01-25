@@ -143,7 +143,6 @@ class AppFixture extends Fixture
             $manager->persist($courseInstance);
         }
 
-
     }
 
     private function seedEnrolled(ObjectManager $manager){
@@ -160,6 +159,17 @@ class AppFixture extends Fixture
         }
     }
 
+    private function seedCourseSoftPrerequisites(ObjectManager $manager){
+        //create 10 Course Soft Prerequisites
+        for ($i = 1; $i <= 10; $i++) {
+            $courseSoftPrerequisite = new CourseSoftPrerequisite();
+            $courseSoftPrerequisite->setCourseType($this->getReference('courseType'.$i));
+            $courseSoftPrerequisite->setValue('Prerequisity value number '.$i);
+
+            $manager->persist($courseSoftPrerequisite);
+        }
+    }
+
     public function load(ObjectManager $manager){
         $this->seedRoles($manager);
         $this->seedUsers($manager);
@@ -169,6 +179,7 @@ class AppFixture extends Fixture
         $this->seedCourseTypes($manager);
         $this->seedCourseInstances($manager);
         $this->seedEnrolled($manager);
+        $this->seedCourseSoftPrerequisites($manager);
 
         $manager->flush();
     }

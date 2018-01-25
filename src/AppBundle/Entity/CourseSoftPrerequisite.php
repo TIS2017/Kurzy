@@ -25,16 +25,6 @@ class CourseSoftPrerequisite
         return $this->id;
     }
 
-    public function getCourseTypeId()
-    {
-        return $this->courseTypeId;
-    }
-
-    public function setCourseTypeId($courseTypeId)
-    {
-        $this->courseTypeId = $courseTypeId;
-    }
-
     public function getValue(){
         return $this->value;
     }

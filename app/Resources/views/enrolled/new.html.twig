@@ -2,16 +2,24 @@
 
 {% block body %}
      {% if is_granted('ROLE_USER') %}
-    <p class="text-center">Naozaj sa chcete prihlásiť na kurz<br> <b>{{ enrolled.courseInstance.courseType }}</b>?</p>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Potvrdiť" />
-    {{ form_end(form) }}
+
+             <p class="text-center">Naozaj sa chcete prihlásiť na kurz<br> <b>{{ enrolled.courseInstance.courseType }}</b>?</p>
+
+             {{ form_start(form) }}
+
+
+             <label for="appbundle_enrolled_comment">Pridať poznámku: </label>
+             {{ form_errors(form.comment) }}
+             {{ form_widget(form.comment) }}
+             <input type="submit" value="Potvrdiť" />
+
+             {{ form_end(form) }}
+
 
     <ul>
         <li>
-            <a href="/">Naspäť</a>
+            <a href="/">Naspäť na kurzy</a>
         </li>
     </ul>
     {% endif %}

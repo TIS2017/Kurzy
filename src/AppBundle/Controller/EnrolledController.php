@@ -60,7 +60,7 @@ class EnrolledController extends Controller
 
             $em->flush();
 
-            return $this->redirectToRoute('enrolled_show', array('id' => $enrolled->getId()));
+            return $this->redirectToRoute('coursetype_index');
         }
 
         return $this->render('enrolled/new.html.twig', array(
@@ -127,7 +127,7 @@ class EnrolledController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('enrolled_index');
+        return $this->redirectToRoute('coursetype_index');
     }
 
     /**

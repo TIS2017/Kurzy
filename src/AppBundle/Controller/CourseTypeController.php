@@ -22,6 +22,7 @@ class CourseTypeController extends Controller
      */
     public function indexAction()
     {
+
         $em = $this->getDoctrine()->getManager();
 
         $courseTypes = $em->getRepository('AppBundle:CourseType')->findAll();

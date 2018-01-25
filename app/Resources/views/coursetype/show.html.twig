@@ -64,8 +64,10 @@
                                 <td>{{ instance.supervisor }}</td>
                                 <td>{{ instance.enrolleds|length }}/{{ instance.capacity }}</td>
                                 {% set isEnrolled = false %}
+                                {% set enroll_id = false %}
                                 {% for enrolledUser in instance.enrolleds %}
                                     {% if enrolledUser.userId == app.user %}
+                                        {% set enroll_id = enrolledUser.id %}
                                         {% set isEnrolled = true %}
                                     {% endif %}
                                 {% endfor %}
@@ -77,10 +79,12 @@
                                     </td>
                                 {% elseif isEnrolled and date() < instance.disenrollDate %}
                                     <td>
-                                        <a href="" class="btn btn-default">
+                                        <a href="{{ path('enrolled_show', { 'id':  enroll_id  }) }}" class="btn btn-default">
                                             Odhlásiť sa
                                         </a>
                                     </td>
+                                {% elseif isEnrolled %}
+                                    <td class="text-muted">Ste prihlásený</td>
                                 {% else %}
                                     <td> </td>
                                 {% endif %}

@@ -34,7 +34,7 @@
                             <div class="span12">
                                 <form id="custom-search-form" class="form-search form-horizontal pull-right" style="float: right; clear: both;">
                                     <div class="input-append span12" style="float: right; clear: both;">
-                                        <input type="text" class="search-query" placeholder="Hladat..." >
+                                        <input type="text" class="search-query" placeholder="Hľadať..." >
                                         <button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span></button>
                                     </div>
                                 </form>
@@ -63,7 +63,7 @@
                 </div>
                 {% if is_granted('ROLE_USER') %}
                 <div class="col-lg-7" id="status">
-                    Ste prihlaseny ako <strong>{{ app.user.login }}</strong> | <a href="/logout">Odhlásiť</a>
+                    Ste prihlásený ako <strong>{{ app.user.login }}</strong> | <a href="/logout">Odhlásiť</a>
                 </div>
                 {% endif %}
             </div>

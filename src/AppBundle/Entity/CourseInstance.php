@@ -47,13 +47,13 @@ class CourseInstance
 
     /**
      * One CourseInstances has Many Enrolled.
-     * @ORM\OneToMany(targetEntity="Enrolled", mappedBy="course_instances")
+     * @ORM\OneToMany(targetEntity="Enrolled", mappedBy="courseInstance")
      */
     protected $enrolleds;
 
      /**
      * Many Course Instances have One Course Type.
-     * @ORM\ManyToOne(targetEntity="CourseType", inversedBy="course_instances")
+     * @ORM\ManyToOne(targetEntity="CourseType", inversedBy="courseInstances")
      * @ORM\JoinColumn(name="course_type", referencedColumnName="id")
      */
     private $courseType;

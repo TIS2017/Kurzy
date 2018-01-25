@@ -127,5 +127,8 @@ class Place
     {
         $this->deleted = $deleted;
     }
-
+    public function __toString()
+    {
+        return (string) $this->name;
+    }
 }

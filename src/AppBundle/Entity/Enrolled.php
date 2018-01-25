@@ -37,7 +37,7 @@ class Enrolled
     //vazby
     /**
      * Many Enrolled have One Course Instance.
-     * @ORM\ManyToOne(targetEntity="CourseInstance", inversedBy="enrolled")
+     * @ORM\ManyToOne(targetEntity="CourseInstance", inversedBy="enrolleds")
      * @ORM\JoinColumn(name="course_instance_id", referencedColumnName="id")
      */
     protected $courseInstance;

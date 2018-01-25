@@ -2,8 +2,12 @@
 
 {% block body %}
 {% if is_granted('ROLE_USER') %}
+        {% set empty = 'true' %}
 
         {% for courseType in courseTypes %}
+            {% if courseType.visibility and not courseType.deleted %}
+                {% set empty = 'false' %}
+
             <p class="container-fluid">
            <table width="700" class="table-striped">
                <tr>
@@ -54,12 +58,17 @@
                             <th>Obsadenosť </th>
                             <th>Prihlásenie</th>
                         </tr>
-                    {#    {% for instance in courseType.courseInstances %}
+                     {% for instance in courseType.courseInstances %}
                             <tr>
-                                <td>{{ instance.timestamp }}</td>
+                                <td>{{ instance.timestamp|date('d.m.Y') }}</td>
+                                <td>{{ instance.timestamp|date('H:i') }}</td>
+                                <td>{{ instance.place }}</td>
+                                <td>{{ instance.supervisor }}</td>
+                                <td>{{ instance.enrolleds|length }}/{{ instance.capacity }}</td>
+                                <td><button type="button" class="btn btn-default">Prihlásiť sa</button></td>
                             </tr>
                         {% endfor %}
-                     #}
+
                     </table>
                 </tr>
 
@@ -83,8 +92,12 @@
                </tr> -->
            </table>
             </p>
+            {% endif %}
         {% endfor %}
 
+        {% if empty == 'true' %}
+            <div>Momentálne nie sú k dispozícii žiadne kurzy.</div>
+        {% endif %}
 
   <!--  <ul>
         <li>

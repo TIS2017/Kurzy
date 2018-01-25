@@ -65,7 +65,7 @@ class CourseType
 
     /**
      * One CourseType has Many Course Instances.
-     * @ORM\OneToMany(targetEntity="CourseInstance", mappedBy="course_types")
+     * @ORM\OneToMany(targetEntity="CourseInstance", mappedBy="courseType")
      */
     private $courseInstances;
 

@@ -27,31 +27,33 @@ use Doctrine\Common\Persistence\ObjectManager;
 class AppFixture extends Fixture
 {
 
-    public function load(ObjectManager $manager)
-    {
+    private function seedRoles(ObjectManager $manager) {
         //create user-roles
         $roles = array("ROLE_USER", "ROLE_SUPERVISOR", "ROLE_MASTER", "ROLE_SUBADMIN", "ROLE_ADMIN");
-        $arrayOfRole = array();
         for ($i = 0; $i < 5; $i++) {
             $role = new Role();
             $role->setName($roles[$i]);
+            $this->addReference('role'.$i, $role);
 
-            array_push($arrayOfRole, $role);
             $manager->persist($role);
         }
+    }
 
+    private function seedUsers(ObjectManager $manager){
         // create 20 users
         for ($i = 1; $i <= 20; $i++) {
             $user = new User();
             $user->setLogin('user' . $i);
             $pass = 'pass' . $i;
             $user->setPassword(password_hash($pass, PASSWORD_DEFAULT));
-            $user->setRole($arrayOfRole[random_int(0, 4)]);
+            $user->setRole($this->getReference('role'.random_int(0, 4)));
             $this->addReference('user'.$i, $user);  //set reference for this user
 
             $manager->persist($user);
         }
+    }
 
+    private function seedEmails(ObjectManager $manager){
         //create 20 emails
         for ($i = 1; $i <= 20; $i++) {
             $email = new Email();
@@ -61,40 +63,39 @@ class AppFixture extends Fixture
 
             $manager->persist($email);
         }
+    }
 
+    private function seedWorkplaces(ObjectManager $manager){
         //create 12 workplaces
         for ($i = -1; $i <= 10; $i++) {
-
             $workplace = new Workplace();
             if ($i == -1 || $i == 0) {   //vytvor Univerzitu UK a Fakultu FMFI
                 if ($i == -1){
-                    echo "Adding UK";
                     $name = 'Univerzita Komenskeho';
                     $this->addReference('UK', $workplace);
                     $parent = null;
                 } else {
-                    echo "Adding FMFI";
                     $name = 'Fakulta Matematiky,Fyziky a Informatiky';
                     $this->addReference('FMFI', $workplace);
                     $parent = $this->getReference('UK');
                 }
                 $workplace->setName($name);
                 $workplace->setParent($parent);       //TODO parent je integer bez vazby
-                echo $workplace->getParent();
             } else {
                 $workplace->setName('workplace' . $i);
                 $workplace->setParent($this->getReference('FMFI'));
-                $this->addReference('workplace'.$i, $workplace);
+                $this->addReference('workplace' . $i, $workplace);
                 //TODO ostatne vazby
             }
             $manager->persist($workplace);
         }
+    }
 
+    private function seedPlaces(ObjectManager $manager){
         //create 10 places
         for ($i = 1; $i <= 10; $i++) {
             $place = new Place();
             $place->setName('place'.$i);
-
             $now = new \DateTime("now");
             $place->setCreated($now);
             $place->setUpdated($now);
@@ -103,6 +104,15 @@ class AppFixture extends Fixture
 
             $manager->persist($place);
         }
+
+    }
+
+    public function load(ObjectManager $manager){
+        $this->seedRoles($manager);
+        $this->seedUsers($manager);
+        $this->seedEmails($manager);
+        $this->seedWorkplaces($manager);
+        $this->seedPlaces($manager);
 
         $manager->flush();
 

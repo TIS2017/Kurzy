@@ -47,8 +47,7 @@ class Enrolled
      * @ORM\ManyToOne(targetEntity="User", inversedBy="enrolleds")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    protected $user;
-    
+    protected $userId;
 
     public function getId()
     {
@@ -65,13 +64,13 @@ class Enrolled
         $this->graduated = $graduated;
     }
 
-    public function getUser(){
-        return $this->user;
+    public function getUserId(){
+        return $this->userId;
     }
 
-    public function setUser($user)
+    public function setUserId($userId)
     {
-        $this->user = $user;
+        $this->userId = $userId;
     }
 
     public function getCourseInstance(){

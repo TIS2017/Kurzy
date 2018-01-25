@@ -1,48 +1,54 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Kurz {{ courseType.name }}{% endblock %}
+ {% block stylesheets %}{% endblock %}
+
 {% block body %}
-    <h1>Coursetype</h1>
+    {% if is_granted('ROLE_USER') %}
+        <h1>Coursetype</h1>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ courseType.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ courseType.name }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ courseType.description }}</td>
-            </tr>
-            <tr>
-                <th>Softprerequisites</th>
-                <td>{{ courseType.softPrerequisites }}</td>
-            </tr>
-            <tr>
-                <th>Visibility</th>
-                <td>{% if courseType.visibility %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Deleted</th>
-                <td>{% if courseType.deleted %}Yes{% else %}No{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+        <table>
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ courseType.id }}</td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>{{ courseType.name }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ courseType.description }}</td>
+                </tr>
+                <tr>
+                    <th>Softprerequisites</th>
+                    <td>{{ courseType.softPrerequisites }}</td>
+                </tr>
+                <tr>
+                    <th>Visibility</th>
+                    <td>{% if courseType.visibility %}Yes{% else %}No{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>Deleted</th>
+                    <td>{% if courseType.deleted %}Yes{% else %}No{% endif %}</td>
+                </tr>
+            </tbody>
+        </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('coursetype_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('coursetype_edit', { 'id': courseType.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        <ul>
+            <li>
+                <a href="{{ path('coursetype_index') }}">Back to the list</a>
+            </li>
+            <li>
+                <a href="{{ path('coursetype_edit', { 'id': courseType.id }) }}">Edit</a>
+            </li>
+            <li>
+                {{ form_start(delete_form) }}
+                    <input type="submit" value="Delete">
+                {{ form_end(delete_form) }}
+            </li>
+        </ul>
+    {% else %}
+    {% endif %}
 {% endblock %}

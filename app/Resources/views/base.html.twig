@@ -61,10 +61,11 @@
                     </ul>
 
                 </div>
-
+                {% if is_granted('ROLE_USER') %}
                 <div class="col-lg-7" id="status">
                     Ste prihlaseny ako <strong>{{ app.user.login }}</strong> | <a href="/logout">Odhlásiť</a>
                 </div>
+                {% endif %}
             </div>
 
 

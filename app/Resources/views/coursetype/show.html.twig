@@ -5,50 +5,77 @@
 
 {% block body %}
     {% if is_granted('ROLE_USER') %}
-        <h1>Coursetype</h1>
+        {% if courseType.visibility and not courseType.deleted %}
+            <h1>{{ courseType.name }}</h1>
 
-        <table>
-            <tbody>
-                <tr>
-                    <th>Id</th>
-                    <td>{{ courseType.id }}</td>
-                </tr>
-                <tr>
-                    <th>Name</th>
-                    <td>{{ courseType.name }}</td>
-                </tr>
-                <tr>
-                    <th>Description</th>
-                    <td>{{ courseType.description }}</td>
-                </tr>
-                <tr>
-                    <th>Softprerequisites</th>
-                    <td>{{ courseType.softPrerequisites }}</td>
-                </tr>
-                <tr>
-                    <th>Visibility</th>
-                    <td>{% if courseType.visibility %}Yes{% else %}No{% endif %}</td>
-                </tr>
-                <tr>
-                    <th>Deleted</th>
-                    <td>{% if courseType.deleted %}Yes{% else %}No{% endif %}</td>
-                </tr>
-            </tbody>
-        </table>
+            <h3>Sylabus</h3>
+            <p>{{ courseType.description }}</p>
 
-        <ul>
-            <li>
-                <a href="{{ path('coursetype_index') }}">Back to the list</a>
-            </li>
-            <li>
-                <a href="{{ path('coursetype_edit', { 'id': courseType.id }) }}">Edit</a>
-            </li>
-            <li>
+            <h3>Prerekvizity</h3>
+            <h4>Soft prerekvizity - mimoaplikačné</h4>
+            {% if courseType.softPrerequisites|length > 0 %}
+                <ol>
+                    {% for prerequisite in courseType.softPrerequisites  %}
+                        <li>{{ prerequisite.value }}</li>
+                    {% endfor %}
+                </ol>
+            {% else %}
+                <ul>
+                    <li>Tento kurz nemá žiadne mimoaplikačné prerekvizity.</li>
+                </ul>
+            {% endif %}
+
+            <h4>Hard prerekvizity - vnútroaplikačné</h4>
+            {% if courseType.hardPrerequisites|length > 0 %}
+                <ol>
+                    {% for prerequisite in courseType.hardPrerequisites  %}
+                        <li>{{ prerequisite.name }}</li>
+                    {% endfor %}
+                </ol>
+            {% else %}
+                <ul>
+                    <li>Tento kurz nemá žiadne vnútroaplikačné prerekvizity.</li>
+                </ul>
+            {% endif %}
+
+            <h3>Termíny školení</h3>
+            {% if courseType.courseInstances|length > 0 %}
+                <table>
+                    <tr>
+                        <th>Termín</th>
+                        <th>Čas</th>
+                        <th>Miesto</th>
+                        <th>Školiteľ</th>
+                        <th>Obsadenosť</th>
+                        <th>Prihlásenie</th>
+                    </tr>
+                    {% for instance in courseType.courseInstances %}
+                        {% if date(instance.timestamp) > date() %}
+                            <tr>
+                                <td>{{ instance.timestamp|date('d.m.Y') }}</td>
+                                <td>{{ instance.timestamp|date('H:i') }}</td>
+                                <td>{{ instance.place }}</td>
+                                <td>{{ instance.supervisor }}</td>
+                                <td>{{ instance.enrolleds|length }}/{{ instance.capacity }}</td>
+                                <td><a href="{{ path('enrolled_new', { 'course_instance': instance.id }) }}" class="btn btn-default">Prihlásiť sa</a></td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p>Ľutujeme, pre tento kurz nie je vypísaný žiaden termín. Ak máte záujem o absolvovanie kurzu, kontaktujte garanta kurzu.</p>
+                <!--- mailer na garanta -->
+            {% endif %}
+
+
+            {% if is_granted("ROLE_MASTER") and courseType.garantId == app.user %}
+                <a href="{{ path('coursetype_edit', { 'id': courseType.id }) }}">Upraviť</a>
                 {{ form_start(delete_form) }}
-                    <input type="submit" value="Delete">
+                    <input type="submit" value="Zmazať">
                 {{ form_end(delete_form) }}
-            </li>
-        </ul>
+            {% endif %}
+
+        {% endif %}
     {% else %}
     {% endif %}
 {% endblock %}

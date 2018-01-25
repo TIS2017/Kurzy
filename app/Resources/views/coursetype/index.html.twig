@@ -11,7 +11,9 @@
 
            <table width="700" class="table-striped">
                <tr>
-                   <th colspan="2" class="alert-danger">{{ courseType.name }}</th>
+                   <th colspan="2" class="alert-danger">
+                       <a href={{ path('coursetype_show', { 'id': courseType.id }) }}>{{ courseType.name }}</a>
+                   </th>
                </tr>
                <tr>
                    <td colspan="2">

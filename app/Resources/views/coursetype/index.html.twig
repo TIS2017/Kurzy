@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">{% endblock %}
 
-{% if is_granted('ROLE_USER') %}
+{% block body %}
+    {% if is_granted('ROLE_USER') %}
         {% set empty = 'true' %}
 
         {% for courseType in courseTypes %}

@@ -10,20 +10,24 @@
             {% if courseType.visibility and not courseType.deleted %}
                 {% set empty = 'false' %}
 
-                   <div class="courseHeading">
-                       <a href={{ path('coursetype_show', { 'id': courseType.id }) }}><h3>{{ courseType.name }}</h3></a>
-                   </div>
+            <div class="panel panel-default " id="panelCourse">
+                <div class="panel-heading" id="panelCourseHeading">
+                    <h4><a href={{ path('coursetype_show', { 'id': courseType.id }) }}><h4>{{ courseType.name }}</h4></a></h4>
+                </div>
 
+                <div class="panel-body" id="panelCourseBody">
 
                     <!-- Nav tabs -->
-                    <ul class="nav nav-tabs nav-justified">
-                        <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#panel1{{ courseType.id }}" role="tab">O kurze</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#panel2{{ courseType.id }}" role="tab">Terminy</a>
-                        </li>
-                    </ul>
+                    <div>
+                        <ul class="nav nav-tabs nav-justified" id="courseTabs">
+                            <li class="nav-item" id="liActive">
+                                <a class="nav-link active" data-toggle="tab" href="#panel1{{ courseType.id }}" role="tab">O kurze</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#panel2{{ courseType.id }}" role="tab">Termíny</a>
+                            </li>
+                        </ul>
+                    </div>
 
                     <!-- Tab panels -->
                     <div class="tab-content card">
@@ -32,12 +36,13 @@
                         <!--Panel O KURZE-->
                         <div class="tab-pane fade in show active" id="panel1{{ courseType.id }}" role="tabpanel">
                             <br>
-                            <p>
-                                {{ courseType.description }}</p>
+                            <p style="padding: 2px 10px;">
+                                {{ courseType.description }}
+                            </p>
                             <table class="table-striped" style="width: 100%;">
                                 <tr>
-                                <th><b>Soft - mimoaplikačné:</b></th>
-                                <th><b>Hard - vnútroaplikačné:</b></th>
+                                <th style="text-align: center;"><b>Soft - mimoaplikačné:</b></th>
+                                <th style="text-align: center;"><b>Hard - vnútroaplikačné:</b></th>
                                 </tr>
 
                                 <tr>
@@ -139,6 +144,8 @@
                     <!--/.Panel TERMINY-->
                 </div>
                 <!--/.tabs -->
+                </div>
+            </div>
 
             {% endif %}
         {% endfor %}
@@ -153,6 +160,13 @@
 {% block javascripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+   {# $(document).ready(function () {
+    $('#courseTabs ul li a').click(function (ev) {
+    $('#courseTabs ul li').removeClass('selected');
+    $(ev.currentTarget).parent('li').addClass('selected');
+    });
+    });#}
 {% endblock %}
 
 

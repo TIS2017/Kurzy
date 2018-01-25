@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8" />
     <title>{% block title %}{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
+    {% block stylesheets %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" class="css">
     <link rel="stylesheet" href="{{ asset('css/headerStylesheet.css') }}" class="css">
     <link rel="stylesheet" href="{{ asset('css/mainStylesheet.css') }}" class="css">
+    {% endblock %}
 
 </head>
-<body>
 <header>
     <div class="mainHeader">
         <div class="container">
@@ -72,23 +72,25 @@
         </div>
     </div>
 </header>
-<div class="container">
-    <div class="row" id="bodyContainer">
-        <div class="col-lg-8 col-lg-offset-2">
-            {% block body %}{% endblock %}
-            {% block javascripts %}{% endblock %}
-        </div>
-    </div>
-</div>
 
-<footer id="footer1">
+
+<body>
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <span>Copyright © Caviar-IT 2018</span>
+        <div class="row" id="content">
+            <div class="col-lg-8 col-lg-offset-2">
+                {% block body %}{% endblock %}
+                {% block javascripts %}{% endblock %}
             </div>
         </div>
     </div>
-</footer>
+
+    <div class="row" style="background-color: #535250;">
+        <div class="col-lg-8 col-lg-offset-2">
+            <footer id="footer1">
+                <span>Copyright © Caviar-IT 2018</span>
+            </footer>
+        </div>
+    </div>
 </body>
+
 </html>

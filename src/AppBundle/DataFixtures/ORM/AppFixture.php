@@ -101,9 +101,41 @@ class AppFixture extends Fixture
             $place->setUpdated($now);
             $place->setDeleted(false);
             $place->setWorkplace($this->getReference('workplace'.$i));
+            $this->addReference('place'.$i, $place);
 
             $manager->persist($place);
         }
+    }
+
+    private function seedCourseTypes(ObjectManager $manager){
+        //create 10 course types
+        for ($i = 1; $i <= 10; $i++) {
+            $courseType = new CourseType();
+            $courseType->setName('course type '.$i);
+            $courseType->setDescription('Course description number '.$i);
+            $courseType->setVisibility(rand(0,1)==1);
+            $courseType->setDeleted(false);
+            $courseType->setGarantId($this->getReference('user'.$i));
+
+            $manager->persist($courseType);
+        }
+    }
+
+    private function seedCourseInstances(ObjectManager $manager){
+        //create 10 course instances
+        for ($i = 1; $i <= 20; $i++) {
+            $courseInstance = new CourseInstance();
+            $courseInstance->setTimeStamp(new \DateTime("now"));
+            $courseInstance->setPlace($this->getReference('place'.$i));
+            $courseInstance->setCapacity(random_int(10, 50));
+
+        }
+
+        $manager->persist($courseInstance);
+    }
+
+    private function seedEnrolled(ObjectManager $manager){
+        //create 10 enrolleds
 
     }
 
@@ -113,9 +145,9 @@ class AppFixture extends Fixture
         $this->seedEmails($manager);
         $this->seedWorkplaces($manager);
         $this->seedPlaces($manager);
+        $this->seedCourseTypes($manager);
 
         $manager->flush();
-
     }
 
 }

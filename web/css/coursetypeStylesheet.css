@@ -1,0 +1,58 @@
+#panelCourse{
+    border-radius: 0;
+    border: 1px solid #b3231b;
+}
+
+#panelCourseHeading{
+    background-color: #b3231b;
+    text-align: center;
+    margin:0;
+    border-radius: 0;
+    padding: 1px 0;
+    border: 0;
+}
+
+#panelCourseBody{
+    padding: 0;
+}
+
+#panelCourseHeading a{
+    color: #FFFFFF;
+}
+
+.courseHeading a:hover{
+    color: #FFFFFF;
+    text-decoration: underline;
+
+}
+
+#panelCourseHeading h4{
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 0;
+}
+
+#courseTabs li{
+    background-color: #C3C0C3;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+}
+
+#courseTabs li a{
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#courseTabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+    background-color: #929292;
+    border: none;
+    border-radius: 0;
+}
+
+#courseTabs>li>a:hover {
+    background-color: #929292;
+    border: none;
+    border-radius: 0;
+}

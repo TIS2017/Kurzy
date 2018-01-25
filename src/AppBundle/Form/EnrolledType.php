@@ -13,7 +13,8 @@ class EnrolledType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('comment');
+        $builder->add('comment', null, array(
+            'required'   => false));
     }/**
      * {@inheritdoc}
      */

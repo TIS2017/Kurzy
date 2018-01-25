@@ -151,7 +151,7 @@ class AppFixture extends Fixture
             $enrolled = new Enrolled();
             $enrolled->setGraduated(rand(0,1)==1);
             $enrolled->setAttended(rand(0,1)==1);
-            $enrolled->setUser($this->getReference('user'.$i));
+            $enrolled->setUserId($this->getReference('user'.$i));
             $enrolled->setCourseInstance($this->getReference('courseInstance'.$i));
             $enrolled->setComment('Comment for this enrolled number '.$i);
 

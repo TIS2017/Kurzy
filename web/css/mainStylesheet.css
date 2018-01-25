@@ -101,3 +101,12 @@ a:hover{
 .search-query:focus + button {
     z-index: 3;
 }
+
+#footer1{
+    background-color: #535250;
+    color: #FFFFFF;
+    width: 100%;
+    padding: 5px 0;
+    position: absolute;
+    bottom: 0;
+}

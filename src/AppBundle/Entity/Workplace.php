@@ -35,13 +35,13 @@ class Workplace
 
     /**
      * One Workplace has Many Places.
-     * @ORM\OneToMany(targetEntity="Place", mappedBy="workplaces")
+     * @ORM\OneToMany(targetEntity="Place", mappedBy="workplace")
      */
     private $places;
 
     /**
      * Many Workplaces have Many Users(subadmins).
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="workplaces")
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="subadminWorkplaces")
      */
     protected $subadmins;
 

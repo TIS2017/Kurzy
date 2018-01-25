@@ -29,7 +29,7 @@ class Role implements RoleHierarchyInterface
     //vazby
     /**
      * One Role has Many Users.
-     * @ORM\OneToMany(targetEntity="User", mappedBy="roles")
+     * @ORM\OneToMany(targetEntity="User", mappedBy="role")
      */
     protected $users;
 

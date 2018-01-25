@@ -44,7 +44,7 @@ class Enrolled
 
     /**
      * Many Enrolled have One User.
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="enrolled")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="enrolleds")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $userId;

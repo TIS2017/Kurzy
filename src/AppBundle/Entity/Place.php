@@ -52,9 +52,9 @@ class Place
     //vazby
     /**
      * One Place has Many course instances.
-     * @ORM\OneToMany(targetEntity="CourseInstance", mappedBy="places")
+     * @ORM\OneToMany(targetEntity="CourseInstance", mappedBy="place")
      */
-    protected $course_instances;
+    protected $courseInstances;
 
     /**
      * Many Places have One workplace.

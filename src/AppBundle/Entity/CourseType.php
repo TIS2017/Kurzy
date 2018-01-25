@@ -52,13 +52,13 @@ class CourseType
     //vazby 
     /**
      * One CourseType has Many CourseSoftPrerequisites.
-     * @ORM\OneToMany(targetEntity="CourseSoftPrerequisite", mappedBy="CourseType")
+     * @ORM\OneToMany(targetEntity="CourseSoftPrerequisite", mappedBy="courseType")
      */
     protected $courseSoftPrerequisites;
     
      /**
      * Many CourseTypes have One User.
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="course_types")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="courseTypes")
      * @ORM\JoinColumn(name="garant_id", referencedColumnName="id")
      */
     private $garantId;
@@ -71,7 +71,7 @@ class CourseType
 
      /**
      * Many Course Types have Many Workplaces.
-     * @ORM\ManyToMany(targetEntity="Workplace")
+     * @ORM\ManyToMany(targetEntity="Workplace", inversedBy="courseTypes")
      * @ORM\JoinTable(name="course_workplaces",
      *      joinColumns={@ORM\JoinColumn(name="course_type_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="workplace_id", referencedColumnName="id")}
@@ -81,7 +81,7 @@ class CourseType
 
     /**
      * Many CourseTypes have Many Hard Prerequisites.
-     * @ORM\ManyToMany(targetEntity="CourseType")
+     * @ORM\ManyToMany(targetEntity="CourseType", inversedBy="hardPrerequisitesOf")
      * @ORM\JoinTable(name="course_hard_prerequisites",
      *      joinColumns={@ORM\JoinColumn(name="course_type_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="required_type_of_course_id", referencedColumnName="id")}
@@ -91,7 +91,7 @@ class CourseType
 
     /**
      * Many CourseTypes are hard prerequisites of Many CourseTypes.
-     * @ORM\ManyToMany(targetEntity="CourseType", mappedBy="course_types")
+     * @ORM\ManyToMany(targetEntity="CourseType", mappedBy="hardPrerequisites")
      */
     private $hardPrerequisitesOf;
 

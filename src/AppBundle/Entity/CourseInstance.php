@@ -40,7 +40,7 @@ class CourseInstance
     //vazby
     /**
      * Many CourseInstances have One Place.
-     * @ORM\ManyToOne(targetEntity="Place", inversedBy="course_instances")
+     * @ORM\ManyToOne(targetEntity="Place", inversedBy="courseInstances")
      * @ORM\JoinColumn(name="place", referencedColumnName="id")
      */
     protected $place;
@@ -61,7 +61,7 @@ class CourseInstance
 
     /**
      * Many Course Instances have One User(supervisor).
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="course_instances")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="courseInstances")
      * @ORM\JoinColumn(name="supervisor_user_id", referencedColumnName="id")
      */
     private $supervisor;

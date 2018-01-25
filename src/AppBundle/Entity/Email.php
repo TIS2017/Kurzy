@@ -31,7 +31,7 @@ class Email
 
     /**
      * One Email is selected by One User (relation -has selected).
-     * @ORM\OneToOne(targetEntity="User", inversedBy="emails")
+     * @ORM\OneToOne(targetEntity="User", inversedBy="selectedEmail")
      */
     protected $selectedByUser; //TODO nechceme to v tabulke
 

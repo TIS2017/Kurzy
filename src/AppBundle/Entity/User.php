@@ -36,13 +36,13 @@ class User implements UserInterface, \Serializable
 
     /**
      * One User has Many Enrolled.
-     * @ORM\OneToMany(targetEntity="Enrolled", mappedBy="users")
+     * @ORM\OneToMany(targetEntity="Enrolled", mappedBy="userId")
      */
     protected $enrolleds;
 
     /**
      * One User has Many Emails.
-     * @ORM\OneToMany(targetEntity="Email", mappedBy="users")
+     * @ORM\OneToMany(targetEntity="Email", mappedBy="user")
      */
     protected $emails;
 
@@ -55,19 +55,19 @@ class User implements UserInterface, \Serializable
 
     /**
      * One User(garant) has Many Course Types.
-     * @ORM\OneToMany(targetEntity="CourseType", mappedBy="users")
+     * @ORM\OneToMany(targetEntity="CourseType", mappedBy="garantId")
      */
     protected $courseTypes;
 
     /**
     * One User(supervisor) has Many Course Instances.
-    * @ORM\OneToMany(targetEntity="CourseInstance", mappedBy="users")
+    * @ORM\OneToMany(targetEntity="CourseInstance", mappedBy="supervisor")
      */
     protected $courseInstances;
 
     /**
      * Many Users(subadmins) have Many Workplaces.
-     * @ORM\ManyToMany(targetEntity="Workplace")
+     * @ORM\ManyToMany(targetEntity="Workplace", inversedBy="subadmins")
      * @ORM\JoinTable(name="subadmins",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="workplace_id", referencedColumnName="id")}
@@ -77,7 +77,7 @@ class User implements UserInterface, \Serializable
     
     /**
      * One User has one Active email (relation - hasselected).
-     * @ORM\OneToOne(targetEntity="Email", mappedBy="users")
+     * @ORM\OneToOne(targetEntity="Email", mappedBy="selectedByUser")
      * @ORM\JoinColumn(name="selected_email", referencedColumnName="id")
      */
     private $selectedEmail;

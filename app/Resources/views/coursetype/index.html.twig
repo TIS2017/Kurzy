@@ -36,9 +36,8 @@
                <tr>
                    <td>
                        <ol>
-                           {% set spSet = courseType.softPrerequisites|split(', ') %}
-                           {% for sp in spSet %}
-                               <li>{{ sp }}</li>
+                           {% for sp in courseType.softPrerequisites %}
+                               <li>{{ sp.value }}</li>
                            {% endfor %}
                        </ol>
                    </td>
@@ -82,25 +81,6 @@
                     </table>
                     </td>
                 </tr>
-
-
-               <!--       <tr>
-            <td><a href="{{ path('coursetype_show', { 'id': courseType.id }) }}">{{ courseType.id }}</a></td>
-                <td>{{ courseType.description }}</td>
-                <td>{{ courseType.softPrerequisites }}</td>
-                <td>{% if courseType.visibility %}Yes{% else %}No{% endif %}</td>
-                <td>{% if courseType.deleted %}Yes{% else %}No{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('coursetype_show', { 'id': courseType.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('coursetype_edit', { 'id': courseType.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-               </tr> -->
            </table>
 
             {% endif %}

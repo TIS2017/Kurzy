@@ -46,7 +46,7 @@ class CourseSoftPrerequisite
 
     /**
      * Many CourseSoftPrerequisites have One courseType.
-     * @ORM\ManyToOne(targetEntity="CourseType", inversedBy="courseSoftPrerequisites")
+     * @ORM\ManyToOne(targetEntity="CourseType", inversedBy="softPrerequisites")
      * @ORM\JoinColumn(name="course_type_id", referencedColumnName="id")
      */
     private $courseType;

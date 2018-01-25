@@ -29,12 +29,7 @@ class CourseType
      * @var text
      */
     protected $description;
-    
-    /**
-     * @ORM\Column(type="string")
-     * @var string
-     */
-    protected $softPrerequisites;      
+
 
     /**
      * @ORM\Column(type="boolean")
@@ -54,7 +49,7 @@ class CourseType
      * One CourseType has Many CourseSoftPrerequisites.
      * @ORM\OneToMany(targetEntity="CourseSoftPrerequisite", mappedBy="courseType")
      */
-    protected $courseSoftPrerequisites;
+    protected $softPrerequisites;
     
      /**
      * Many CourseTypes have One User.

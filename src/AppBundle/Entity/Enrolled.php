@@ -48,6 +48,7 @@ class Enrolled
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
+    
 
     public function getId()
     {

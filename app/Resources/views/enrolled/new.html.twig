@@ -2,16 +2,16 @@
 
 {% block body %}
      {% if is_granted('ROLE_USER') %}
-    <h1>Enrolled creation</h1>
+    <p class="text-center">Naozaj sa chcete prihlásiť na kurz<br> <b>{{ enrolled.courseInstance.courseType }}</b>?</p>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <input type="submit" value="Potvrdiť" />
     {{ form_end(form) }}
 
     <ul>
         <li>
-            <a href="{{ path('enrolled_index') }}">Back to the list</a>
+            <a href="/">Naspäť</a>
         </li>
     </ul>
     {% endif %}

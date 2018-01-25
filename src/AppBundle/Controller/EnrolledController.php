@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Enrolled;
 use AppBundle\Entity\User;
+use AppBundle\Form\CourseInstanceType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -35,13 +36,14 @@ class EnrolledController extends Controller
     /**
      * Creates a new enrolled entity.
      *
-     * @Route("/new", name="enrolled_new")
+     * @Route("/{course_instance}/new", name="enrolled_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
     {
         $enrolled = new Enrolled();
-
+        $instance = $request->attributes->get('course_instance');
+        $enrolled->setCourseInstance($this->getDoctrine()->getRepository('AppBundle\\Entity\\CourseInstance')->find($instance));
         $form = $this->createForm('AppBundle\Form\EnrolledType', $enrolled);
         $form->handleRequest($request);
 
@@ -49,6 +51,7 @@ class EnrolledController extends Controller
             $em = $this->getDoctrine()->getManager();
             $user = $this->getUser();
             $enrolled->setUserId($user);
+
             $enrolled->setAttended(false);
             $enrolled->setGraduated(false);
 

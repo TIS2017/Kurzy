@@ -73,13 +73,13 @@ class Enrolled
         $this->userId = $userId;
     }
 
-    public function getCourseInstanceId(){
-        return $this->courseInstanceId;
+    public function getCourseInstance(){
+        return $this->courseInstance;
     }
 
-    public function setCourseInstanceId($courseInstanceId)
+    public function setCourseInstance($courseInstance)
     {
-        $this->courseInstanceId = $courseInstanceId;
+        $this->courseInstance = $courseInstance;
     }
 
     public function getComment()
@@ -100,16 +100,6 @@ class Enrolled
     public function setAttended($attended)
     {
         $this->attended = $attended;
-    }
-
-    public function getCourseInstance()
-    {
-        return $this->courseInstance;
-    }
-
-    public function setCourseInstance($courseInstance)
-    {
-        $this->courseInstance = $courseInstance;
     }
 
     public function getEnrolled()

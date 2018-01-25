@@ -12,8 +12,12 @@ class Enrolled
 
     /** @Column(type="boolean") **/
     protected $graduated;
-    
-    /** @Column(type="integer") **/
+
+    /**
+     * Many Enrolled have One User.
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="enrolleds")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
     protected $userId;
 
     /** @Column(type="string") **/
@@ -25,17 +29,10 @@ class Enrolled
     //vazby
     /**
      * Many Enrolled have One Course Instance.
-     * @ManyToOne(targetEntity="CourseInstance", inversedBy="enrolled")
+     * @ManyToOne(targetEntity="CourseInstance", inversedBy="enrolleds")
      * @JoinColumn(name="course_instance_id", referencedColumnName="id")
      */
     protected $courseInstance;
-
-    /**
-     * Many Enrolled have One User.
-     * @ManyToOne(targetEntity="User", inversedBy="enrolled")
-     * @JoinColumn(name="enrolled_id", referencedColumnName="id")
-     */
-    protected $enrolled;
 
     public function getId()
     {
@@ -61,13 +58,13 @@ class Enrolled
         $this->userId = $userId;
     }
 
-    public function getCourseInstanceId(){
-        return $this->courseInstanceId;
+    public function getCourseInstance(){
+        return $this->courseInstance;
     }
 
-    public function setCourseInstanceId($courseInstanceId)
+    public function setCourseInstance($courseInstance)
     {
-        $this->courseInstanceId = $courseInstanceId;
+        $this->courseInstance = $courseInstance;
     }
 
     public function getComment()

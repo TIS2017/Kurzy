@@ -65,7 +65,7 @@
                                 <td>{{ instance.place }}</td>
                                 <td>{{ instance.supervisor }}</td>
                                 <td>{{ instance.enrolleds|length }}/{{ instance.capacity }}</td>
-                                <td><button type="button" class="btn btn-default">Prihlásiť sa</button></td>
+                                <td><a href="{{ path('enrolled_new', { 'course_instance': instance.id }) }}" class="btn btn-default">Prihlásiť sa</a></td>
                             </tr>
                         {% endfor %}
 

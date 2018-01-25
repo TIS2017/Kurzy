@@ -22,8 +22,13 @@ class Workplace
 
     /** @ORM\Column(type="string") **/
     protected $name;
-    
-    /** @ORM\Column(type="integer") **/
+
+    /**
+     * Many Workplaces have One Workplace (parent).
+     * @ORM\ManyToOne(targetEntity="Workplace")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true)
+     *
+     */
     protected $parent;
 
     //vazby

@@ -42,19 +42,14 @@ class AppFixture extends Fixture
 
         // create 20 users
         for ($i = 1; $i <= 20; $i++) {
-
             $user = new User();
-
             $user->setLogin('user' . $i);
             $pass = 'pass' . $i;
             $user->setPassword(password_hash($pass, PASSWORD_DEFAULT));
             $user->setRole($arrayOfRole[random_int(0, 4)]);
-
-
             $this->addReference('user'.$i, $user);  //set reference for this user
 
             $manager->persist($user);
-
         }
 
         //create 20 emails
@@ -62,28 +57,52 @@ class AppFixture extends Fixture
             $email = new Email();
             $email->setEmail('user' . $i . '@domain.com');
             $email->setUser($this->getReference('user'.$i));    //get reference of user
-
-            //set email to user
             ($this->getReference('user'.$i))->setSelectedEmail($email);
 
             $manager->persist($email);
         }
 
-//
-//        //create 10 workplaces
-//        for ($i = 1; $i <= 10; $i++) {
-//            $workplace = new Workplace();
-//            $workplace->setName('workplace'.$i);
-//            $workplace->setParent($i);
-//            //TODO ostatne vazby
-//
-//            $manager->persist($workplace);
-//        }
-//
-//        //create 10 places
-//        for ($i = 1; $i <= 10; $i++) {
-//            $place = new Place();
+        //create 12 workplaces
+        for ($i = -1; $i <= 10; $i++) {
 
+            $workplace = new Workplace();
+            if ($i == -1 || $i == 0) {   //vytvor Univerzitu UK a Fakultu FMFI
+                if ($i == -1){
+                    echo "Adding UK";
+                    $name = 'Univerzita Komenskeho';
+                    $this->addReference('UK', $workplace);
+                    $parent = null;
+                } else {
+                    echo "Adding FMFI";
+                    $name = 'Fakulta Matematiky,Fyziky a Informatiky';
+                    $this->addReference('FMFI', $workplace);
+                    $parent = $this->getReference('UK');
+                }
+                $workplace->setName($name);
+                $workplace->setParent($parent);       //TODO parent je integer bez vazby
+                echo $workplace->getParent();
+            } else {
+                $workplace->setName('workplace' . $i);
+                $workplace->setParent($this->getReference('FMFI'));
+                $this->addReference('workplace'.$i, $workplace);
+                //TODO ostatne vazby
+            }
+            $manager->persist($workplace);
+        }
+
+        //create 10 places
+        for ($i = 1; $i <= 10; $i++) {
+            $place = new Place();
+            $place->setName('place'.$i);
+
+            $now = new \DateTime("now");
+            $place->setCreated($now);
+            $place->setUpdated($now);
+            $place->setDeleted(false);
+            $place->setWorkplace($this->getReference('workplace'.$i));
+
+            $manager->persist($place);
+        }
 
         $manager->flush();
 

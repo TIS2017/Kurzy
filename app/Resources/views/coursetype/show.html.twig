@@ -75,7 +75,7 @@
                                             Prihlásiť sa
                                         </a>
                                     </td>
-                                {% elseif isEnrolled %}
+                                {% elseif isEnrolled and date() < instance.disenrollDate %}
                                     <td>
                                         <a href="" class="btn btn-default">
                                             Odhlásiť sa

@@ -93,7 +93,7 @@ class CourseType
 
     public function __construct() {
         $this->courseInstances = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->courseSoftPrerequisites = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->softPrerequisites = new \Doctrine\Common\Collections\ArrayCollection();
         $this->hardPrerequisitesOf = new \Doctrine\Common\Collections\ArrayCollection();
         $this->hardPrerequisites = new \Doctrine\Common\Collections\ArrayCollection();
         $this->workplaces = new \Doctrine\Common\Collections\ArrayCollection();

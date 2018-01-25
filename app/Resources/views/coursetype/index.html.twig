@@ -61,9 +61,15 @@
                             <th>Obsadenosť </th>
                             <th>Prihlásenie</th>
                         </tr>
-                        {% if courseType.courseInstances|length == 0 %}
+                        {% set futureInstances = false %}
+                        {% for instance in courseType.courseInstances %}
+                            {% if date(instance.timestamp) > date() %}
+                                {% set futureInstances = true %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if not futureInstances %}
                             <tr>
-                            <td colspan="6">Pre tento kurz nie je momentálne vypísaný žiaden termín.</td>
+                                <td colspan="6">Pre tento kurz nie je momentálne vypísaný žiaden termín.</td>
                             </tr>
                         {% endif %}
                      {% for instance in courseType.courseInstances %}
@@ -74,9 +80,29 @@
                                 <td>{{ instance.supervisor }}</td>
                                 <td>{{ instance.enrolleds|length }}/{{ instance.capacity }}</td>
 
-                                <td><a href="{{ path('enrolled_new', { 'course_instance': instance.id }) }}" class="btn btn-default">Prihlásiť sa</a></td>
+                                {% set isEnrolled = false %}
+                                {% for enrolledUser in instance.enrolleds %}
+                                    {% if enrolledUser.userId == app.user %}
+                                        {% set isEnrolled = true %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if instance.capacity - instance.enrolleds|length > 0 and not isEnrolled %}
+                                    <td>
+                                        <a href="{{ path('enrolled_new', { 'course_instance': instance.id }) }}" class="btn btn-default">
+                                            Prihlásiť sa
+                                        </a>
+                                    </td>
+                                {% elseif isEnrolled %}
+                                    <td>
+                                        <a href="" class="btn btn-default">
+                                            Odhlásiť sa
+                                        </a>
+                                    </td>
+                                {% else %}
+                                    <td> </td>
+                                {% endif %}
                             </tr>
-                        {% endfor %}
+                     {% endfor %}
 
                     </table>
                     </td>

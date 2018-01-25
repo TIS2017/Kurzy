@@ -8,23 +8,24 @@
             {% if courseType.visibility and not courseType.deleted %}
                 {% set empty = 'false' %}
 
-            <p>
+
            <table width="700" class="table-striped">
                <tr>
-                   <th class="alert-danger">{{ courseType.name }}</th>
+                   <th colspan="2" class="alert-danger">{{ courseType.name }}</th>
                </tr>
                <tr>
-                   <th class="btn-group btn-group-justified">
-
-                       <a href="#" class="btn btn-default"> O KURZE</a>
+                   <td colspan="2">
+                       <div  class="btn-group btn-group-justified">
+                       <a href="#" class="btn btn-default">O KURZE</a>
                        <a href="#" class="btn btn-default">TERMÍNY</a>
+                       </div>
 
-                   </th>
+                   </td>
                </tr>
 
 
                <tr>
-                   <td>{{ courseType.description }}</td>
+                   <td colspan="2">{{ courseType.description }}</td>
                </tr>
                <tr>
                    <td><b>Soft - mimoaplikačné:</b></td>
@@ -49,6 +50,7 @@
                </tr>
 
                 <tr>
+                    <td colspan="2">
                     <table  width="700" class="table-striped">
                         <tr >
                             <th>Dátum konania </th>
@@ -58,6 +60,11 @@
                             <th>Obsadenosť </th>
                             <th>Prihlásenie</th>
                         </tr>
+                        {% if courseType.courseInstances|length == 0 %}
+                            <tr>
+                            <td colspan="6">Pre tento kurz nie je momentálne vypísaný žiaden termín.</td>
+                            </tr>
+                        {% endif %}
                      {% for instance in courseType.courseInstances %}
                             <tr>
                                 <td>{{ instance.timestamp|date('d.m.Y') }}</td>
@@ -65,11 +72,13 @@
                                 <td>{{ instance.place }}</td>
                                 <td>{{ instance.supervisor }}</td>
                                 <td>{{ instance.enrolleds|length }}/{{ instance.capacity }}</td>
+
                                 <td><a href="{{ path('enrolled_new', { 'course_instance': instance.id }) }}" class="btn btn-default">Prihlásiť sa</a></td>
                             </tr>
                         {% endfor %}
 
                     </table>
+                    </td>
                 </tr>
 
 
@@ -91,7 +100,7 @@
                 </td>
                </tr> -->
            </table>
-            </p>
+
             {% endif %}
         {% endfor %}
 

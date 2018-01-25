@@ -33,6 +33,7 @@ class AppFixture extends Fixture
         for ($i = 0; $i < 5; $i++) {
             $role = new Role();
             $role->setName($roles[$i]);
+
             $this->addReference('role'.$i, $role);
 
             $manager->persist($role);
@@ -47,6 +48,7 @@ class AppFixture extends Fixture
             $pass = 'pass' . $i;
             $user->setPassword(password_hash($pass, PASSWORD_DEFAULT));
             $user->setRole($this->getReference('role'.random_int(0, 4)));
+
             $this->addReference('user'.$i, $user);  //set reference for this user
 
             $manager->persist($user);
@@ -84,6 +86,7 @@ class AppFixture extends Fixture
             } else {
                 $workplace->setName('workplace' . $i);
                 $workplace->setParent($this->getReference('FMFI'));
+
                 $this->addReference('workplace' . $i, $workplace);
                 //TODO ostatne vazby
             }
@@ -101,6 +104,7 @@ class AppFixture extends Fixture
             $place->setUpdated($now);
             $place->setDeleted(false);
             $place->setWorkplace($this->getReference('workplace'.$i));
+
             $this->addReference('place'.$i, $place);
 
             $manager->persist($place);
@@ -117,26 +121,43 @@ class AppFixture extends Fixture
             $courseType->setDeleted(false);
             $courseType->setGarantId($this->getReference('user'.$i));
 
+            $this->addReference('courseType'.$i ,$courseType);
+
             $manager->persist($courseType);
         }
     }
 
     private function seedCourseInstances(ObjectManager $manager){
         //create 10 course instances
-        for ($i = 1; $i <= 20; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             $courseInstance = new CourseInstance();
             $courseInstance->setTimeStamp(new \DateTime("now"));
             $courseInstance->setPlace($this->getReference('place'.$i));
             $courseInstance->setCapacity(random_int(10, 50));
+            $courseInstance->setCourseType($this->getReference('courseType'.$i));
+            $courseInstance->setSupervisor($this->getReference('user'.$i));
+            $courseInstance->setDisenrollDate(new \DateTime("now"));
 
+            $this->addReference('courseInstance'.$i, $courseInstance);
+
+            $manager->persist($courseInstance);
         }
 
-        $manager->persist($courseInstance);
+
     }
 
     private function seedEnrolled(ObjectManager $manager){
         //create 10 enrolleds
+        for ($i = 1; $i <= 10; $i++) {
+            $enrolled = new Enrolled();
+            $enrolled->setGraduated(rand(0,1)==1);
+            $enrolled->setAttended(rand(0,1)==1);
+            $enrolled->setUser($this->getReference('user'.$i));
+            $enrolled->setCourseInstance($this->getReference('courseInstance'.$i));
+            $enrolled->setComment('Comment for this enrolled number '.$i);
 
+            $manager->persist($enrolled);
+        }
     }
 
     public function load(ObjectManager $manager){
@@ -146,6 +167,8 @@ class AppFixture extends Fixture
         $this->seedWorkplaces($manager);
         $this->seedPlaces($manager);
         $this->seedCourseTypes($manager);
+        $this->seedCourseInstances($manager);
+        $this->seedEnrolled($manager);
 
         $manager->flush();
     }

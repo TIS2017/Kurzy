@@ -54,20 +54,29 @@
             </div>
 
             <div class="row" id="infoBar">
-                <div class="col-lg-5" id="menu">
+                <div class="col-lg-9" id="menu">
                     <ul class="menuList">
                         {% if is_granted('ROLE_USER') %}
                             <li><a href="{{ path('coursetype_index') }}">Kurzy</a></li>
                             <li><a href="/">Moje kurzy</a></li>
+
                         {% endif %}
                         {% if is_granted('ROLE_SUPERVISOR') %}
                             <li><a href="{{ path('supervised', { 'id': app.user.id }) }}">Vedené kurzy</a></li>
                         {% endif %}
+
+                        <!-- TODO: prerobit podla typu pouzivatela -->
+                        <li><a href="/courseinstance/new">Novy termín kurzu</a></li>
+                        <li><a href="/coursetype/new">Vytvor kurz</a></li>
+                        <li><a href="/">Pridaj subadmina</a></li>
+
+                        <!--  -->
+
                     </ul>
 
                 </div>
                 {% if is_granted('ROLE_USER') %}
-                <div class="col-lg-7" id="status">
+                <div class="col-lg-3" id="status" style="font-size: 13px;">
                     Ste prihlásený ako <strong>{{ app.user.login }}</strong> | <a href="/logout">Odhlásiť</a>
                 </div>
                 {% endif %}

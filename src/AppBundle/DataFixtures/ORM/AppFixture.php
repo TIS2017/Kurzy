@@ -49,6 +49,7 @@ class AppFixture extends Fixture
     private function seedUsers(ObjectManager $manager){
         // create 20 users
         $names = ['Patka Marmanova', 'Danka Skorvankova', 'Adka Spisakova', 'Misko Brcko'];
+        $roles = ['User', 'Supervisor', 'Master', 'Subadmin', 'Admin'];
         for ($i = 1; $i <= 50; $i++) {
             $user = new User();
             if ($i>=1 && $i <= 4){
@@ -65,6 +66,17 @@ class AppFixture extends Fixture
 
             $manager->persist($user);
         }
+        // Uzivatelia s hlavnymi rolami
+        $i = 0;
+        foreach ($roles as $role) {
+            $user = new User();
+            $user->setLogin($role);
+            $user->setPassword(password_hash('pass', PASSWORD_DEFAULT));
+            $user->setRole($this->getReference('role'.$i));
+            $i++;
+            $manager->persist($user);
+        }
+
     }
 
     public function setReferenceRepository(ReferenceRepository $referenceRepository)

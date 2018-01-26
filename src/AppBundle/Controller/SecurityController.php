@@ -30,8 +30,16 @@ class SecurityController extends Controller
 
             $courseTypes = $em->getRepository('AppBundle:CourseType')->findAll();
 
+            if (count($courseTypes)>0) {
+                $workplaces = $courseTypes[0]->usersWorkplaces($this->getUser());
+            }
+            else {
+                $workplaces = array();
+            }
+            
             return $this->render('coursetype/index.html.twig', array(
                 'courseTypes' => $courseTypes,
+                'workplaces' => $workplaces,
             ));
         }
         else {

@@ -50,7 +50,7 @@ a:hover{
 }
 
 #menu li + li:before{
-    content: " | ";
+    content: "|";
     padding: 0 10px;
     color: #FFFFFF;
 }

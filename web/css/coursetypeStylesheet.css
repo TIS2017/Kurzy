@@ -153,5 +153,38 @@
     margin: 10px;
     border: 3px solid #929292;
     border-radius: 0;
+}
 
+
+#newTypeTable {
+    text-align: left;
+    border:2px solid #FFFFFF;
+    border-collapse:separate;
+    border-spacing: 5px;
+    width: 100%;
+}
+
+#panelType{
+    border-radius: 0;
+    border: 1px solid #b3231b;
+}
+
+#panelTypeHeading{
+    background-color: #b3231b;
+    text-align: left;
+    margin:0;
+    border-radius: 0;
+    padding: 1px 5px;
+    border: 0;
+    color: #FFFFFF;
+}
+
+#panelTypeHeading h4{
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#panelTypeBody{
+    padding: 5px;
+    text-align: center;
 }

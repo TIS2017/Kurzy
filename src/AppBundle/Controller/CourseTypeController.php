@@ -29,6 +29,7 @@ class CourseTypeController extends Controller
 
         return $this->render('coursetype/index.html.twig', array(
             'courseTypes' => $courseTypes,
+            'workplaces' => $this->usersWorkplaces(),
         ));
     }
 
@@ -76,6 +77,7 @@ class CourseTypeController extends Controller
         return $this->render('coursetype/show.html.twig', array(
             'courseType' => $courseType,
             'delete_form' => $deleteForm->createView(),
+            'workplaces' => $this->usersWorkplaces(),
         ));
     }
 
@@ -138,5 +140,34 @@ class CourseTypeController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    /**
+     * Returns an array of workplaces of logged user.
+     * @return array
+     */
+    private function usersWorkplaces()
+    {
+        $workplaces = array();
+
+        $user = $this->getUser();
+
+        foreach ($user->getWorkplaces() as $workplace) {
+            $parent = $workplace->getParent();
+            while ($parent != NULL) {
+                if (!in_array($workplace, $workplaces)) {
+                    array_push($workplaces, $workplace);
+                }
+                $workplace = $parent;
+                $parent = $workplace->getParent();
+            }
+            if ($parent == NULL) {
+                if (!in_array($workplace, $workplaces)) {
+                    array_push($workplaces, $workplace);
+                }
+            }
+        }
+
+        return $workplaces;
     }
 }

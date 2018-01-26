@@ -89,6 +89,12 @@
                                         <th>Obsadenosť </th>
                                         <th>Prihlásenie</th>
                                     </tr>
+                                    {% set rightWorkplace = false %}
+                                    {% for workplace in workplaces %}
+                                        {% if workplace in courseType.workplaces %}
+                                            {% set rightWorkplace = true %}
+                                        {% endif %}
+                                    {% endfor %}
                                     {% for instance in courseType.courseInstances %}
                                         {% if date(instance.timestamp) > date() %}
                                             <tr>
@@ -105,7 +111,7 @@
                                                         {% set isEnrolled = true %}
                                                     {% endif %}
                                                 {% endfor %}
-                                                {% if instance.capacity - instance.enrolleds|length > 0 and not isEnrolled %}
+                                                {% if instance.capacity - instance.enrolleds|length > 0 and not isEnrolled and rightWorkplace %}
                                                     <td>
                                                         <a href="{{ path('enrolled_new', { 'course_instance': instance.id }) }}" class="btn btn-default">
                                                             Prihlásiť sa

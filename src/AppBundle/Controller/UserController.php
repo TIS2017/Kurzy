@@ -134,4 +134,34 @@ class UserController extends Controller
             ->getForm()
         ;
     }
+
+  /**
+     * Add subadmin and assign him to a workplace.
+     *
+     * @Route("/addsubadmin", name="addsubadmin")
+     * @Method({"GET", "POST"})
+     */
+  /*  public function addSubadmin(Request $request){
+        $form = $this->createForm('AppBundle\Form\SubadminType');
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $request->get('login');
+            $workplace = $request->get('name');
+
+
+            $em = $this->getDoctrine()->getManager();
+            //$em->persist($user);
+           $em->getRepository('AppBundle\\Entity\\User')->find($user->getId());
+
+
+            $em->flush();
+
+            return $this->redirectToRoute('user_show', array('id' => $user->getId()));
+        }
+
+        return $this->render('user/addsubadmin.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }*/
 }

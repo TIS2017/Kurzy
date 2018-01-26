@@ -50,4 +50,9 @@ class CourseSoftPrerequisite
     {
         $this->courseType = $courseType;
     }
+
+    public function __toString()
+    {
+        return (string) $this->value;
+    }
 }

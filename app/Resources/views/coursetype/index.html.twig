@@ -107,6 +107,7 @@
                                     </tr>
 
                                     {% for instance in courseType.courseInstances %}
+                                {% if date(instance.timestamp) > date() %}
                                         <tr>
                                             <td>{{ instance.timestamp|date('d.m.Y') }}</td>
                                             <td>{{ instance.timestamp|date('H:i') }}</td>
@@ -142,6 +143,7 @@
 #}
                                             {% endif %}
                                         </tr>
+                                    {% endif %}
                                     {% endfor %}
                                 {% endif %}
                             </table>

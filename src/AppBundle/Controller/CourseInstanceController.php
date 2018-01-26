@@ -84,6 +84,8 @@ class CourseInstanceController extends Controller
     {
         $deleteForm = $this->createDeleteForm($courseInstance);
         $editForm = $this->createForm('AppBundle\Form\CourseInstanceType', $courseInstance);
+        $editForm->remove('courseType');
+        $editForm->remove('supervisor');
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

@@ -1,21 +1,52 @@
 {% extends 'base.html.twig' %}
 {% block title %}Úprava termínu kurzu{% endblock %}
 {% block body %}
-    <h1>Courseinstance edit</h1>
+    {% if is_granted('ROLE_SUPERVISOR') and courseInstance.supervisor.id == app.user.id %}
+    <h1>Úprava termínu kurzu</h1>
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+    <table>
+        {{ form_start(edit_form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('courseinstance_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        <tr>
+            <td>
+                <label for="appbundle_courseinstance_timeStamp">Dátum a čas konania: </label>
+            </td>
+            <td>
+                {{ form_errors(edit_form.timeStamp) }}
+                {{ form_widget(edit_form.timeStamp) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="appbundle_courseinstance_place">Miesto konania: </label>
+            </td>
+            <td>
+                {{ form_errors(edit_form.place) }}
+                {{ form_widget(edit_form.place) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="appbundle_courseinstance_capacity">Kapacita: </label>
+            </td>
+            <td>
+                {{ form_errors(edit_form.capacity) }}
+                {{ form_widget(edit_form.capacity) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="appbundle_courseinstance_disenrollDate">Odhlásiť sa do: </label>
+            </td>
+            <td>
+                {{ form_errors(edit_form.disenrollDate) }}
+                {{ form_widget(edit_form.disenrollDate) }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Upraviť" /></td>
+        </tr>
+        {{ form_end(edit_form) }}
+    </table>
+{% endif %}
 {% endblock %}

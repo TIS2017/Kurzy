@@ -1,40 +1,40 @@
 {% extends 'base.html.twig' %}
 {% block title %}Zoznam prihlásených{% endblock %}
 {% block body %}
-    <h4>Zoznam prihlásených na kurz {{ courseInstance.courseType.name }}</h4>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ courseInstance.id }}</td>
-            </tr>
-            <tr>
-                <th>Timestamp</th>
-                <td>{% if courseInstance.timeStamp %}{{ courseInstance.timeStamp|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Capacity</th>
-                <td>{{ courseInstance.capacity }}</td>
-            </tr>
-            <tr>
-                <th>Disenrolldate</th>
-                <td>{% if courseInstance.disenrollDate %}{{ courseInstance.disenrollDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+{% if is_granted('ROLE_SUPERVISOR') and courseInstance.supervisor.id == app.user.id %}
+    <h4>Zoznam prihlásených na kurz {{ courseInstance.courseType.name }}</h4><br>
+    <div>
+        {% if courseInstance.enrolleds|length == 0 %}
+            Na tento termín kurzu nie je momentálne nikto prihlásený.
 
-    <ul>
-        <li>
-            <a href="{{ path('courseinstance_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('courseinstance_edit', { 'id': courseInstance.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+            {% else %}
+        <b>Prihlásení</b><br><br>
+            <ul>
+        {% endif %}
+
+    {% for enroll in courseInstance.enrolleds %}
+        <li>{{ enroll.userId }}</li>
+    {% endfor %}
+
+        {% if courseInstance.enrolleds|length > 0 %}
+            </ul>
+        {% endif %}
+    </div>
+
+
+
+
+            <br>
+
+            <a {% if courseInstance.enrolleds|length == 0 %}
+                class="btn disabled"
+            {% else %}
+                class="btn btn-default"
+            {% endif %}  href="">Tlačiť zoznam prihlásených</a>
+    <br><br>
+<ul>
+          <li><a href="{{ path('supervised', { 'id': app.user.id }) }}">Naspäť</a></li>
+</ul>
+{% endif %}
 {% endblock %}

@@ -2,36 +2,26 @@
 
 namespace AppBundle\Form;
 
-
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
-
-class CourseTypeType extends AbstractType
+class SubadminType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('description')->add('softPrerequisites' )
-            ->add('visibility')->add('garantId')
-            ->add('workplaces',null, ['choice_label'=> 'name','expanded'=> true, 'multiple'=> true])
-            ->add('hardPrerequisites');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
+        $builder->add('name')->add('login');
+    }/**
+ * {@inheritdoc}
+ */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\CourseType',
+            'data_class' => 'AppBundle\Entity\Workplace',  'data_class' => 'AppBundle\Entity\User'
         ));
-
     }
 
     /**
@@ -39,7 +29,7 @@ class CourseTypeType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_coursetype';
+        return 'appbundle_subadmin';
     }
 
 

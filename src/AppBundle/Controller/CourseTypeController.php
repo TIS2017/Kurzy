@@ -41,7 +41,7 @@ class CourseTypeController extends Controller
     public function newAction(Request $request)
     {
         $courseType = new Coursetype();
-        $form = $this->createForm('AppBundle\Form\CourseTypeType', $courseType, array('user' => $this->getUser()));
+        $form = $this->createForm('AppBundle\Form\CourseTypeType', $courseType);
         $form->handleRequest($request);
 
 

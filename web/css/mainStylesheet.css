@@ -72,6 +72,10 @@ a:hover{
     text-decoration: underline;
 }
 
+#appbundle_coursetype_workplaces label {
+
+    margin-right: 1em;
+}
 
 #custom-search-form {
     margin:0;

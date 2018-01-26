@@ -91,7 +91,7 @@ class CourseInstanceController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('courseinstance_edit', array('id' => $courseInstance->getId()));
+            return $this->redirectToRoute('supervised', array('id' => ($courseInstance->getSupervisor())->getId()));
         }
 
         return $this->render('courseinstance/edit.html.twig', array(

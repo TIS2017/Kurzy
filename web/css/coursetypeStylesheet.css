@@ -72,7 +72,7 @@
     text-align: center;
 }
 
-#instancesTable{
+#instancesTable, #activeCourseTable{
     width: 100%;
     text-align: center;
  }
@@ -127,13 +127,13 @@
     text-decoration: underline;
 }
 
-#pastCourseHeading h4{
+#pastCourseHeading h4, #activeCourseHeading h4{
     font-weight: bold;
     text-transform: uppercase;
     padding-left: 5px;
 }
 
-#pastCourseHeading{
+#pastCourseHeading, #activeCourseHeading {
     font-weight: bold;
     text-transform: uppercase;
     padding: 0;
@@ -149,7 +149,7 @@
     padding: 5px;
 }
 
-#pastCourse{
+#pastCourse, #activeCourse{
     margin: 10px;
     border: 3px solid #929292;
     border-radius: 0;

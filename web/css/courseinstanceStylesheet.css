@@ -63,22 +63,12 @@
     text-align: center;
 }
 
-#newInstanceTable{
+#newInstanceTable, #editInstanceTable{
     text-align: left;
     border:2px solid #FFFFFF;
     border-collapse:separate;
     border-spacing: 5px;
     width: 100%;
-}
-
-#newInstanceTable td {
-    /*
-    margin: 12px 12px 12px 12px;
-    */
-    /*
-    padding: 12px 12px 12px 12px;
-    */
-
 }
 
 .formElement{

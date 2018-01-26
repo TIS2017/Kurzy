@@ -1,18 +1,15 @@
 {% extends 'base.html.twig' %}
 
 
-
 {% block body %}
     {% if is_granted('ROLE_USER') %}
 
     <h1>Moje kurzy</h1>
 
-
+        <!-- PRIHLASENY NA KURZY -->
         {% set isEnrolled = false %}
         {% for courseInstance in courseInstances %}
             {% for enrolledUser in courseInstance.enrolleds %}
-
-                <!-- PRIHLASENY NA KURZY -->
                 {% if enrolledUser.userId == app.user and date(courseInstance.timestamp) > date() %}
                     {% set enroll_id = enrolledUser.id %}
                     {% set isEnrolled = true %}
@@ -44,9 +41,19 @@
                             {% endif %}
                         </tr>
                     </table>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        {% if not isEnrolled %}
+            <p>Momentálne nie ste prihlásený na žiadny kurz.</p>
+        {% endif %}
 
-                <!-- ABSOLVOVANE KURZY -->
-                {% elseif enrolledUser.userId == app.user %}
+        <!-- ABSOLVOVANE KURZY -->
+        {% set isEnrolled = false %}
+        {% for courseInstance in courseInstances %}
+            {% for enrolledUser in courseInstance.enrolleds %}
+                {% if enrolledUser.userId == app.user and date(courseInstance.timestamp) < date() %}
+                    {% set isEnrolled = true %}
                     <h4>{{ courseInstance.courseType.name }}</h4>
                     <h5>{{ courseInstance.timestamp|date('d.m.Y H:i') }}</h5>
                     <p>{{ courseInstance.courseType.description }}</p>
@@ -55,7 +62,8 @@
             {% endfor %}
         {% endfor %}
         {% if not isEnrolled %}
-            <p>Momentálne nie ste prihlásený na žiadny kurz.</p>
+            <p>Žiadny kurz ste v minulosti neabsolvovali.</p>
         {% endif %}
+
     {% endif %}
 {% endblock %}

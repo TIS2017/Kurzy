@@ -36,7 +36,7 @@ class SecurityController extends Controller
             else {
                 $workplaces = array();
             }
-            
+
             return $this->render('coursetype/index.html.twig', array(
                 'courseTypes' => $courseTypes,
                 'workplaces' => $workplaces,

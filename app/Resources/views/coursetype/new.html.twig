@@ -1,13 +1,80 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nový druh školenia{% endblock %}
+{% block title %}Nový kurz{% endblock %}
 
 {% block body %}
-    <h1>Nový druh školenia</h1>
+    {% if is_granted("ROLE_SUBADMIN") %}
+        <h1>Nový kurz</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Vytvoriť" />
-    {{ form_end(form) }}
-
+        <table>
+        {{ form_start(form) }}
+            <tr>
+                <td>
+                    <label for="appbundle_coursetype_name">Názov kurzu: </label>
+                </td>
+                <td>
+                    {{ form_errors(form.name) }}
+                    {{ form_widget(form.name) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="appbundle_coursetype_description">Sylabus: </label>
+                </td>
+                <td>
+                    {{ form_errors(form.description) }}
+                    {{ form_widget(form.description) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="appbundle_coursetype_softPrerequisites">Soft prerekvizity: </label>
+                </td>
+                <td>
+                    {{ form_errors(form.softPrerequisites) }}
+                    {{ form_widget(form.softPrerequisites) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="appbundle_coursetype_hardPrerequisites">Hard prerekvizity: </label>
+                </td>
+                <td>
+                    {{ form_errors(form.hardPrerequisites) }}
+                    {{ form_widget(form.hardPrerequisites) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="appbundle_coursetype_garant_id">Garant: </label>
+                </td>
+                <td>
+                    {{ form_errors(form.garant_id) }}
+                    {{ form_widget(form.garant_id) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="appbundle_coursetype_visibility">Viditeľnosť: </label>
+                </td>
+                <td>
+                    {{ form_errors(form.visibility) }}
+                    {{ form_widget(form.visibility) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="appbundle_coursetype_workplaces">Súčasť: </label>
+                </td>
+                <td>
+                    {{ form_errors(form.workplaces) }}
+                    {{ form_widget(form.workplaces) }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Vytvoriť" /></td>
+            </tr>
+        {{ form_end(form) }}
+        </table>
+    {% endif %}
 {% endblock %}

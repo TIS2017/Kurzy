@@ -41,12 +41,15 @@ class CourseTypeController extends Controller
     public function newAction(Request $request)
     {
         $courseType = new Coursetype();
-        $form = $this->createForm('AppBundle\Form\CourseTypeType', $courseType);
+        $form = $this->createForm('AppBundle\Form\CourseTypeType', $courseType, array('user' => $this->getUser()));
         $form->handleRequest($request);
 
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $courseType->setDeleted(false);
+
             $em->persist($courseType);
 
             $em->flush();

@@ -117,7 +117,12 @@ class AppFixture extends Fixture
             $courseType = new CourseType();
             $courseType->setName('course type '.$i);
             $courseType->setDescription('Course description number '.$i);
-            $courseType->setVisibility(rand(0,1)==1);
+            if ($i == 4 || $i == 5 || $i == 6){     // 4, 5, 6 viditelne kvoli prerekvizitam
+                $visibility = true;
+            } else {
+                $visibility = rand(0,1)==1;
+            }
+            $courseType->setVisibility($visibility);
             $courseType->setDeleted(false);
             $courseType->setGarantId($this->getReference('user'.$i));
 
@@ -142,7 +147,6 @@ class AppFixture extends Fixture
 
             $manager->persist($courseInstance);
         }
-
     }
 
     private function seedEnrolled(ObjectManager $manager){
@@ -170,6 +174,20 @@ class AppFixture extends Fixture
         }
     }
 
+    private function seedCourseHardPrerequisites(ObjectManager $manager){
+            $course4 = $this->getReference('courseType4');
+            $course5 = $this->getReference('courseType5');
+            $course6 = $this->getReference('courseType6');
+
+            $course4->setHardPrerequisites(array($course5,$course6));
+            $course5->setHardPrerequisitesOf(array($course4));
+            $course6->setHardPrerequisitesOf(array($course4));
+
+            $manager->persist($course4);
+            $manager->persist($course5);
+            $manager->persist($course6);
+    }
+
     public function load(ObjectManager $manager){
         $this->seedRoles($manager);
         $this->seedUsers($manager);
@@ -180,6 +198,7 @@ class AppFixture extends Fixture
         $this->seedCourseInstances($manager);
         $this->seedEnrolled($manager);
         $this->seedCourseSoftPrerequisites($manager);
+        $this->seedCourseHardPrerequisites($manager);
 
         $manager->flush();
     }

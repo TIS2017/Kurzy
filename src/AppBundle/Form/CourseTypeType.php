@@ -16,8 +16,8 @@ class CourseTypeType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $user = $options['user'];
-        $workplaces = $user->getWorkplaces();
+        //$user = $options['user'];
+        //$workplaces = $user->getWorkplaces();
 
         $builder->add('name')->add('description')->add('softPrerequisites')
             ->add('visibility')->add('garantId')

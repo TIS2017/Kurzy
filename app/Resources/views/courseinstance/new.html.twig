@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block body %}
-    {% if is_granted("ROLE_SUBADMIN") %}
+    {% if is_granted("ROLE_MASTER") %}
 
         <div class="panel panel-default " id="panelInstance">
             <div class="panel-heading" id="panelInstanceHeading">

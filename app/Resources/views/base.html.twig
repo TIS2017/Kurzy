@@ -65,12 +65,17 @@
                             <li><a href="{{ path('supervised', { 'id': app.user.id }) }}">Vedené kurzy</a></li>
                         {% endif %}
 
-                        <!-- TODO: prerobit podla typu pouzivatela -->
-                        <li><a href="/courseinstance/new">Nový termín kurzu</a></li>
-                        <li><a href="/coursetype/new">Vytvor kurz</a></li>
-                        <li><a href="/">Pridaj subadmina</a></li>
 
-                        <!--  -->
+                        {% if is_granted('ROLE_MASTER') %}
+                        <li><a href="/courseinstance/new">Nový termín kurzu</a></li>
+                        {% endif %}
+                        {% if is_granted('ROLE_SUBADMIN') %}
+                        <li><a href="/coursetype/new">Vytvor kurz</a></li>
+                        {% endif %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <li><a href="/">Pridaj subadmina</a></li>
+                        {% endif %}
+
 
                     </ul>
 

@@ -11,16 +11,27 @@ use AppBundle\Entity\Enrolled;
 use AppBundle\Entity\Place;
 use AppBundle\Entity\CourseInstance;
 use AppBundle\Entity\CourseType;
-
-use Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Doctrine\Common\Persistence\ObjectManager;
-
-
+use Symfony\Component\Validator\Constraints\Date;
+use DateInterval;
 
 class AppFixture extends Fixture
 {
+
+    private function randomDate($start_date, $end_date) {
+        // Convert to timetamps
+        $min = strtotime($start_date);
+        $max = strtotime($end_date);
+
+
+        // Generate random number using above bounds
+        $val = rand($min, $max);
+
+        // Convert back to desired date format
+        return date_create(date('Y-m-d H:i:s', $val));
+    }
 
     private function seedRoles(ObjectManager $manager) {
         //create user-roles
@@ -38,7 +49,7 @@ class AppFixture extends Fixture
     private function seedUsers(ObjectManager $manager){
         // create 20 users
         $names = ['Patka Marmanova', 'Danka Skorvankova', 'Adka Spisakova', 'Misko Brcko'];
-        for ($i = 1; $i <= 20; $i++) {
+        for ($i = 1; $i <= 50; $i++) {
             $user = new User();
             if ($i>=1 && $i <= 4){
                 $login = $names[($i-1)];
@@ -130,7 +141,8 @@ class AppFixture extends Fixture
             }
             $courseType->setVisibility($visibility);
             $courseType->setDeleted(false);
-            $courseType->setGarantId($this->getReference('user'.$i));
+            $num = random_int(1,20);
+            $courseType->setGarantId($this->getReference('user'.$num));
 
             $this->addReference('courseType'.$i ,$courseType);
 
@@ -139,15 +151,26 @@ class AppFixture extends Fixture
     }
 
     private function seedCourseInstances(ObjectManager $manager){
-        //create 10 course instances
-        for ($i = 1; $i <= 10; $i++) {
+        //create 60 course instances
+        for ($i = 1; $i <= 60; $i++) {
             $courseInstance = new CourseInstance();
-            $courseInstance->setTimeStamp(new \DateTime("now"));
-            $courseInstance->setPlace($this->getReference('place'.$i));
+
+            $startDate = "10 January 2017";
+            $endDate = "12 December 2019";
+
+            $randomTimestamp = $this->randomDate($startDate, $endDate);
+            $courseInstance->setTimeStamp( $randomTimestamp );
+
+            $randomTimestampDisenroll = $randomTimestamp;
+            date_sub($randomTimestampDisenroll, date_interval_create_from_date_string('1 day'));
+
+            $courseInstance->setDisenrollDate($randomTimestampDisenroll);
+
+            $courseInstance->setPlace($this->getReference('place'. random_int(1,10) ));
             $courseInstance->setCapacity(random_int(10, 50));
-            $courseInstance->setCourseType($this->getReference('courseType'.$i));
-            $courseInstance->setSupervisor($this->getReference('user'.$i));
-            $courseInstance->setDisenrollDate(new \DateTime("now"));
+            $courseInstance->setCourseType($this->getReference('courseType'. random_int(1,10) ));
+            $courseInstance->setSupervisor($this->getReference('user'. random_int(1,20)) );
+
 
             $this->addReference('courseInstance'.$i, $courseInstance);
 
@@ -156,17 +179,38 @@ class AppFixture extends Fixture
     }
 
     private function seedEnrolled(ObjectManager $manager){
-        //create 10 enrolleds
-        for ($i = 1; $i <= 10; $i++) {
-            $enrolled = new Enrolled();
-            $enrolled->setGraduated(rand(0,1)==1);
-            $enrolled->setAttended(rand(0,1)==1);
-            $enrolled->setUserId($this->getReference('user'.$i));
-            $enrolled->setCourseInstance($this->getReference('courseInstance'.$i));
-            $enrolled->setComment('Comment for this enrolled number '.$i);
+        //create many enrolleds
+        for ($i = 1; $i <= 19; $i++) {
 
-            $manager->persist($enrolled);
+            $enrolledIn = array();
+
+            $randCount = random_int(0,7);
+
+            for ($j = 1; $j <= $randCount; $j++) {
+
+                $enrolled = new Enrolled();
+
+                $enrolled->setUserId($this->getReference('user' . $i));
+
+
+                $enrolled->setGraduated(rand(0, 1) == 1);
+                $enrolled->setAttended(rand(0, 1) == 1);
+
+                $randCourse = random_int(1, 60);
+
+                if (!in_array($randCourse, $enrolledIn)) {
+                    array_push($enrolledIn, $randCourse);
+
+
+                    $enrolled->setCourseInstance($this->getReference('courseInstance' . $randCourse));
+
+                    $enrolled->setComment('Comment.');
+
+                    $manager->persist($enrolled);
+                }
+            }
         }
+        $manager->flush();
     }
 
     private function seedCourseSoftPrerequisites(ObjectManager $manager){

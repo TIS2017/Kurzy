@@ -1,16 +1,13 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Nový druh školenia{% endblock %}
+
 {% block body %}
-    <h1>Coursetype creation</h1>
+    <h1>Nový druh školenia</h1>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <input type="submit" value="Vytvoriť" />
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('coursetype_index') }}">Back to the list</a>
-        </li>
-    </ul>
 {% endblock %}

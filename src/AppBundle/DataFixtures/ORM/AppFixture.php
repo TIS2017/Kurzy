@@ -201,7 +201,26 @@ class AppFixture extends Fixture
         }
     }
 
-    public function load(ObjectManager $manager){
+    private function seedCourseWorkplaces(ObjectManager $manager){
+        for ($i = 1; $i <= 10; $i++) {
+            $courseType = $this->getReference('courseType'.$i);
+            $workplaces = array();
+            for ($j = 1; $j <= 10; $j++) {
+                if (random_int(1,3) == 3){
+                    $workplace = $this->getReference('workplace'.$j);
+                    $workplaceCourseTypes = $workplace->getCourseTypes();
+                    $workplaceCourseTypes->add($courseType);
+                    array_push($workplaces, $workplace);
+                    $manager->persist($workplace);
+                }
+            }
+            $courseType->setWorkplaces($workplaces);
+
+            $manager->persist($courseType);
+        }
+    }
+
+        public function load(ObjectManager $manager){
         $this->seedRoles($manager);
         $this->seedUsers($manager);
         $this->seedEmails($manager);
@@ -213,6 +232,7 @@ class AppFixture extends Fixture
         $this->seedCourseSoftPrerequisites($manager);
         $this->seedCourseHardPrerequisites($manager);
         $this->seedUserWorkplaces($manager);
+        $this->seedCourseWorkplaces($manager);
 
         $manager->flush();
     }

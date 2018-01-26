@@ -110,7 +110,7 @@ class Workplace
     }
 
     public function getCourseTypes(){
-        return $this->subadmins;
+        return $this->courseTypes;
     }
 
     public function setCourseTypes($courseTypes)

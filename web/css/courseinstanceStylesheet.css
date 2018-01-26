@@ -62,3 +62,29 @@
     width: 100%;
     text-align: center;
 }
+
+#newInstanceTable{
+    text-align: left;
+    border:2px solid #FFFFFF;
+    border-collapse:separate;
+    border-spacing: 5px;
+    width: 100%;
+}
+
+#newInstanceTable td {
+    /*
+    margin: 12px 12px 12px 12px;
+    */
+    /*
+    padding: 12px 12px 12px 12px;
+    */
+
+}
+
+.formElement{
+    border-color: #0f0f0f;
+    border-radius: 0;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0;
+}

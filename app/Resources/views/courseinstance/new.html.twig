@@ -2,17 +2,27 @@
 
 {% block title %}Nový termín kurzu{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/courseinstanceStylesheet.css') }}" class="css">
+{% endblock %}
+
 {% block body %}
     {% if is_granted("ROLE_SUBADMIN") %}
-        <h1>Nový termín kurzu</h1>
 
-        <table>
+        <div class="panel panel-default " id="panelInstance">
+            <div class="panel-heading" id="panelInstanceHeading">
+                <h4>Nový termín kurzu</h4>
+            </div>
+
+            <div class="panel-body" id="panelInstanceBody">
+
+        <table id="newInstanceTable">
             {{ form_start(form) }}
             <tr>
-                <td>
+                <td style="width: 20%;">
                     <label for="appbundle_coursetype_courseType">Druh kurzu: </label>
                 </td>
-                <td>
+                <td style="width: 80%;">
                     {{ form_errors(form.courseType) }}
                     {{ form_widget(form.courseType) }}
                 </td>
@@ -46,7 +56,7 @@
             </tr>
             <tr>
                 <td>
-                    <label for="appbundle_coursetype_supervisor">Školieteľ: </label>
+                    <label for="appbundle_coursetype_supervisor">Školiteľ: </label>
                 </td>
                 <td>
                     {{ form_errors(form.supervisor) }}
@@ -63,9 +73,11 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="2"><input type="submit" value="Vytvoriť" /></td>
+                <td colspan="2" style="padding-left: 20%; padding-top: 3%;"><input type="submit" value="Vytvoriť" /></td>
             </tr>
             {{ form_end(form) }}
         </table>
+            </div>
+        </div>
     {% endif %}
 {% endblock %}

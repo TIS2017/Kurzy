@@ -56,8 +56,13 @@
             <div class="row" id="infoBar">
                 <div class="col-lg-5" id="menu">
                     <ul class="menuList">
-                        <li><a href="/">Kurzy</a></li>
-                        <li><a href="/">Moje kurzy</a></li>
+                        {% if is_granted('ROLE_USER') %}
+                            <li><a href="{{ path('coursetype_index') }}">Kurzy</a></li>
+                            <li><a href="/">Moje kurzy</a></li>
+                        {% endif %}
+                        {% if is_granted('ROLE_SUPERVISOR') %}
+                            <li><a href="{{ path('supervised', { 'id': app.user.id }) }}">Vedené kurzy</a></li>
+                        {% endif %}
                     </ul>
 
                 </div>

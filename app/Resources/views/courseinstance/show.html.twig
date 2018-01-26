@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}Zoznam prihlásených{% endblock %}
 {% block body %}
-    <h1>Courseinstance</h1>
+    <h4>Zoznam prihlásených na kurz {{ courseInstance.courseType.name }}</h4>
 
     <table>
         <tbody>

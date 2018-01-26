@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\CourseInstance;
+use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -132,5 +133,20 @@ class CourseInstanceController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    /**
+     * Displays courseInstances supervised by logged user.
+     *
+     * @Route("/{id}/supervised", name="supervised")
+     * @Method("GET")
+     */
+    public function supervisedCourses(User $supervisor)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $courseInstances = $em->getRepository('AppBundle:CourseInstance')->findBy(array('supervisor'=>$supervisor));
+        return $this->render('courseinstance/supervised.html.twig',array(
+            'courseInstances' => $courseInstances, 'supervisor'=>$supervisor
+        ));
     }
 }

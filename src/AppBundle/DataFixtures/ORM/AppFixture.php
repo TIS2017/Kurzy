@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: misko
- * Date: 24.1.2018
- * Time: 11:52
- */
 
 namespace AppBundle\DataFixtures\ORM;
 
@@ -188,6 +182,25 @@ class AppFixture extends Fixture
             $manager->persist($course6);
     }
 
+    private function seedUserWorkplaces(ObjectManager $manager){
+        for ($i = 1; $i <= 20; $i++) {
+            $user = $this->getReference('user'.$i);
+            $workplaces = array();
+            for ($j = 1; $j <= 10; $j++) {
+                if (random_int(1,3) == 3){
+                    $workplace = $this->getReference('workplace'.$j);
+                    $workplaceUsers = $workplace->getUsers();
+                    $workplaceUsers->add($user);
+                    array_push($workplaces, $workplace);
+                    $manager->persist($workplace);
+                }
+            }
+            $user->setWorkplaces($workplaces);
+
+            $manager->persist($user);
+        }
+    }
+
     public function load(ObjectManager $manager){
         $this->seedRoles($manager);
         $this->seedUsers($manager);
@@ -199,6 +212,7 @@ class AppFixture extends Fixture
         $this->seedEnrolled($manager);
         $this->seedCourseSoftPrerequisites($manager);
         $this->seedCourseHardPrerequisites($manager);
+        $this->seedUserWorkplaces($manager);
 
         $manager->flush();
     }

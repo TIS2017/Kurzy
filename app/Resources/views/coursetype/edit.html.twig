@@ -1,21 +1,90 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Coursetype edit</h1>
+    {% if is_granted("ROLE_SUBADMIN") %}
+        <h1>Upraviť kurz</h1>
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+        <table>
+            {{ form_start(edit_form) }}
+            <tr>
+                <td>
+                    <label for="appbundle_coursetype_name">Názov kurzu: </label>
+                </td>
+                <td>
+                    {{ form_errors(edit_form.name) }}
+                    {{ form_widget(edit_form.name) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="appbundle_coursetype_description">Sylabus: </label>
+                </td>
+                <td>
+                    {{ form_errors(edit_form.description) }}
+                    {{ form_widget(edit_form.description) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="appbundle_coursetype_softPrerequisites">Soft prerekvizity: </label>
+                </td>
+                <td>
+                    {{ form_errors(edit_form.softPrerequisites) }}
+                    {{ form_widget(edit_form.softPrerequisites) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="appbundle_coursetype_hardPrerequisites">Hard prerekvizity: </label>
+                </td>
+                <td>
+                    {{ form_errors(edit_form.hardPrerequisites) }}
+                    {{ form_widget(edit_form.hardPrerequisites) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="appbundle_coursetype_garantId">Garant: </label>
+                </td>
+                <td>
+                    {{ form_errors(edit_form.garantId) }}
+                    {{ form_widget(edit_form.garantId) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="appbundle_coursetype_visibility">Viditeľnosť: </label>
+                </td>
+                <td>
+                    {{ form_errors(edit_form.visibility) }}
+                    {{ form_widget(edit_form.visibility) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="appbundle_coursetype_workplaces">Súčasť: </label>
+                </td>
+                <td>
+                    {{ form_errors(edit_form.workplaces) }}
+                    {{ form_widget(edit_form.workplaces) }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Vytvoriť" />
+                </td>
+            </tr>
+            {{ form_end(edit_form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('coursetype_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+            <tr>
+                <td colspan="2">
+                    {{ form_start(delete_form) }}
+                    <input type="submit" value="Zmazať">
+                    {{ form_end(delete_form) }}
+                </td>
+            </tr>
+        </table>
+
+
+    {% endif %}
 {% endblock %}

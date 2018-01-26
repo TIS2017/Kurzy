@@ -81,3 +81,77 @@
     text-align: center;
     padding: 2px 0;
 }
+
+#supervisedTabs li{
+    background-color: #C3C0C3;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+}
+
+#supervisedTabs li a{
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: none;
+}
+
+#supervisedTabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+    background-color: #b3231b;
+    border: none;
+    border-radius: 0;
+}
+
+#supervisedTabs>li>a:hover {
+    background-color: #b3231b;
+    border: none;
+    border-radius: 0;
+}
+
+#supervisedPanel{
+    border-radius: 0;
+    border: none;
+}
+
+#actual, #past{
+    border: 3px solid #b3231b;
+    padding: 5px;
+}
+
+#supervisedPanelBody{
+    padding: 0;
+}
+
+.courseHeading a:hover{
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+#pastCourseHeading h4{
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-left: 5px;
+}
+
+#pastCourseHeading{
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 0;
+    background-color: #929292;
+    margin:0;
+    border-radius: 0;
+    padding: 1px 0;
+    border: 0;
+    color: #FFFFFF;
+}
+
+#pastCourseBody{
+    padding: 5px;
+}
+
+#pastCourse{
+    margin: 10px;
+    border: 3px solid #929292;
+    border-radius: 0;
+
+}

@@ -2,12 +2,12 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\Workplace;
-use Doctrine\Common\Collections\ArrayCollection;
-use function PHPSTORM_META\type;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 
 class CourseTypeType extends AbstractType
 {
@@ -16,10 +16,7 @@ class CourseTypeType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        //$user = $options['user'];
-        //$workplaces = $user->getWorkplaces();
-
-        $builder->add('name')->add('description')->add('softPrerequisites')
+        $builder->add('name')->add('description')->add('softPrerequisites' )
             ->add('visibility')->add('garantId')
             ->add('workplaces')
             ->add('hardPrerequisites');
@@ -32,7 +29,6 @@ class CourseTypeType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\CourseType',
-            'user' =>null
         ));
     }
 

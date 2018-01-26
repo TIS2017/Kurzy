@@ -23,7 +23,6 @@
 .courseHeading a:hover{
     color: #FFFFFF;
     text-decoration: underline;
-
 }
 
 #panelCourseHeading h4{
@@ -55,4 +54,30 @@
     background-color: #929292;
     border: none;
     border-radius: 0;
+}
+
+
+#tableHeader1 {
+    height: 35px;
+    text-align: center;
+}
+
+#tableHeader2{
+    height: 35px;
+    border-bottom: 1px solid #000000;
+    text-align: center;
+}
+
+#tableHeader2 th{
+    text-align: center;
+}
+
+#instancesTable{
+    width: 100%;
+    text-align: center;
+ }
+
+.descriptonPar{
+    text-align: center;
+    padding: 2px 0;
 }

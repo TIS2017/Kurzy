@@ -36,9 +36,15 @@ class AppFixture extends Fixture
 
     private function seedUsers(ObjectManager $manager){
         // create 20 users
+        $names = ['Patka Marmanova', 'Danka Skorvankova', 'Adka Spisakova', 'Misko Brcko'];
         for ($i = 1; $i <= 20; $i++) {
             $user = new User();
-            $user->setLogin('user' . $i);
+            if ($i>=1 && $i <= 4){
+                $login = $names[($i-1)];
+            } else {
+                $login = 'user'.$i;
+            }
+            $user->setLogin($login);
             $pass = 'pass' . $i;
             $user->setPassword(password_hash($pass, PASSWORD_DEFAULT));
             $user->setRole($this->getReference('role'.random_int(0, 4)));
@@ -220,6 +226,25 @@ class AppFixture extends Fixture
         }
     }
 
+    private function seedSubadmins(ObjectManager $manager){
+        for ($i = 1; $i <= 20; $i++) {
+            $user = $this->getReference('user'.$i);
+            $workplaces = array();
+            for ($j = 1; $j <= 10; $j++) {
+                if (random_int(1,6) == 6){
+                    $workplace = $this->getReference('workplace'.$j);
+                    $workplaceSubadmins = $workplace->getSubadmins();
+                    $workplaceSubadmins->add($user);
+                    array_push($workplaces, $workplace);
+                    $manager->persist($workplace);
+                }
+            }
+            $user->setSubadminWorkplaces($workplaces);
+
+            $manager->persist($user);
+        }
+    }
+
         public function load(ObjectManager $manager){
         $this->seedRoles($manager);
         $this->seedUsers($manager);
@@ -233,6 +258,7 @@ class AppFixture extends Fixture
         $this->seedCourseHardPrerequisites($manager);
         $this->seedUserWorkplaces($manager);
         $this->seedCourseWorkplaces($manager);
+        $this->seedSubadmins($manager);
 
         $manager->flush();
     }

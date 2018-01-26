@@ -20,7 +20,7 @@ class CourseTypeType extends AbstractType
         $workplaces = $user->getWorkplaces();
 
         $builder->add('name')->add('description')->add('softPrerequisites')
-            ->add('visibility')->add('garant_id')
+            ->add('visibility')->add('garantId')
             ->add('workplaces')
             ->add('hardPrerequisites');
     }

@@ -3,11 +3,69 @@
 {% block title %}Nový termín kurzu{% endblock %}
 
 {% block body %}
-    <h1>Nový termín kurzu</h1>
+    {% if is_granted("ROLE_SUBADMIN") %}
+        <h1>Nový termín kurzu</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Vytvoriť" />
-    {{ form_end(form) }}
-
+        <table>
+            {{ form_start(form) }}
+            <tr>
+                <td>
+                    <label for="appbundle_coursetype_courseType">Druh kurzu: </label>
+                </td>
+                <td>
+                    {{ form_errors(form.courseType) }}
+                    {{ form_widget(form.courseType) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="appbundle_courseinstance_timeStamp">Dátum a čas konania: </label>
+                </td>
+                <td>
+                    {{ form_errors(form.timeStamp) }}
+                    {{ form_widget(form.timeStamp) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="appbundle_coursetype_place">Miesto konania: </label>
+                </td>
+                <td>
+                    {{ form_errors(form.place) }}
+                    {{ form_widget(form.place) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="appbundle_coursetype_capacity">Kapacita: </label>
+                </td>
+                <td>
+                    {{ form_errors(form.capacity) }}
+                    {{ form_widget(form.capacity) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="appbundle_coursetype_supervisor">Školieteľ: </label>
+                </td>
+                <td>
+                    {{ form_errors(form.supervisor) }}
+                    {{ form_widget(form.supervisor) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="appbundle_coursetype_disenrollDate">Odhlásiť sa do: </label>
+                </td>
+                <td>
+                    {{ form_errors(form.disenrollDate) }}
+                    {{ form_widget(form.disenrollDate) }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Vytvoriť" /></td>
+            </tr>
+            {{ form_end(form) }}
+        </table>
+    {% endif %}
 {% endblock %}

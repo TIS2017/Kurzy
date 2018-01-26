@@ -58,7 +58,7 @@
                     <ul class="menuList">
                         {% if is_granted('ROLE_USER') %}
                             <li><a href="{{ path('coursetype_index') }}">Kurzy</a></li>
-                            <li><a href="/">Moje kurzy</a></li>
+                            <li><a href="/courseinstance">Moje kurzy</a></li>
 
                         {% endif %}
                         {% if is_granted('ROLE_SUPERVISOR') %}
@@ -66,7 +66,7 @@
                         {% endif %}
 
                         <!-- TODO: prerobit podla typu pouzivatela -->
-                        <li><a href="/courseinstance/new">Novy termín kurzu</a></li>
+                        <li><a href="/courseinstance/new">Nový termín kurzu</a></li>
                         <li><a href="/coursetype/new">Vytvor kurz</a></li>
                         <li><a href="/">Pridaj subadmina</a></li>
 

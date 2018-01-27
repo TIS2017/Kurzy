@@ -31,7 +31,7 @@
                 class="btn disabled"
             {% else %}
                 class="btn btn-default"
-            {% endif %}  href="">Tlačiť zoznam prihlásených</a>
+            {% endif %}  href="{{ path('enrolled_users_pdf', { 'id': courseInstance.id }) }}">Tlačiť zoznam prihlásených</a>
     <br><br>
 <ul>
           <li><a href="{{ path('supervised', { 'id': app.user.id }) }}">Naspäť</a></li>

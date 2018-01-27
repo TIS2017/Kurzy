@@ -7,6 +7,7 @@ use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Courseinstance controller.
@@ -150,5 +151,27 @@ class CourseInstanceController extends Controller
         return $this->render('courseinstance/supervised.html.twig',array(
             'courseInstances' => $courseInstances, 'supervisor'=>$supervisor
         ));
+    }
+
+
+    /**
+     * Export to PDF
+     *
+     * @Route("/{id}/pdf", name="enrolled_users_pdf")
+     */
+    public function pdfAction(CourseInstance $courseInstance)
+    {
+        $html = $this->renderView('courseinstance/pdf.html.twig', array('courseInstance' => $courseInstance));
+
+        $filename = sprintf('enrolled_users_%s.pdf', $courseInstance->getCourseType());
+
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            200,
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            ]
+        );
     }
 }

@@ -1,14 +1,34 @@
 {% extends 'base.html.twig' %}
 {% block title %}Úprava termínu kurzu{% endblock %}
-{% block body %}
-    {% if is_granted('ROLE_SUPERVISOR') and courseInstance.supervisor.id == app.user.id %}
-    <h1>Úprava termínu kurzu</h1>
 
-    <table>
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/courseinstanceStylesheet.css') }}" class="css">
+{% endblock %}
+
+{% block body %}
+    {% set rightSubadmin = false %}
+    {% for workplace in app.user.subadminWorkplaces %}
+        {% if workplace in workplaces %}
+            {% set rightSubadmin = true %}
+        {% endif %}
+    {% endfor %}
+    {% if (is_granted("ROLE_SUPERVISOR") and courseInstance.supervisor == app.user)
+        or (is_granted("ROLE_MASTER") and courseInstance.courseType.garantId == app.user)
+        or (is_granted("ROLE_SUBADMIN") and rightSubadmin)
+        or (is_granted("ROLE_ADMIN")) %}
+
+<div class="panel panel-default " id="panelInstance">
+    <div class="panel-heading" id="panelInstanceHeading">
+        <h4>Úprava termínu kurzu</h4>
+    </div>
+
+    <div class="panel-body" id="panelInstanceBody">
+
+        <table id="editInstanceTable">
         {{ form_start(edit_form) }}
 
         <tr>
-            <td>
+            <td style="width: 20%;">
                 <label for="appbundle_courseinstance_timeStamp">Dátum a čas konania: </label>
             </td>
             <td>
@@ -17,7 +37,7 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td style="width: 20%;">
                 <label for="appbundle_courseinstance_place">Miesto konania: </label>
             </td>
             <td>
@@ -26,7 +46,7 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td style="width: 20%;">
                 <label for="appbundle_courseinstance_capacity">Kapacita: </label>
             </td>
             <td>
@@ -35,7 +55,7 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td style="width: 20%;">
                 <label for="appbundle_courseinstance_disenrollDate">Odhlásiť sa do: </label>
             </td>
             <td>
@@ -44,9 +64,19 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2"><input type="submit" value="Upraviť" /></td>
+            <td colspan="2" style="padding-left: 20%; padding-top: 3%;"><input type="submit" value="Upraviť" /></td>
         </tr>
         {{ form_end(edit_form) }}
-    </table>
+
+            <tr>
+                <td colspan="2">
+                    {{ form_start(delete_form) }}
+                    <input type="submit" value="Zmazať">
+                    {{ form_end(delete_form) }}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
 {% endif %}
 {% endblock %}

@@ -27,8 +27,16 @@ class CourseTypeController extends Controller
 
         $courseTypes = $em->getRepository('AppBundle:CourseType')->findAll();
 
+        if (count($courseTypes)>0) {
+            $workplaces = $courseTypes[0]->usersWorkplaces($this->getUser());
+        }
+        else {
+            $workplaces = array();
+        }
+
         return $this->render('coursetype/index.html.twig', array(
             'courseTypes' => $courseTypes,
+            'workplaces' => $workplaces,
         ));
     }
 
@@ -76,6 +84,7 @@ class CourseTypeController extends Controller
         return $this->render('coursetype/show.html.twig', array(
             'courseType' => $courseType,
             'delete_form' => $deleteForm->createView(),
+            'workplaces' => $courseType->usersWorkplaces($this->getUser()),
         ));
     }
 
@@ -101,6 +110,7 @@ class CourseTypeController extends Controller
             'courseType' => $courseType,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'workplaces' => $courseType->usersWorkplaces($this->getUser()),
         ));
     }
 

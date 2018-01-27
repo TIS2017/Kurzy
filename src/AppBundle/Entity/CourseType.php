@@ -209,4 +209,31 @@ class CourseType
     {
         return $this->name;
     }
+
+    /**
+     * Returns an array of workplaces of logged user.
+     * @return array
+     */
+    public function usersWorkplaces($user)
+    {
+        $workplaces = array();
+
+        foreach ($user->getWorkplaces() as $workplace) {
+            $parent = $workplace->getParent();
+            while ($parent != NULL) {
+                if (!in_array($workplace, $workplaces)) {
+                    array_push($workplaces, $workplace);
+                }
+                $workplace = $parent;
+                $parent = $workplace->getParent();
+            }
+            if ($parent == NULL) {
+                if (!in_array($workplace, $workplaces)) {
+                    array_push($workplaces, $workplace);
+                }
+            }
+        }
+
+        return $workplaces;
+    }
 }

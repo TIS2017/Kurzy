@@ -7,6 +7,7 @@ use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Courseinstance controller.
@@ -49,7 +50,7 @@ class CourseInstanceController extends Controller
             $em->persist($courseInstance);
             $em->flush();
 
-            return $this->redirectToRoute('courseinstance_show', array('id' => $courseInstance->getId()));
+            return $this->redirectToRoute('coursetype_show', array('id' => $courseInstance->getCourseType()->getId()));
         }
 
         return $this->render('courseinstance/new.html.twig', array(
@@ -59,18 +60,27 @@ class CourseInstanceController extends Controller
     }
 
     /**
-     * Finds and displays a courseInstance entity.
+     * Finds and displays a courseInstance entity and allows to edit its enrolleds.
      *
      * @Route("/{id}", name="courseinstance_show")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      */
-    public function showAction(CourseInstance $courseInstance)
+    public function showAction(Request $request, CourseInstance $courseInstance)
     {
-        $deleteForm = $this->createDeleteForm($courseInstance);
+        $editForm = $this->createForm('AppBundle\Form\EnrolledListType', $courseInstance);
+
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('courseinstance_show', array('id' => ($courseInstance->getId())));
+        }
+
 
         return $this->render('courseinstance/show.html.twig', array(
             'courseInstance' => $courseInstance,
-            'delete_form' => $deleteForm->createView(),
+            'edit_form' => $editForm->createView(),
         ));
     }
 
@@ -98,6 +108,7 @@ class CourseInstanceController extends Controller
             'courseInstance' => $courseInstance,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'workplaces' => $courseInstance->getCourseType()->usersWorkplaces($this->getUser()),
         ));
     }
 
@@ -151,4 +162,28 @@ class CourseInstanceController extends Controller
             'courseInstances' => $courseInstances, 'supervisor'=>$supervisor
         ));
     }
+
+
+    /**
+     * Export to PDF
+     *
+     * @Route("/{id}/pdf", name="enrolled_users_pdf")
+     */
+    public function pdfAction(CourseInstance $courseInstance)
+    {
+        $html = $this->renderView('courseinstance/pdf.html.twig', array('courseInstance' => $courseInstance));
+
+        $filename = sprintf('enrolled_users_%s.pdf', $courseInstance->getCourseType());
+
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            200,
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            ]
+        );
+    }
+
+
 }

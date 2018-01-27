@@ -8,7 +8,6 @@
 {% block body %}
     {% if is_granted('ROLE_USER') %}
         {% set empty = 'true' %}
-
         {% for courseType in courseTypes %}
             {% if courseType.visibility and not courseType.deleted %}
                 {% set empty = 'false' %}
@@ -26,7 +25,7 @@
                             <li class="nav-item" id="liActive">
                                 <a class="nav-link active" data-toggle="tab" href="#panel1{{ courseType.id }}" role="tab" aria-controls="panel1{{ courseType.id }}" aria-selected="true">O kurze</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item" style="border-left: 1px solid #FFFFFF;">
                                 <a class="nav-link" data-toggle="tab" href="#panel2{{ courseType.id }}" role="tab" aria-controls="panel2{{ courseType.id }}" aria-selected="false">Termíny</a>
                             </li>
                         </ul>
@@ -106,8 +105,15 @@
                                         <th>Prihlásenie</th>
                                     </tr>
 
+                                    {% set rightWorkplace = false %}
+                                    {% for workplace in workplaces %}
+                                        {% if workplace in courseType.workplaces %}
+                                            {% set rightWorkplace = true %}
+                                        {% endif %}
+                                    {% endfor %}
+
                                     {% for instance in courseType.courseInstances %}
-                                {% if date(instance.timestamp) > date() %}
+                                    {% if date(instance.timestamp) > date() %}
                                         <tr>
                                             <td>{{ instance.timestamp|date('d.m.Y') }}</td>
                                             <td>{{ instance.timestamp|date('H:i') }}</td>
@@ -123,7 +129,8 @@
                                                     {% set isEnrolled = true %}
                                                 {% endif %}
                                             {% endfor %}
-                                            {% if instance.capacity - instance.enrolleds|length > 0 and not isEnrolled %}
+
+                                            {% if instance.capacity - instance.enrolleds|length > 0 and not isEnrolled and rightWorkplace %}
                                                 <td>
                                                     <a href="{{ path('enrolled_new', { 'course_instance': instance.id }) }}" class="btn btn-default">
                                                         Prihlásiť sa
@@ -163,6 +170,43 @@
     {% endif %}
 
 {% endif %}
+
+
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+
+                    Tu pojde prihlasenie
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 {% endblock %}
 

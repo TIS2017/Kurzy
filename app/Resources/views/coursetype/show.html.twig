@@ -88,7 +88,14 @@
                                         <th>Školiteľ </th>
                                         <th>Obsadenosť </th>
                                         <th>Prihlásenie</th>
+                                        <th> </th>
                                     </tr>
+                                    {% set rightWorkplace = false %}
+                                    {% for workplace in workplaces %}
+                                        {% if workplace in courseType.workplaces %}
+                                            {% set rightWorkplace = true %}
+                                        {% endif %}
+                                    {% endfor %}
                                     {% for instance in courseType.courseInstances %}
                                         {% if date(instance.timestamp) > date() %}
                                             <tr>
@@ -105,7 +112,7 @@
                                                         {% set isEnrolled = true %}
                                                     {% endif %}
                                                 {% endfor %}
-                                                {% if instance.capacity - instance.enrolleds|length > 0 and not isEnrolled %}
+                                                {% if instance.capacity - instance.enrolleds|length > 0 and not isEnrolled and rightWorkplace %}
                                                     <td>
                                                         <a href="{{ path('enrolled_new', { 'course_instance': instance.id }) }}" class="btn btn-default">
                                                             Prihlásiť sa
@@ -122,6 +129,19 @@
                                                 {% else %}
                                                     <td> </td>
                                                 {% endif %}
+                                                {% set rightSubadmin = false %}
+                                                {% for workplace in app.user.subadminWorkplaces %}
+                                                    {% if workplace in workplaces %}
+                                                        {% set rightSubadmin = true %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% if (is_granted("ROLE_SUPERVISOR") and instance.supervisor == app.user) or (is_granted("ROLE_SUBADMIN") and rightSubadmin) or (is_granted("ROLE_ADMIN")) %}
+                                                    <td>
+                                                        <a href="{{ path('courseinstance_edit', { 'id': instance.id }) }}" class="btn btn-default">
+                                                            Upraviť
+                                                        </a>
+                                                    </td>
+                                                {% endif %}
                                             </tr>
                                         {% endif %}
                                     {% endfor %}
@@ -133,14 +153,13 @@
                         </div>
                     </div>
 
-
-
-
-
-
-
-
-                    {% if is_granted("ROLE_MASTER") and courseType.garantId == app.user %}
+                    {% set rightSubadmin = false %}
+                    {% for workplace in app.user.subadminWorkplaces %}
+                        {% if workplace in workplaces %}
+                            {% set rightSubadmin = true %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if (is_granted("ROLE_MASTER") and courseType.garantId == app.user) or (is_granted("ROLE_SUBADMIN") and rightSubadmin) or (is_granted("ROLE_ADMIN")) %}
                         <a href="{{ path('coursetype_edit', { 'id': courseType.id }) }}">Upraviť</a>
                         {{ form_start(delete_form) }}
                             <input type="submit" value="Zmazať">

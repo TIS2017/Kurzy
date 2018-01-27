@@ -1,18 +1,254 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Moje kurzy{% endblock %}
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/courseinstanceStylesheet.css') }}" class="css">
+{% endblock %}
 
 
 {% block body %}
     {% if is_granted('ROLE_USER') %}
 
-    <h1>Moje kurzy</h1>
+        <div class="panel panel-default " id="enrolledPanel">
+
+            <div class="panel-body" id="enrolledPanelBody">
+
+                <!-- Nav tabs VONKASIE-->
+                <div>
+                    <ul class="nav nav-tabs nav-justified" id="enrolledTabs">
+                        <li class="nav-item" id="liActive">
+                            <a class="nav-link active" data-toggle="tab" href="#actual" role="tab" aria-controls="actual" aria-selected="true" style="font-size: 16px;"> Prihlásený na kurzy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#past" role="tab" aria-controls="past" aria-selected="false" style="font-size: 16px;">Uskutočnené kurzy</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Tab panels VNUTORNE -->
+                <div class="tab-content card">
+
+                    <!-- PRIHLASENY-->
+                    <div class="tab-pane active" id="actual" role="tabpanel" aria-labelledby="actual">
+                        {% set isEnrolled = false %}
+                        {% for courseInstance in courseInstances %}
+                            {% for enrolledUser in courseInstance.enrolleds %}
+                                {% if enrolledUser.userId == app.user and date(courseInstance.timestamp) > date() %}
+                                    {% set enroll_id = enrolledUser.id %}
+                                    {% set isEnrolled = true %}
+
+                        <div class="panel panel-default " id="actualPanelCourse">
+                            <div class="panel-heading" id="actualPanelCourseHeading">
+                                <h4><a href={{ path('coursetype_show', { 'id': courseInstance.courseType.id }) }}><h4>{{ courseInstance.courseType.name }}</h4></a></h4>
+                            </div>
+
+                            <div class="panel-body" id="actualPanelCourseBody">
+
+                                <!-- Nav tabs -->
+                                <div>
+                                    <ul class="nav nav-tabs nav-justified" id="courseTabs">
+                                        <li class="nav-item" id="liActive">
+                                            <a class="nav-link active" data-toggle="tab" href="#panel1{{ courseInstance.id }}" role="tab" aria-controls="panel1{{ courseInstance.id }}" aria-selected="true">Termín</a>
+                                        </li>
+                                        <li class="nav-item" style="border-left: 1px solid #FFFFFF;">
+                                            <a class="nav-link" data-toggle="tab" href="#panel2{{ courseInstance.id }}" role="tab" aria-controls="panel2{{ courseInstance.id }}" aria-selected="false">O kurze</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Tab panels -->
+                                <div class="tab-content card">
 
 
+                                    <!--Panel TERMIN-->
+                                    <div class="tab-pane active" id="panel1{{ courseInstance.id }}" role="tabpanel" aria-labelledby="panel1{{ courseInstance.id }}">
+                                        <table class="enrolledTable">
+                                            <tr id="tableHeader3">
+                                                <th>Dátum</th>
+                                                <th>Čas</th>
+                                                <th>Miesto</th>
+                                                <th>Školiteľ </th>
+                                                <th>Obsadenosť </th>
+                                                <th></th>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ courseInstance.timestamp|date('d.m.Y') }}</td>
+                                                <td>{{ courseInstance.timestamp|date('H:i') }}</td>
+                                                <td>{{ courseInstance.place }}</td>
+                                                <td>{{ courseInstance.supervisor }}</td>
+                                                <td>{{ courseInstance.enrolleds|length }}/{{ courseInstance.capacity }}</td>
+                                                {% if  date() < courseInstance.disenrollDate %}
+                                                    <td>
+                                                        <a href="{{ path('enrolled_show', { 'id':  enroll_id  }) }}" class="btn btn-default">
+                                                            Odhlásiť sa
+                                                        </a>
+                                                    </td>
+                                                {% else %}
+                                                    <td class="text-muted">Ste prihlásený</td>
+                                                {% endif %}
+                                            </tr>
+                                        </table>
+                                    </div>
+
+
+                                    <!-- Panel O KURZE -->
+                                    <div class="tab-pane" id="panel2{{ courseInstance.id }}" role="tabpanel" aria-labelledby="panel2{{ courseInstance.id }}">
+                                        <p class="descriptonPar">
+                                            {{ courseInstance.courseType.description }}
+                                        </p>
+
+                                        <table class="table-striped" style="width: 100%; text-align: center;">
+                                            <tr id="tableHeader1">
+                                                <th style="text-align: center;"><b>Soft - mimoaplikačné:</b></th>
+                                                <th style="text-align: center;"><b>Hard - vnútroaplikačné:</b></th>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    {% if courseInstance.courseType.softPrerequisites|length > 0 %}
+                                                        <ol>
+                                                            {% for prerequisite in courseInstance.courseType.softPrerequisites  %}
+                                                                <li>{{ prerequisite.value }}</li>
+                                                            {% endfor %}
+                                                        </ol>
+                                                    {% else %}
+                                                        <ul>
+                                                            <li>Tento kurz nemá žiadne mimoaplikačné prerekvizity.</li>
+                                                        </ul>
+                                                    {% endif %}
+                                                </td>
+
+                                                <td>
+                                                    {% if courseInstance.courseType.hardPrerequisites|length > 0 %}
+                                                        <ol>
+                                                            {% for prerequisite in courseInstance.courseType.hardPrerequisites  %}
+                                                                <li>{{ prerequisite.name }}</li>
+                                                            {% endfor %}
+                                                        </ol>
+                                                    {% else %}
+                                                        <ul>
+                                                            <li>Tento kurz nemá žiadne vnútroaplikačné prerekvizity.</li>
+                                                        </ul>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                    </div>
+                                    <!-- Panel O KURZE -->
+                                </div>
+                            </div>
+                        </div>
+
+                            {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                        {% if not isEnrolled %}
+                            <p>Momentálne nie ste prihlásený na žiadny kurz.</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- PRIHLASENY-->
+
+
+
+                    <!-- MINULE -->
+                    <div class="tab-pane" id="past" role="tabpanel" aria-labelledby="past">
+
+                        {% set isEnrolled = false %}
+                        {% for courseInstance in courseInstances %}
+                            {% for enrolledUser in courseInstance.enrolleds %}
+                                {% if enrolledUser.userId == app.user and date(courseInstance.timestamp) < date() %}
+                                    {% set isEnrolled = true %}
+
+                                    <div class="panel panel-default " id="pastCourse">
+                                        <div class="panel-heading" id="pastCourseHeading">
+                                            <div class="row">
+                                                <div class="col-lg-8">
+                                                    <h4>{{ courseInstance.courseType.name }}</h4>
+                                                </div>
+
+                                                <div class="col-lg-2">
+                                                    <h4>{{ courseInstance.timestamp|date('d.m.Y') }}</h4>
+                                                </div>
+
+                                                <div class="col-lg-2">
+                                                    <h4>{{ courseInstance.timestamp|date('H:i') }}</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel-body" id="pastCourseBody">
+
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <p class="descriptonPar">{{ courseInstance.courseType.description }}</p>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row" style="margin-top: 10px;">
+                                                <div class="col-lg-8">
+                                                    Školiteľ: {{ courseInstance.supervisor }}
+                                                </div>
+
+                                                <div class="col-lg-4" style="text-align: right;">
+                                                    {% if enrolledUser.attended and enrolledUser.graduated %}
+                                                        <strong class="text-success">Absolvoval</strong>
+                                                    {% else %}
+                                                        <strong class="text-danger">Neabsolvoval</strong>
+                                                    {% endif %}
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                        {% if not isEnrolled %}
+                            <p>Žiadny kurz ste v minulosti neabsolvovali.</p>
+                        {% endif %}
+
+                    </div>
+                    <!--MINULE-->
+
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ {#   <h1>Moje kurzy</h1>
+
+        <!-- PRIHLASENY NA KURZY -->
         {% set isEnrolled = false %}
         {% for courseInstance in courseInstances %}
             {% for enrolledUser in courseInstance.enrolleds %}
-
-                <!-- PRIHLASENY NA KURZY -->
                 {% if enrolledUser.userId == app.user and date(courseInstance.timestamp) > date() %}
                     {% set enroll_id = enrolledUser.id %}
                     {% set isEnrolled = true %}
@@ -44,9 +280,22 @@
                             {% endif %}
                         </tr>
                     </table>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        {% if not isEnrolled %}
+            <p>Momentálne nie ste prihlásený na žiadny kurz.</p>
+        {% endif %}
 
-                <!-- ABSOLVOVANE KURZY -->
-                {% elseif enrolledUser.userId == app.user %}
+
+
+
+        <!-- ABSOLVOVANE KURZY -->
+        {% set isEnrolled = false %}
+        {% for courseInstance in courseInstances %}
+            {% for enrolledUser in courseInstance.enrolleds %}
+                {% if enrolledUser.userId == app.user and date(courseInstance.timestamp) < date() %}
+                    {% set isEnrolled = true %}
                     <h4>{{ courseInstance.courseType.name }}</h4>
                     <h5>{{ courseInstance.timestamp|date('d.m.Y H:i') }}</h5>
                     <p>{{ courseInstance.courseType.description }}</p>
@@ -55,7 +304,9 @@
             {% endfor %}
         {% endfor %}
         {% if not isEnrolled %}
-            <p>Momentálne nie ste prihlásený na žiadny kurz.</p>
+            <p>Žiadny kurz ste v minulosti neabsolvovali.</p>
         {% endif %}
+
     {% endif %}
 {% endblock %}
+#}

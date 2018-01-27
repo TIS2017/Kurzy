@@ -56,3 +56,7 @@
     grid-column: 2 / 2;
     grid-row: 2 / 2;
 }
+
+#errorMessage{
+    border-radius: 0;
+}

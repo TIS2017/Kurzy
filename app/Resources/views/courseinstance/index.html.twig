@@ -18,7 +18,7 @@
                 <!-- Nav tabs VONKASIE-->
                 <div>
                     <ul class="nav nav-tabs nav-justified" id="enrolledTabs">
-                        <li class="nav-item" id="liActive">
+                        <li class="nav-item active" id="liActive">
                             <a class="nav-link active" data-toggle="tab" href="#actual" role="tab" aria-controls="actual" aria-selected="true" style="font-size: 16px;"> Prihlásený na kurzy</a>
                         </li>
                         <li class="nav-item">
@@ -31,7 +31,7 @@
                 <div class="tab-content card">
 
                     <!-- PRIHLASENY-->
-                    <div class="tab-pane active" id="actual" role="tabpanel" aria-labelledby="actual">
+                    <div class="tab-pane a+ctive" id="actual" role="tabpanel" aria-labelledby="actual">
                         {% set isEnrolled = false %}
                         {% for courseInstance in courseInstances %}
                             {% for enrolledUser in courseInstance.enrolleds %}
@@ -49,7 +49,7 @@
                                 <!-- Nav tabs -->
                                 <div>
                                     <ul class="nav nav-tabs nav-justified" id="courseTabs">
-                                        <li class="nav-item" id="liActive">
+                                        <li class="nav-item active" id="liActive">
                                             <a class="nav-link active" data-toggle="tab" href="#panel1{{ courseInstance.id }}" role="tab" aria-controls="panel1{{ courseInstance.id }}" aria-selected="true">Termín</a>
                                         </li>
                                         <li class="nav-item" style="border-left: 1px solid #FFFFFF;">

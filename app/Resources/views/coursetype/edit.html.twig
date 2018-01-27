@@ -1,7 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% if is_granted("ROLE_SUBADMIN") %}
+    {% set rightSubadmin = false %}
+    {% for workplace in app.user.subadminWorkplaces %}
+        {% if workplace in workplaces %}
+            {% set rightSubadmin = true %}
+        {% endif %}
+    {% endfor %}
+    {% if (is_granted("ROLE_MASTER") and courseType.garantId == app.user)
+        or (is_granted("ROLE_SUBADMIN") and rightSubadmin)
+        or (is_granted("ROLE_ADMIN")) %}
         <h1>Upraviť kurz</h1>
 
         <table>
@@ -71,7 +79,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <input type="submit" value="Vytvoriť" />
+                    <input type="submit" value="Upraviť" />
                 </td>
             </tr>
             {{ form_end(edit_form) }}

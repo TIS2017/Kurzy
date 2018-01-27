@@ -6,7 +6,16 @@
 {% endblock %}
 
 {% block body %}
-    {% if is_granted('ROLE_SUPERVISOR') and courseInstance.supervisor.id == app.user.id %}
+    {% set rightSubadmin = false %}
+    {% for workplace in app.user.subadminWorkplaces %}
+        {% if workplace in workplaces %}
+            {% set rightSubadmin = true %}
+        {% endif %}
+    {% endfor %}
+    {% if (is_granted("ROLE_SUPERVISOR") and courseInstance.supervisor == app.user)
+        or (is_granted("ROLE_MASTER") and courseInstance.courseType.garantId == app.user)
+        or (is_granted("ROLE_SUBADMIN") and rightSubadmin)
+        or (is_granted("ROLE_ADMIN")) %}
 
 <div class="panel panel-default " id="panelInstance">
     <div class="panel-heading" id="panelInstanceHeading">
@@ -59,6 +68,13 @@
         </tr>
         {{ form_end(edit_form) }}
 
+            <tr>
+                <td colspan="2">
+                    {{ form_start(delete_form) }}
+                    <input type="submit" value="Zmazať">
+                    {{ form_end(delete_form) }}
+                </td>
+            </tr>
         </table>
     </div>
 </div>

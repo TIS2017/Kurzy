@@ -108,6 +108,7 @@ class CourseInstanceController extends Controller
             'courseInstance' => $courseInstance,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'workplaces' => $courseInstance->getCourseType()->usersWorkplaces($this->getUser()),
         ));
     }
 

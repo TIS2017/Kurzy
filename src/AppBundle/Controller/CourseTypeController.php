@@ -110,6 +110,7 @@ class CourseTypeController extends Controller
             'courseType' => $courseType,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'workplaces' => $courseType->usersWorkplaces($this->getUser()),
         ));
     }
 

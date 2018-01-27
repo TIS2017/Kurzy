@@ -8,27 +8,31 @@
     <link rel="stylesheet" href="{{ asset('css/headerStylesheet.css') }}" class="css">
     <link rel="stylesheet" href="{{ asset('css/mainStylesheet.css') }}" class="css">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+
     {% block stylesheets %}{% endblock %}
 
 </head>
+
 <header>
     <div class="mainHeader">
         <div class="container">
             <div class="row" id="logoName">
-                <div class="col-lg-1" style="padding: 0;">
+                <div class="col-lg-1 col-sm-2 col-xs-2" style="padding: 0;">
                         <span id="logo">
                             <a href="/" title="Domov" ><img src="../../images/index.png" width="95" height="94" alt="logo"></a>
                         </span>
                 </div>
 
-                <div class="col-lg-8">
-                    <span id="title" style="padding: 5px 0;">
-                        Univerzita Komenského<br/>
-                        v Bratislave
-                    </span>
+                <div class="hidden-xs">
+                    <div class="col-lg-8 col-sm-8">
+                        <span id="title" style="padding: 5px 0;">
+                            Univerzita Komenského<br/>
+                            v Bratislave
+                        </span>
+                    </div>
                 </div>
 
-                <div class="col-lg-3" style="text-align: right;">
+                <div class="col-lg-3 col-sm-2 col-xs-9" style="text-align: right;">
                     <div class="row" >
                         <div class="col-lg-12">
                             <div class="span12">
@@ -42,11 +46,13 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-lg-8 col-lg-offset-2" style="padding: 0; margin-top: 2px; text-align: center;">
-                            <span id="logo">
-                                <a href="/" title="Domov" ><img src="../../images/logo_cit.png" width="auto" height="70" alt="logo"></a>
-                            </span>
+                    <div class="visible-lg">
+                        <div class="row">
+                            <div class="col-lg-8 col-lg-offset-2" style="padding: 0; margin-top: 2px; text-align: center;">
+                                <span id="logo">
+                                    <a href="/" title="Domov" ><img src="../../images/logo_cit.png" width="auto" height="70" alt="logo"></a>
+                                </span>
+                            </div>
                         </div>
                     </div>
 
@@ -54,7 +60,61 @@
             </div>
 
             <div class="row" id="infoBar">
-                <div class="col-lg-9" id="menu">
+                <!-- MENU IBA PRE VELKE ORAZOVKY -->
+                <div class="visible-lg">
+                    <div class="col-lg-9" id="menu">
+                        <ul class="menuList">
+                            {% if is_granted('ROLE_USER') %}
+                                <li><a href="{{ path('coursetype_index') }}">Kurzy</a></li>
+                                <li><a href="/courseinstance">Moje kurzy</a></li>
+
+                            {% endif %}
+                            {% if is_granted('ROLE_SUPERVISOR') %}
+                                <li><a href="{{ path('supervised', { 'id': app.user.id }) }}">Vedené kurzy</a></li>
+                            {% endif %}
+
+
+                            {% if is_granted('ROLE_MASTER') %}
+                            <li><a href="/courseinstance/new">Nový termín kurzu</a></li>
+                            {% endif %}
+                            {% if is_granted('ROLE_SUBADMIN') %}
+                            <li><a href="/coursetype/new">Vytvor kurz</a></li>
+                            {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <li><a href="/">Pridaj subadmina</a></li>
+                            {% endif %}
+
+
+                        </ul>
+
+                    </div>
+                </div>
+                <!-- / MENU IBA PRE VELKE OBRAZOVKY -->
+
+
+
+                <!-- / IBA PRE MALE OBRAZOVKY-->
+
+
+
+                {% if is_granted('ROLE_USER') %}
+                <div class="col-lg-3" id="status" style="font-size: 13px;">
+                    Ste prihlásený ako <strong>{{ app.user.login }}</strong> | <a href="/logout">Odhlásiť</a>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</header>
+<body>
+
+    <!-- MENU IBA PRE STREDNE A MENSIE OBRAZOVKY-->
+    <div class="container">
+        <div class="row">
+                <div class="col-lg-12" id="menuMedium">
+                    <div class="hidden-lg" style="width: 100%; padding: 0;">
+
                     <ul class="menuList">
                         {% if is_granted('ROLE_USER') %}
                             <li><a href="{{ path('coursetype_index') }}">Kurzy</a></li>
@@ -67,36 +127,24 @@
 
 
                         {% if is_granted('ROLE_MASTER') %}
-                        <li><a href="/courseinstance/new">Nový termín kurzu</a></li>
+                            <li><a href="/courseinstance/new">Nový termín kurzu</a></li>
                         {% endif %}
                         {% if is_granted('ROLE_SUBADMIN') %}
-                        <li><a href="/coursetype/new">Vytvor kurz</a></li>
+                            <li><a href="/coursetype/new">Vytvor kurz</a></li>
                         {% endif %}
                         {% if is_granted('ROLE_ADMIN') %}
-                        <li><a href="/">Pridaj subadmina</a></li>
+                            <li><a href="/">Pridaj subadmina</a></li>
                         {% endif %}
-
-
                     </ul>
-
                 </div>
-                {% if is_granted('ROLE_USER') %}
-                <div class="col-lg-3" id="status" style="font-size: 13px;">
-                    Ste prihlásený ako <strong>{{ app.user.login }}</strong> | <a href="/logout">Odhlásiť</a>
-                </div>
-                {% endif %}
             </div>
-
-
         </div>
     </div>
-</header>
+    <!-- MENU IBA PRE STREDNE A MENSIE OBRAZOVKY-->
 
-
-<body>
     <div class="container">
         <div class="row" id="content">
-            <div class="col-lg-10 col-lg-offset-1">
+            <div class="col-lg-10 col-lg-offset-1 col-md-12">
                 {% block body %}{% endblock %}
                 {% block javascripts %}{% endblock %}
             </div>

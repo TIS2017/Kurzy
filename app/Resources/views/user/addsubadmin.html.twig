@@ -2,7 +2,7 @@
 
 {% block title %}Pridaj subadmina{% endblock %}
 {% block body %}
-
+{% if is_granted('ROLE_ADMIN') %}
 
     {{ form_start(form2) }}
 <table>
@@ -23,5 +23,5 @@
     <input type="submit" value="Potvrdiť" />
     {{ form_end(form2) }}
 
-
+{% endif %}
 {% endblock %}

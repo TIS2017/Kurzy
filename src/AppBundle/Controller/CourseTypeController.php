@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\CourseType;
+use AppBundle\Repository\RoleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -57,6 +58,11 @@ class CourseTypeController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $courseType->setDeleted(false);
+
+            if ($courseType->getGarantId()->getRole()->getId() < 3) {
+                $role = $em->getRepository('AppBundle:CourseType')->find(3);
+                $courseType->getGarantId()->setRole($role);
+            }
 
             $em->persist($courseType);
 

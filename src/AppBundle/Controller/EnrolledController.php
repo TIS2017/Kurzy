@@ -66,6 +66,7 @@ class EnrolledController extends Controller
         return $this->render('enrolled/new.html.twig', array(
             'enrolled' => $enrolled,
             'form' => $form->createView(),
+            'workplaces' => $enrolled->getCourseInstance()->getCourseType()->usersWorkplaces($this->getUser()),
         ));
     }
 

@@ -2,7 +2,23 @@
 {% block title %}Prihlásenie na kurz{% endblock %}
 {% block body %}
      {% if is_granted('ROLE_USER') %}
-
+         {% set futureInstance = false %}
+         {% if date( enrolled.courseInstance.timestamp) > date() %}
+             {% set futureInstance = true %}
+         {% endif %}
+         {% set rightWorkplace = false %}
+         {% for workplace in workplaces %}
+             {% if workplace in enrolled.courseInstance.courseType.workplaces %}
+                 {% set rightWorkplace = true %}
+             {% endif %}
+         {% endfor %}
+         {% set isEnrolled = false %}
+         {% for enrolledUser in enrolled.courseInstance.enrolleds %}
+             {% if enrolledUser.userId == app.user %}
+                 {% set isEnrolled = true %}
+             {% endif %}
+         {% endfor %}
+         {% if enrolled.courseInstance.capacity - enrolled.courseInstance.enrolleds|length > 0 and futureInstance and not isEnrolled and rightWorkplace %}
 
              <p class="text-center">Naozaj sa chcete prihlásiť na kurz<br> <b>{{ enrolled.courseInstance.courseType }}</b>?</p>
 
@@ -16,11 +32,7 @@
 
              {{ form_end(form) }}
 
-
-    <ul>
-        <li>
-            <a href="/">Naspäť na kurzy</a>
-        </li>
-    </ul>
+         {% endif %}
+    <p> <a href="/">Naspäť na kurzy</a> </p>
     {% endif %}
 {% endblock %}

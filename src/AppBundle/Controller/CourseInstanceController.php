@@ -49,7 +49,7 @@ class CourseInstanceController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             if ($courseInstance->getSupervisor()->getRole()->getId() < 2) {
-                $role = $em->getRepository('AppBundle:CourseType')->find(2);
+                $role = $em->getRepository('AppBundle:Role')->find(2);
                 $courseInstance->getSupervisor()->setRole($role);
             }
 

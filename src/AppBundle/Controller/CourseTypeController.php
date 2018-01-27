@@ -60,7 +60,7 @@ class CourseTypeController extends Controller
             $courseType->setDeleted(false);
 
             if ($courseType->getGarantId()->getRole()->getId() < 3) {
-                $role = $em->getRepository('AppBundle:CourseType')->find(3);
+                $role = $em->getRepository('AppBundle:Role')->find(3);
                 $courseType->getGarantId()->setRole($role);
             }
 

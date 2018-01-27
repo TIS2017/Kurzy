@@ -6,7 +6,9 @@ use AppBundle\Entity\CourseInstance;
 use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -191,5 +193,29 @@ class CourseInstanceController extends Controller
         );
     }
 
+
+
+    /**
+     * Export to PDF
+     *
+     * @Route("/{id}/{userId}/certificate", name="certificate_pdf")
+     * @ParamConverter("user", class="AppBundle:User", options={"id" = "userId"})
+     */
+    public function pdfCertificate(CourseInstance $courseInstance, User $user)
+    {
+
+        $html = $this->renderView('courseinstance/certificate.html.twig', array('courseInstance' => $courseInstance, 'user'=>$user));
+
+        $filename = sprintf('certificate_%s.pdf', $user->getLogin());
+
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            200,
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            ]
+        );
+    }
 
 }

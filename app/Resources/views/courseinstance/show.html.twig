@@ -40,6 +40,7 @@
                             {% if date(courseInstance.timestamp) < date()  %}
                             <th style="text-align: center;">Zúčastnil sa</th>
                             <th style="text-align: center;">Absolvoval</th>
+                            <th style="text-align: center;">Certifikát</th>
                             {% endif %}
                         </tr>
 
@@ -53,7 +54,7 @@
                                 {{ courseInstance.enrolleds[i].comment }}
                             </td>
 
-                            {% set i = i+1 %}
+
                             {% if date(courseInstance.timestamp) < date()  %}
                             <td>
                                 {{ form_errors(e.attended) }}
@@ -64,9 +65,14 @@
                                 {{ form_errors(e.graduated) }}
                                 {{ form_widget(e.graduated) }}
                             </td>
+                                <td>
+                                    {% if courseInstance.enrolleds[i].graduated %}
+                                        <a class="btn btn-default" href="{{ path('certificate_pdf',{'id':courseInstance.id,'userId':courseInstance.enrolleds[i].userId.id}) }}">Tlačiť</a>
+                                    {% endif %}
+                                </td>
                             {% endif %}
                         </tr>
-
+                            {% set i = i+1 %}
                     {% endfor %}
 
                         </table>

@@ -141,6 +141,8 @@
                                                             Upraviť
                                                         </a>
                                                     </td>
+                                                {% else %}
+                                                    <td> </td>
                                                 {% endif %}
                                             </tr>
                                         {% endif %}
@@ -160,10 +162,16 @@
                         {% endif %}
                     {% endfor %}
                     {% if (is_granted("ROLE_MASTER") and courseType.garantId == app.user) or (is_granted("ROLE_SUBADMIN") and rightSubadmin) or (is_granted("ROLE_ADMIN")) %}
-                        <a href="{{ path('coursetype_edit', { 'id': courseType.id }) }}">Upraviť</a>
-                        {{ form_start(delete_form) }}
-                            <input type="submit" value="Zmazať">
-                        {{ form_end(delete_form) }}
+                        <div style="margin-bottom: 5px;">
+                            <a href="{{ path('coursetype_edit', { 'id': courseType.id }) }}" class="btn btn-default">Upraviť kurz</a>
+                        </div>
+
+                        <div>
+                            {{ form_start(delete_form) }}
+                            <input type="submit" value="Vymazať kurz" class="btn btn-default">
+                            {{ form_end(delete_form) }}
+
+                        </div>
                     {% endif %}
 
                     <!-- Vnutorne panely -->

@@ -1,26 +1,73 @@
 {% extends 'base.html.twig' %}
+
 {% block title %}Prihlásenie na kurz{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/coursetypeStylesheet.css') }}" class="css">
+{% endblock %}
+
 {% block body %}
      {% if is_granted('ROLE_USER') %}
+         {% set futureInstance = false %}
+         {% if date( enrolled.courseInstance.timestamp) > date() %}
+             {% set futureInstance = true %}
+         {% endif %}
+         {% set rightWorkplace = false %}
+         {% for workplace in workplaces %}
+             {% if workplace in enrolled.courseInstance.courseType.workplaces %}
+                 {% set rightWorkplace = true %}
+             {% endif %}
+         {% endfor %}
+         {% set isEnrolled = false %}
+         {% for enrolledUser in enrolled.courseInstance.enrolleds %}
+             {% if enrolledUser.userId == app.user %}
+                 {% set isEnrolled = true %}
+             {% endif %}
+         {% endfor %}
+         {% if enrolled.courseInstance.capacity - enrolled.courseInstance.enrolleds|length > 0 and futureInstance and not isEnrolled and rightWorkplace %}
 
+            <div class="panel panel-default " id="panelInstance">
+                <div class="panel-heading" id="panelInstanceHeading">
+                    <h4>Prihlásenie na kurz</h4>
+                </div>
 
-             <p class="text-center">Naozaj sa chcete prihlásiť na kurz<br> <b>{{ enrolled.courseInstance.courseType }}</b>?</p>
+                <div class="panel-body" id="panelInstanceBody" style="padding: 10px;">
+                     <div id="question">
+                         <h4>Naozaj sa chcete prihlásiť na kurz
+                             <strong>{{ enrolled.courseInstance.courseType }}</strong>?</h4>
+                         <div style="margin-top: 15px; margin-bottom: 25px ;">
+                             <table class="table-striped" id="enrolledList2">
+                                 <tr id="tableHeader1">
+                                     <th>Dátum</th>
+                                     <th>Čas</th>
+                                     <th>Miesto</th>
+                                     <th>Školiteľ</th>
+                                     <th>Odhlásenie do</th>
+                                 </tr>
+                                 <tr>
+                                     <td>{{ enrolled.courseInstance.timestamp|date('d.m.Y') }}</td>
+                                     <td>{{ enrolled.courseInstance.timestamp|date('H:i') }}</td>
+                                     <td>{{ enrolled.courseInstance.place }}</td>
+                                     <td>{{ enrolled.courseInstance.supervisor }}</td>
+                                     <td>{{ enrolled.courseInstance.disenrollDate|date('d.m.Y H:i') }}</td>
+                                 </tr>
+                             </table>
+                         </div>
 
-             {{ form_start(form) }}
+                         {{ form_start(form) }}
 
+                         <label for="appbundle_enrolled_comment">Pridať poznámku: </label><br>
+                         {{ form_errors(form.comment) }}
+                         {{ form_widget(form.comment) }}
+                         <div style="margin-top: 10px;">
+                            <input type="submit" value="Potvrdiť" class="btn btn-danger"/>
+                             <a href="/" class="btn btn-default">Zrusiť</a>
+                         </div>
+                         {{ form_end(form) }}
+                     </div>
+                </div>
+            </div>
 
-             <label for="appbundle_enrolled_comment">Pridať poznámku: </label>
-             {{ form_errors(form.comment) }}
-             {{ form_widget(form.comment) }}
-             <input type="submit" value="Potvrdiť" />
-
-             {{ form_end(form) }}
-
-
-    <ul>
-        <li>
-            <a href="/">Naspäť na kurzy</a>
-        </li>
-    </ul>
+         {% endif %}
     {% endif %}
 {% endblock %}

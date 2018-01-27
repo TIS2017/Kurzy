@@ -47,6 +47,12 @@ class CourseInstanceController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            if ($courseInstance->getSupervisor()->getRole()->getId() < 2) {
+                $role = $em->getRepository('AppBundle:Role')->find(2);
+                $courseInstance->getSupervisor()->setRole($role);
+            }
+
             $em->persist($courseInstance);
             $em->flush();
 

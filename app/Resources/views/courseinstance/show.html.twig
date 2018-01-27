@@ -1,79 +1,93 @@
 {% extends 'base.html.twig' %}
 {% block title %}Zoznam prihlásených{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/courseinstanceStylesheet.css') }}" class="css">
+{% endblock %}
+
 {% block body %}
 
 {% if is_granted('ROLE_SUPERVISOR') and courseInstance.supervisor.id == app.user.id %}
-    <h4>Zoznam prihlásených na kurz {{ courseInstance.courseType.name }}</h4><br>
-    <div>
-        {% if courseInstance.enrolleds|length == 0 %}
-            {% if date(courseInstance.timestamp) > date()  %}
-                Na tento termín kurzu nie je momentálne nikto prihlásený.
+    <div class="panel panel-default " id="panelInstance">
+        <div class="panel-heading" id="panelInstanceHeading">
+            <h4>Zoznam prihlásených na kurz {{ courseInstance.courseType.name }}</h4>
+        </div>
+
+        <div class="panel-body" id="panelInstanceBody">
+
+            {% if courseInstance.enrolleds|length == 0 %}
+                {% if date(courseInstance.timestamp) > date()  %}
+                    Na tento termín kurzu nie je momentálne nikto prihlásený.
+                {% else %}
+                    Na tomto termíne kurzu sa nikto nezúčastnil.
+                {% endif %}
+
             {% else %}
-                Na tomto termíne kurzu sa nikto nezúčastnil.
-            {% endif %}
+            <div class="panel panel-default" id="panelEnrolleds">
+                <div class="panel-heading" id="panelEnrolledsHeading">
+                    Prihlásení
+                </div>
 
-        {% else %}
-        <b>Prihlásení</b><br><br>
+                <div class="panel-body" id="panelEnrolledsBody">
 
+                {% if date(courseInstance.timestamp) < date()  %}
+                        {{ form_start(edit_form) }}
+                {% endif %}
+                    <table class="table-striped" style="width:100%; text-align: center;" id="enrolledList">
+                        <tr>
+                            <th style="text-align: center;">Meno</th>
+                            <th style="text-align: center;">Poznámka</th>
+                            {% if date(courseInstance.timestamp) < date()  %}
+                            <th style="text-align: center;">Zúčastnil sa</th>
+                            <th style="text-align: center;">Absolvoval</th>
+                            {% endif %}
+                        </tr>
 
-        {% if date(courseInstance.timestamp) < date()  %}
-                {{ form_start(edit_form) }}
-        {% endif %}
-                <table>
-                    <tr>
-                        <th>Meno</th>
-                        <th>Poznámka</th>
-                        {% if date(courseInstance.timestamp) < date()  %}
-                        <th>Zúčastnil sa</th>
-                        <th>Absolvoval</th>
-                        {% endif %}
-                    </tr>
+                        {% set i = 0 %}
+                        {% for e in edit_form.enrolleds %}
+                        <tr>
+                            <td>
+                                {{ courseInstance.enrolleds[i].userId }}
+                            </td>
+                            <td>
+                                {{ courseInstance.enrolleds[i].comment }}
+                            </td>
 
+                            {% set i = i+1 %}
+                            {% if date(courseInstance.timestamp) < date()  %}
+                            <td>
+                                {{ form_errors(e.attended) }}
+                                {{ form_widget(e.attended) }}
+                            </td>
 
-        {% set i = 0 %}
-        {% for e in edit_form.enrolleds %}
-    <tr>
-        <td>{{ courseInstance.enrolleds[i].userId }}</td>
-        <td>{{ courseInstance.enrolleds[i].comment }}</td>
-            {% set i = i+1 %}
+                            <td>
+                                {{ form_errors(e.graduated) }}
+                                {{ form_widget(e.graduated) }}
+                            </td>
+                            {% endif %}
+                        </tr>
+
+                    {% endfor %}
+
+                        </table>
             {% if date(courseInstance.timestamp) < date()  %}
-            <td> {{ form_errors(e.attended) }}
-                {{ form_widget(e.attended) }}</td>
-
-
-<td> {{ form_errors(e.graduated) }}
-    {{ form_widget(e.graduated) }}</td>
-
-
+                    <input type="submit" value="Potvrdiť zmeny" class="btn btn-danger"/>
+                    {{ form_end(edit_form) }}
             {% endif %}
-
-
-
-    </tr>
-
-        {% endfor %}
-
-                </table>
-        {% if date(courseInstance.timestamp) < date()  %}
-                <input type="submit" value="Potvrdiť" />
-                {{ form_end(edit_form) }}
-        {% endif %}
-        {% endif %}
-    </div>
-
-
-
-
-            <br>
+            {% endif %}
+                </div>
+        </div>
 
             <a {% if courseInstance.enrolleds|length == 0 %}
                 class="btn disabled"
             {% else %}
                 class="btn btn-default"
             {% endif %}  href="{{ path('enrolled_users_pdf', { 'id': courseInstance.id }) }}">Tlačiť zoznam prihlásených</a>
-    <br><br>
-<ul>
-          <li><a href="{{ path('supervised', { 'id': app.user.id }) }}">Naspäť</a></li>
-</ul>
+
+        </div>
+    </div>
+
+    <a href="{{ path('supervised', { 'id': app.user.id }) }}" class="btn btn-default">< Späť</a>
+
 {% endif %}
 {% endblock %}

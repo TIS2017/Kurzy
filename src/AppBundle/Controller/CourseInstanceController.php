@@ -51,7 +51,7 @@ class CourseInstanceController extends Controller
         $asoc = array_combine ( $courseTypes , $courseTypes);
         $form = $this->createForm('AppBundle\Form\CourseInstanceType', $courseInstance);
         $form->add('courseTypes',ChoiceType::class, array(
-                'choices'  => $asoc, 'mapped'=>false));
+                'choices'  => $asoc, 'mapped'=>false, 'required'=> true));
         $form->handleRequest($request);
 
 

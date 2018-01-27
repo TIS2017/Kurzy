@@ -17,7 +17,7 @@ class CourseInstanceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('timeStamp')->add('capacity')
-            ->add('disenrollDate')->add('place')->add('supervisor'); //
+            ->add('disenrollDate')->add('place', null, array('required'=>true))->add('supervisor', null, array('required'=>true)); //
     }/**
      * {@inheritdoc}
      */

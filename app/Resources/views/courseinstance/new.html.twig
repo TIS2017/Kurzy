@@ -75,7 +75,8 @@
             </tr>
             <tr>
                 <td colspan="2" style="padding-left: 20%; padding-top: 3%;">
-                    <input type="submit" value="Vytvoriť" class="btn btn-danger"/>
+
+                    <input type="submit"  {% if courseTypes|length == 0 %} disabled {% endif %}value="Vytvoriť" class="btn btn-danger"/>
                 </td>
             </tr>
             {{ form_end(form) }}

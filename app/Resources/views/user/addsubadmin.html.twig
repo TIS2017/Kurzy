@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pridaj subadmina{% endblock %}
+{% block body %}
+{% if is_granted('ROLE_ADMIN') %}
+
+    {{ form_start(form2) }}
+<table>
+    <tr>
+        <td> <label for="appbundle_workplace_subadmins">Subadmin: </label></td>
+
+          <td>  {{ form_widget(form) }}</td>
+    </tr>
+
+<tr>
+    <td> <label for="appbundle_user_subadminWorkplaces">Súčasť: </label></td>
+
+      <td>  {{ form_widget(form2) }}</td>
+
+</tr>
+
+</table>
+    <input type="submit" value="Potvrdiť" />
+    {{ form_end(form2) }}
+
+{% endif %}
+{% endblock %}

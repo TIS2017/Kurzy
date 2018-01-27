@@ -20,11 +20,12 @@
             {{ form_start(form) }}
             <tr>
                 <td style="width: 20%;">
-                    <label for="appbundle_courseinstance_courseType">Druh kurzu: </label>
+                    <label for="appbundle_courseinstance_courseTypes">Druh kurzu: </label>
                 </td>
                 <td style="width: 80%;">
-                    {{ form_errors(form.courseType) }}
-                    {{ form_widget(form.courseType) }}
+
+                    {{ form_errors(form.courseTypes) }}
+                    {{ form_widget(form.courseTypes) }}
                 </td>
             </tr>
             <tr>

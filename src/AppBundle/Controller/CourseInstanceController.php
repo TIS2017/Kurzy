@@ -3,11 +3,13 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\CourseInstance;
+use AppBundle\Entity\CourseType;
 use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -43,18 +45,24 @@ class CourseInstanceController extends Controller
      */
     public function newAction(Request $request)
     {
+
         $courseInstance = new Courseinstance();
+        $courseTypes = $this->getDoctrine()->getRepository(CourseType::class)->findBy(['garantId'=>$this->getUser()->getId()]);
+        $asoc = array_combine ( $courseTypes , $courseTypes);
         $form = $this->createForm('AppBundle\Form\CourseInstanceType', $courseInstance);
+        $form->add('courseTypes',ChoiceType::class, array(
+                'choices'  => $asoc, 'mapped'=>false));
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
 
+        if ($form->isSubmitted()) {
+
+            $em = $this->getDoctrine()->getManager();
             if ($courseInstance->getSupervisor()->getRole()->getId() < 2) {
                 $role = $em->getRepository('AppBundle:Role')->find(2);
                 $courseInstance->getSupervisor()->setRole($role);
             }
-
+            $courseInstance->setCourseType($form->get('courseTypes')->getData());
             $em->persist($courseInstance);
             $em->flush();
 
@@ -63,6 +71,7 @@ class CourseInstanceController extends Controller
 
         return $this->render('courseinstance/new.html.twig', array(
             'courseInstance' => $courseInstance,
+            'courseTypes' => $courseTypes,
             'form' => $form->createView(),
         ));
     }

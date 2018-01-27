@@ -188,9 +188,10 @@ class UserController extends Controller
                 }
                 if(!$dbuser->getSubadminWorkplaces()->contains($workplace)){
                     $dbuser->getSubadminWorkplaces()->add($workplace);
-                    $dbuser->setRole($this->getDoctrine()
-                        ->getRepository(Role::class)
-                        ->find(4));
+                    if($dbuser->getRole()->getId() < 4){
+                        $dbuser->setRole($this->getDoctrine()->getRepository(Role::class)->find(4));
+                    }
+
                     $em->persist($dbuser);
 
                 }

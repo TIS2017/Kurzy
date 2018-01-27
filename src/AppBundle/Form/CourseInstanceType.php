@@ -2,7 +2,10 @@
 
 namespace AppBundle\Form;
 
+
+use AppBundle\Controller\CourseInstanceController;
 use Symfony\Component\Form\AbstractType;
+
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,8 +17,7 @@ class CourseInstanceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('timeStamp')->add('capacity')
-            ->add('disenrollDate')->add('place')
-            ->add('courseType')->add('supervisor');
+            ->add('disenrollDate')->add('place')->add('supervisor'); //
     }/**
      * {@inheritdoc}
      */
@@ -26,7 +28,7 @@ class CourseInstanceType extends AbstractType
         ));
     }
 
-    /**
+    /**S
      * {@inheritdoc}
      */
     public function getBlockPrefix()

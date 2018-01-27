@@ -195,7 +195,12 @@
                                                 </div>
 
                                                 <div class="col-lg-4" style="text-align: right;">
-                                                    <strong>Absolvoval/Neabsolvoval</strong>
+                                                    {% if enrolledUser.attended and enrolledUser.graduated %}
+                                                        <strong class="text-success">Absolvoval</strong>
+                                                    {% else %}
+                                                        <strong class="text-danger">Neabsolvoval</strong>
+                                                    {% endif %}
+
                                                 </div>
                                             </div>
 

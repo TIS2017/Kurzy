@@ -49,7 +49,7 @@ class CourseInstanceController extends Controller
             $em->persist($courseInstance);
             $em->flush();
 
-            return $this->redirectToRoute('courseinstance_show', array('id' => $courseInstance->getId()));
+            return $this->redirectToRoute('coursetype_show', array('id' => $courseInstance->getCourseType()->getId()));
         }
 
         return $this->render('courseinstance/new.html.twig', array(

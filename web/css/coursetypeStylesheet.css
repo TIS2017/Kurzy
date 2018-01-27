@@ -1,6 +1,5 @@
 #panelCourse{
     border-radius: 0;
-    border: 2px solid #b3231b;
 }
 
 #panelCourseHeading{
@@ -14,6 +13,9 @@
 
 #panelCourseBody{
     padding: 0;
+    border: 3px solid #929292;
+    border-top: none;
+
 }
 
 #panelCourseHeading a{

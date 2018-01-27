@@ -17,18 +17,21 @@ class EmailController extends Controller
     /**
      * Lists all email entities.
      *
-     * @Route("/", name="email_index")
+     * @Route("/send", name="email_index")
      * @Method("GET")
      */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
+    public function indexAction(\Swift_Mailer $mailer) {
+        $message = (new \Swift_Message('Hello Email'))
+            ->setSubject('CIT Kurzy Obsadenost')
+            ->setFrom('team.caviar.it@gmail.com')
+            ->setTo('michal.brcko@gmail.com')
+            ->setCharset('UTF-8')
+            ->setBody(
+                'Na vas kurz je teraz mozne sa prihlasit. Chodte sa prihlasit, lebo zajtra bude neskoro!');
 
-        $emails = $em->getRepository('AppBundle:Email')->findAll();
+        $mailer->send($message);
 
-        return $this->render('email/index.html.twig', array(
-            'emails' => $emails,
-        ));
+        return $this->render('email/send.html.twig');
     }
 
     /**

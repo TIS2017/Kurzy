@@ -75,11 +75,16 @@
                         <td style="width: 20%;">
                             <label for="appbundle_coursetype_workplaces">Súčasť: </label>
                         </td>
-                        <td>
-                            {{ form_errors(form.workplaces) }}
-                            {{ form_widget(form.workplaces) }}
-                        </td>
+
+                     <td> </td>
                     </tr>
+                    {% for wp in form.workplaces %}
+                     <tr>
+                         <td> </td>
+                         <td>{{ form_errors(wp) }}
+                             {{ form_widget(wp) }} {{ form_label(wp) }}</td>
+                     </tr>
+                    {% endfor %}
                     <tr>
                         <td colspan="2" style="padding-left: 20%; padding-top: 3%;">
                             <input type="submit" value="Vytvoriť" class="btn btn-danger"/>

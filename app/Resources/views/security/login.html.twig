@@ -7,7 +7,14 @@
 
 {% block body %}
     {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <div class="alert alert-danger" id="errorMessage">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            </div>
+        </div>
     {% endif %}
 
     <div class="row">

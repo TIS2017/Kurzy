@@ -2,3 +2,4 @@
 /var/cache/*
 /var/logs/*
 /var/sessions/*
+/.web-server-pid

@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
+use AppBundle\Entity\Workplace;
+use AppBundle\Entity\Role;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -136,32 +138,92 @@ class UserController extends Controller
     }
 
   /**
-     * Add subadmin and assign him to a workplace.
+     * Assign subadmin to a workplace.
      *
-     * @Route("/addsubadmin", name="addsubadmin")
+     * @Route("/add/subadmin", name="addsubadmin")
      * @Method({"GET", "POST"})
      */
-  /*  public function addSubadmin(Request $request){
-        $form = $this->createForm('AppBundle\Form\SubadminType');
+    public function addSubadmin(Request $request, Request $request2){
+        $workplace = new Workplace();
+        $form = $this->createForm('AppBundle\Form\WorkplaceType', $workplace);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user = $request->get('login');
-            $workplace = $request->get('name');
+
+        $user = new User();
+        $form2 = $this->createForm('AppBundle\Form\UserType', $user);
+        $form2->handleRequest($request2);
 
 
+        if ($form2->isSubmitted() && $form2->isValid()) {
+          //  $form->submit($request->request->get($form->getName()));
             $em = $this->getDoctrine()->getManager();
-            //$em->persist($user);
-           $em->getRepository('AppBundle\\Entity\\User')->find($user->getId());
 
+        if($form->isSubmitted() && $form->isValid()){
+            $user = $form->get('subadmins')->getData();
+            $workplace = $form2->get('subadminWorkplaces')->getData();
+
+            if (count($user) <= 0) {
+                throw $this->createNotFoundException(
+                    'User field is empty'
+                );
+            }
+            if ( count($workplace) <= 0) {
+                throw $this->createNotFoundException(
+                    'Workplace field is empty'
+                );
+            }
+
+
+           // foreach ($user as $u){
+
+                $dbuser = $this->getDoctrine()
+                    ->getRepository(User::class)
+                    ->find($user->getId());
+
+
+                if (!$dbuser) {
+                    throw $this->createNotFoundException(
+                        'No product found for id '.$user->getId()
+                    );
+                }
+                if(!$dbuser->getSubadminWorkplaces()->contains($workplace)){
+                    $dbuser->getSubadminWorkplaces()->add($workplace);
+                    $dbuser->setRole($this->getDoctrine()
+                        ->getRepository(Role::class)
+                        ->find(4));
+                    $em->persist($dbuser);
+
+                }
+
+           // }
+
+
+
+
+         //   foreach($workplace as $w) {
+                $dbwp = $this->getDoctrine()
+                    ->getRepository(Workplace::class)
+                    ->find($workplace->getId());
+
+                if ($dbwp == null) {
+                    throw $this->createNotFoundException(
+                        'No product found for id '.$workplace->getId()
+                    );
+                }
+            if(!$dbwp->getSubadmins()->contains($user)){
+                $dbwp->getSubadmins()->add($user);
+                $em->persist($dbwp);
+            }
+      //  }
 
             $em->flush();
 
-            return $this->redirectToRoute('user_show', array('id' => $user->getId()));
-        }
+            return $this->redirectToRoute('addsubadmin');
+        }}
 
         return $this->render('user/addsubadmin.html.twig', array(
             'form' => $form->createView(),
+            'form2' => $form2->createView()
         ));
-    }*/
+    }
 }

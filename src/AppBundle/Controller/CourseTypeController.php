@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\CourseSoftPrerequisite;
 use AppBundle\Entity\CourseType;
 use AppBundle\Repository\RoleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -56,6 +57,16 @@ class CourseTypeController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $extraSoft =$form->get('extraSoft')->getData();
+            $array = explode(',',$extraSoft);
+            foreach($array as $a){
+                $soft = new CourseSoftPrerequisite();
+                $soft->setCourseType($courseType);
+                $soft->setValue($a);
+                $em->persist($soft);
+                $courseType->getSoftPrerequisites()->add($soft);
+            }
 
             $courseType->setDeleted(false);
 

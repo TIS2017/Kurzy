@@ -17,7 +17,7 @@ class CourseTypeType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('description')->add('softPrerequisites' )
+        $builder->add('name')->add('description')->add('softPrerequisites' )->add('extraSoft', null, array('mapped' => false))
             ->add('visibility')->add('garantId')
             ->add('workplaces',null, ['choice_label'=> 'name','expanded'=> true, 'multiple'=> true])
             ->add('hardPrerequisites');

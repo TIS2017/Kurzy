@@ -42,8 +42,22 @@
                         <td>
                             {{ form_errors(form.softPrerequisites) }}
                             {{ form_widget(form.softPrerequisites) }}
+
                         </td>
                     </tr>
+                    <tr>
+                        <td style="width: 20%;">
+                            <label for="appbundle_coursetype_extraSoft">Pridať nové soft prerekvizity:<br> (zadajte oddelené čiarkou)</label>
+                        </td>
+                        <td>
+                            {{ form_errors(form.extraSoft) }}
+                            {{ form_widget(form.extraSoft) }}
+
+                        </td>
+                    </tr>
+
+
+
                     <tr>
                         <td style="width: 20%;">
                             <label for="appbundle_coursetype_hardPrerequisites">Hard prerekvizity: </label>

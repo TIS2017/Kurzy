@@ -26,7 +26,7 @@ class Workplace
     /**
      * Many Workplaces have One Workplace (parent).
      * @ORM\ManyToOne(targetEntity="Workplace")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      *
      */
     protected $parent;

@@ -85,8 +85,8 @@ class AppFixture extends Fixture
     }
 
     private function seedEmails(ObjectManager $manager){
-        //create 20 emails
-        for ($i = 1; $i <= 20; $i++) {
+        //create 50 emails
+        for ($i = 1; $i <= 50; $i++) {
             $email = new Email();
             $email->setEmail('user' . $i . '@domain.com');
             $email->setUser($this->getReference('user'.$i));    //get reference of user

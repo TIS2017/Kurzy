@@ -38,14 +38,14 @@ class Enrolled
     /**
      * Many Enrolled have One Course Instance.
      * @ORM\ManyToOne(targetEntity="CourseInstance", inversedBy="enrolleds")
-     * @ORM\JoinColumn(name="course_instance_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="course_instance_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $courseInstance;
 
     /**
      * Many Enrolled have One User.
      * @ORM\ManyToOne(targetEntity="User", inversedBy="enrolleds")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $userId;
 

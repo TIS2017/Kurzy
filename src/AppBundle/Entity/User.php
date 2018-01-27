@@ -49,7 +49,7 @@ class User implements UserInterface, \Serializable
     /**
      * Many Users have One Role.
      * @ORM\ManyToOne(targetEntity="Role", inversedBy="users")
-     * @ORM\JoinColumn(name="role", referencedColumnName="id")
+     * @ORM\JoinColumn(name="role", referencedColumnName="id", onDelete="SET NULL")
      */
     protected $role;
 
@@ -69,8 +69,8 @@ class User implements UserInterface, \Serializable
      * Many Users(subadmins) have Many Workplaces.
      * @ORM\ManyToMany(targetEntity="Workplace", inversedBy="subadmins")
      * @ORM\JoinTable(name="subadmins",
-     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="workplace_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="workplace_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      */
     private $subadminWorkplaces;
@@ -78,7 +78,7 @@ class User implements UserInterface, \Serializable
     /**
      * One User has one Active email (relation - hasselected).
      * @ORM\OneToOne(targetEntity="Email", mappedBy="selectedByUser")
-     * @ORM\JoinColumn(name="selected_email", referencedColumnName="id")
+     * @ORM\JoinColumn(name="selected_email", referencedColumnName="id", onDelete="SET NULL")
      */
     private $selectedEmail;
 

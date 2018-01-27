@@ -54,7 +54,7 @@ class CourseType
      /**
      * Many CourseTypes have One User.
      * @ORM\ManyToOne(targetEntity="User", inversedBy="courseTypes")
-     * @ORM\JoinColumn(name="garant_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="garant_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $garantId;
 
@@ -68,8 +68,8 @@ class CourseType
      * Many Course Types have Many Workplaces.
      * @ORM\ManyToMany(targetEntity="Workplace", inversedBy="courseTypes")
      * @ORM\JoinTable(name="course_workplaces",
-     *      joinColumns={@ORM\JoinColumn(name="course_type_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="workplace_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="course_type_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="workplace_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      */
     private $workplaces;
@@ -81,6 +81,7 @@ class CourseType
      *      joinColumns={@ORM\JoinColumn(name="course_type_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="required_type_of_course_id", referencedColumnName="id")}
      *      )
+     *  //TODO on delete do?
      */
     private $hardPrerequisites;
 

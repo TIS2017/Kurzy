@@ -41,7 +41,7 @@ class CourseInstance
     /**
      * Many CourseInstances have One Place.
      * @ORM\ManyToOne(targetEntity="Place", inversedBy="courseInstances")
-     * @ORM\JoinColumn(name="place", referencedColumnName="id")
+     * @ORM\JoinColumn(name="place", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $place;
 
@@ -54,7 +54,7 @@ class CourseInstance
      /**
      * Many Course Instances have One Course Type.
      * @ORM\ManyToOne(targetEntity="CourseType", inversedBy="courseInstances")
-     * @ORM\JoinColumn(name="course_type", referencedColumnName="id")
+     * @ORM\JoinColumn(name="course_type", referencedColumnName="id", onDelete="CASCADE")
      */
     private $courseType;
 
@@ -62,7 +62,7 @@ class CourseInstance
     /**
      * Many Course Instances have One User(supervisor).
      * @ORM\ManyToOne(targetEntity="User", inversedBy="courseInstances")
-     * @ORM\JoinColumn(name="supervisor_user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="supervisor_user_id", referencedColumnName="id",  onDelete="CASCADE")
      */
     private $supervisor;
 

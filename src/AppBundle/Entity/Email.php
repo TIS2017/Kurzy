@@ -25,7 +25,7 @@ class Email
     /**
     * Many Emails have One User.
     * @ORM\ManyToOne(targetEntity="User", inversedBy="emails")
-    * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+    * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
     */
     protected $user;
 

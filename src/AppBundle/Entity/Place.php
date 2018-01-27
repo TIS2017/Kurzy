@@ -59,7 +59,7 @@ class Place
     /**
      * Many Places have One workplace.
      * @ORM\ManyToOne(targetEntity="Workplace", inversedBy="places")
-     * @ORM\JoinColumn(name="workplace_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="workplace_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $workplace;
 

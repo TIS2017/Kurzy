@@ -81,7 +81,7 @@
                                                 <td>{{ courseInstance.enrolleds|length }}/{{ courseInstance.capacity }}</td>
                                                 {% if  date() < courseInstance.disenrollDate %}
                                                     <td>
-                                                        <a href="{{ path('enrolled_show', { 'id':  enroll_id  }) }}" class="btn btn-default">
+                                                        <a href="{{ path('enrolled_show', { 'id':  enroll_id  }) }}" class="btn btn-danger">
                                                             Odhlásiť sa
                                                         </a>
                                                     </td>

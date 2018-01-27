@@ -1,6 +1,6 @@
 #panelCourse{
     border-radius: 0;
-    border: 1px solid #b3231b;
+    border: 2px solid #b3231b;
 }
 
 #panelCourseHeading{
@@ -187,4 +187,37 @@
 #panelTypeBody{
     padding: 5px;
     text-align: center;
+}
+
+#panelInstance{
+    border-radius: 0;
+    border: 1px solid #b3231b;
+}
+
+#panelInstanceHeading{
+    background-color: #b3231b;
+    text-align: left;
+    margin:0;
+    border-radius: 0;
+    padding: 1px 5px;
+    border: 0;
+    color: #FFFFFF;
+}
+
+#panelInstanceHeading h4{
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#panelInstanceBody{
+    padding: 5px;
+    text-align: center;
+}
+
+#editInstanceTable{
+    text-align: left;
+    border:2px solid #FFFFFF;
+    border-collapse:separate;
+    border-spacing: 5px;
+    width: 100%;
 }

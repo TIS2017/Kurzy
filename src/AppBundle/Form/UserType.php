@@ -15,7 +15,7 @@ class UserType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('subadminWorkplaces',null,array('multiple'=> false, 'label'=>false));
+        $builder->add('subadminWorkplaces',null,array('multiple'=> false, 'label'=>false, 'required'=> true));
 
     }/**
      * {@inheritdoc}

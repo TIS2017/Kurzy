@@ -118,6 +118,15 @@ class CourseTypeController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $extraSoft =$editForm->get('extraSoft')->getData();
+            $array = explode(',',$extraSoft);
+            foreach($array as $a){
+                $soft = new CourseSoftPrerequisite();
+                $soft->setCourseType($courseType);
+                $soft->setValue($a);
+                $this->getDoctrine()->getManager()->persist($soft);
+                $courseType->getSoftPrerequisites()->add($soft);
+            }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('coursetype_edit', array('id' => $courseType->getId()));

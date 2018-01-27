@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="{{ asset('css/coursetypeStylesheet.css') }}" class="css">
 {% endblock %}
 
+{% block title %}Úprava kurzu{% endblock %}
 {% block body %}
     {% set rightSubadmin = false %}
     {% for workplace in app.user.subadminWorkplaces %}
@@ -16,7 +17,7 @@
         or (is_granted("ROLE_ADMIN")) %}
         <div class="panel panel-default " id="panelInstance">
             <div class="panel-heading" id="panelInstanceHeading">
-                <h4>Úprava termínu kurzu</h4>
+                <h4>Úprava kurzu</h4>
             </div>
 
             <div class="panel-body" id="panelInstanceBody">
@@ -48,6 +49,16 @@
                         <td>
                             {{ form_errors(edit_form.softPrerequisites) }}
                             {{ form_widget(edit_form.softPrerequisites) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%;">
+                            <label for="appbundle_coursetype_extraSoft">Pridať nové soft prerekvizity:<br> (zadajte oddelené čiarkou)</label>
+                        </td>
+                        <td>
+                            {{ form_errors(edit_form.extraSoft) }}
+                            {{ form_widget(edit_form.extraSoft) }}
+
                         </td>
                     </tr>
                     <tr>

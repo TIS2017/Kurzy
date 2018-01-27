@@ -14,7 +14,7 @@ class WorkplaceType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('subadmins', null,array('multiple'=> false, 'label'=> false));
+        $builder->add('subadmins', null,array('multiple'=> false, 'label'=> false, 'required'=> true));
     }/**
      * {@inheritdoc}
      */

@@ -60,18 +60,27 @@ class CourseInstanceController extends Controller
     }
 
     /**
-     * Finds and displays a courseInstance entity.
+     * Finds and displays a courseInstance entity and allows to edit its enrolleds.
      *
      * @Route("/{id}", name="courseinstance_show")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      */
-    public function showAction(CourseInstance $courseInstance)
+    public function showAction(Request $request, CourseInstance $courseInstance)
     {
-        $deleteForm = $this->createDeleteForm($courseInstance);
+        $editForm = $this->createForm('AppBundle\Form\EnrolledListType', $courseInstance);
+
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('courseinstance_show', array('id' => ($courseInstance->getId())));
+        }
+
 
         return $this->render('courseinstance/show.html.twig', array(
             'courseInstance' => $courseInstance,
-            'delete_form' => $deleteForm->createView(),
+            'edit_form' => $editForm->createView(),
         ));
     }
 
@@ -174,4 +183,6 @@ class CourseInstanceController extends Controller
             ]
         );
     }
+
+
 }

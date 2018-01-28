@@ -214,6 +214,7 @@
     color: #ffffff;
     text-transform: uppercase;
     font-weight: bold;
+    border: none;
 }
 
 #courseTabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {

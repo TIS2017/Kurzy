@@ -131,12 +131,16 @@
 .courseHeading a:hover{
     color: #FFFFFF;
     text-decoration: underline;
+    border: none;
 }
-
+.courseHeading a{
+    border: none;
+}
 #pastCourseHeading h4, #activeCourseHeading h4{
     font-weight: bold;
     text-transform: uppercase;
     padding-left: 5px;
+    border: none;
 }
 
 #pastCourseHeading, #activeCourseHeading {

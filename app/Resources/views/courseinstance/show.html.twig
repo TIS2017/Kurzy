@@ -14,14 +14,14 @@
         </div>
 
         <div class="panel-body" id="panelInstanceBody">
-
+            <div style="text-align: left;">
             {% if courseInstance.enrolleds|length == 0 %}
                 {% if date(courseInstance.timestamp) > date()  %}
                     Na tento termín kurzu nie je momentálne nikto prihlásený.
                 {% else %}
                     Na tomto termíne kurzu sa nikto nezúčastnil.
                 {% endif %}
-
+            </div>
             {% else %}
             <div class="panel panel-default" id="panelEnrolleds">
                 <div class="panel-heading" id="panelEnrolledsHeading">
@@ -35,14 +35,14 @@
                 {% endif %}
                     <table class="table-striped" style="width:100%; text-align: center;" id="enrolledList">
                         <tr>
-                            <th style="text-align: center;">Meno</th>
-                            <th style="text-align: center;">Poznámka</th>
+                            <th>Meno</th>
+                            <th>Poznámka</th>
                             {% if date(courseInstance.timestamp) < date()  %}
-                            <th style="text-align: center;">Zúčastnil sa</th>
-                            <th style="text-align: center;">Absolvoval</th>
-                            <th style="text-align: center;">Certifikát</th>
+                            <th>Zúčastnil sa</th>
+                            <th>Absolvoval</th>
+                            <th>Certifikát</th>
                             {% endif %}
-                            <th style="text-align: center;">E-mail</th>
+                            <th>E-mail</th>
                         </tr>
 
                         {% set i = 0 %}
@@ -90,18 +90,18 @@
                 </div>
         </div>
 
-            <a {% if courseInstance.enrolleds|length == 0 %}
+            {% if courseInstance.enrolleds|length > 0 %}
+            <a href="{{ path('enrolled_users_pdf', { 'id': courseInstance.id }) }}" class="btn btn-default">Tlačiť zoznam prihlásených</a>
+            {% endif %}
+
+            {#<a {% if courseInstance.enrolleds|length == 0 %}
                 class="btn disabled"
             {% else %}
                 class="btn btn-default"
-            {% endif %}  href="{{ path('enrolled_users_pdf', { 'id': courseInstance.id }) }}">Tlačiť zoznam prihlásených</a>
+            {% endif %}  href="{{ path('enrolled_users_pdf', { 'id': courseInstance.id }) }}">Tlačiť zoznam prihlásených</a>#}
 
         </div>
     </div>
-
-{#
-    <a href="{{ path('supervised', { 'id': app.user.id }) }}" class="btn btn-default">< Späť</a>
-#}
 
 {% endif %}
 {% endblock %}

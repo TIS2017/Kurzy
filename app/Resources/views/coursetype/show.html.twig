@@ -8,7 +8,7 @@
 
 {% block body %}
     {% if is_granted('ROLE_USER') %}
-        {% if courseType.visibility and not courseType.deleted %}
+        {% if (courseType.visibility or is_granted('ROLE_ADMIN')) and not courseType.deleted %}
             <div class="panel panel-default " id="panelInstance">
                 <div class="panel-heading" id="panelInstanceHeading">
                     <h4>{{ courseType.name }}</h4>

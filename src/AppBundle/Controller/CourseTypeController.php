@@ -61,11 +61,13 @@ class CourseTypeController extends Controller
             $extraSoft =$form->get('extraSoft')->getData();
             $array = explode(',',$extraSoft);
             foreach($array as $a){
-                $soft = new CourseSoftPrerequisite();
-                $soft->setCourseType($courseType);
-                $soft->setValue($a);
-                $em->persist($soft);
-                $courseType->getSoftPrerequisites()->add($soft);
+                if(str_word_count($a)>0) {
+                    $soft = new CourseSoftPrerequisite();
+                    $soft->setCourseType($courseType);
+                    $soft->setValue($a);
+                    $em->persist($soft);
+                    $courseType->getSoftPrerequisites()->add($soft);
+                }
             }
 
             $courseType->setDeleted(false);
@@ -118,11 +120,11 @@ class CourseTypeController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-          
+
             $extraSoft =$editForm->get('extraSoft')->getData();
             $array = explode(',',$extraSoft);
             foreach($array as $a){
-                if(sizeof($a)>1){
+                if(str_word_count($a)>0){
                     $soft = new CourseSoftPrerequisite();
                     $soft->setCourseType($courseType);
                     $soft->setValue($a);

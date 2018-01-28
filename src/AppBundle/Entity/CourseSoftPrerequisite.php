@@ -35,11 +35,24 @@ class CourseSoftPrerequisite
     }
 
     /**
-     * Many CourseSoftPrerequisites have One courseType.
-     * @ORM\ManyToOne(targetEntity="CourseType", inversedBy="softPrerequisites")
-     * @ORM\JoinColumn(name="course_type_id", referencedColumnName="id", onDelete="CASCADE")
+     * Many courseSoftPrerequisites have Many CourseTypes.
+     * @ORM\ManyToMany(targetEntity="CourseType", mappedBy="softPrerequisites")
      */
-    private $courseType;
+    protected $softPrerequisiteTo;
+
+    public function __construct()
+    {
+        $this->softPrerequisiteTo= new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function getSoftPrerequisiteTo(){
+        return $this->softPrerequisiteTo;
+    }
+
+    public function setSoftPrerequisiteTo($softPrerequisiteTo){
+        $this->softPrerequisiteTo = $softPrerequisiteTo;
+    }
+
 
     public function getCourseType()
     {
@@ -55,4 +68,6 @@ class CourseSoftPrerequisite
     {
         return (string) $this->value;
     }
+
+
 }

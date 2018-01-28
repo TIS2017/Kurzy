@@ -46,8 +46,12 @@ class CourseType
 
     //vazby 
     /**
-     * One CourseType has Many CourseSoftPrerequisites.
-     * @ORM\OneToMany(targetEntity="CourseSoftPrerequisite", mappedBy="courseType")
+     * Many Course Types have Many Course Soft Prerequisites.
+     * @ORM\ManyToMany(targetEntity="CourseSoftPrerequisite", inversedBy="softPrerequisiteTo")
+     * @ORM\JoinTable(name="course_type_course_soft_prerequisites",
+     *      joinColumns={@ORM\JoinColumn(name="course_type_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="course_soft_prerequisite_id", referencedColumnName="id", onDelete="CASCADE")}
+     *      )
      */
     protected $softPrerequisites;
     

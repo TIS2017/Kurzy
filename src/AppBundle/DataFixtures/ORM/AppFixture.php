@@ -149,7 +149,7 @@ class AppFixture extends Fixture
             if ($i == 4 || $i == 5 || $i == 6){     // 4, 5, 6 viditelne kvoli prerekvizitam
                 $visibility = true;
             } else {
-                $visibility = rand(0,1)==1;
+                $visibility = rand(0,2)==2;
             }
             $courseType->setVisibility($visibility);
             $courseType->setDeleted(false);
@@ -229,8 +229,9 @@ class AppFixture extends Fixture
         //create 10 Course Soft Prerequisites
         for ($i = 1; $i <= 10; $i++) {
             $courseSoftPrerequisite = new CourseSoftPrerequisite();
-            $courseSoftPrerequisite->setCourseType($this->getReference('courseType'.$i));
-            $courseSoftPrerequisite->setValue('Prerequisity value number '.$i);
+            $courseSoftPrerequisite->setValue('Soft Prerequisity '.$i);
+
+            $this->addReference('softPrerequisite'.$i, $courseSoftPrerequisite);
 
             $manager->persist($courseSoftPrerequisite);
         }
@@ -307,6 +308,26 @@ class AppFixture extends Fixture
         }
     }
 
+    private function seedCourseTypeSoftPrerequisites(ObjectManager $manager){
+        for ($i = 1; $i <= 10; $i++) {
+
+            $courseType = $this->getReference('courseType'.$i);
+            $softPrerequisites = array();
+
+            for ($j = 1; $j <= 10; $j++) {
+                if (random_int(1,4) == 4){
+                    $softPrerequisite = $this->getReference('softPrerequisite'.$j);
+                    $softPrerequisiteTo = $softPrerequisite->getSoftPrerequisiteTo();
+                    $softPrerequisiteTo->add($courseType);
+                    array_push($softPrerequisites, $softPrerequisite);
+                    $manager->persist($softPrerequisite);
+                }
+            }
+            $courseType->setSoftPrerequisites($softPrerequisites);
+            $manager->persist($courseType);
+        }
+    }
+
         public function load(ObjectManager $manager){
         $this->seedRoles($manager);
         $this->seedUsers($manager);
@@ -321,6 +342,7 @@ class AppFixture extends Fixture
         $this->seedUserWorkplaces($manager);
         $this->seedCourseWorkplaces($manager);
         $this->seedSubadmins($manager);
+        $this->seedCourseTypeSoftPrerequisites($manager);
 
         $manager->flush();
     }

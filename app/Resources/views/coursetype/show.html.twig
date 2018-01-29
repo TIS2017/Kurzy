@@ -88,6 +88,7 @@
                                         <th>Školiteľ </th>
                                         <th>Obsadenosť </th>
                                         <th>Prihlásenie</th>
+                                        <th>E-mail</th>
                                         <th> </th>
                                     </tr>
                                     {% set rightWorkplace = false %}
@@ -126,9 +127,18 @@
                                                     </td>
                                                 {% elseif isEnrolled %}
                                                     <td class="text-muted">Ste prihlásený</td>
+                                                {% elseif not rightWorkplace %}
+                                                    <td>Prihlásenie nedostupné</td>
+                                                {% elseif instance.capacity - instance.enrolleds|length == 0 %}
+                                                    <td>Obsadené</td>
                                                 {% else %}
-                                                    <td> </td>
+                                                    <td></td>
                                                 {% endif %}
+                                                <td>
+                                                    <a href="{{ path('email_new',{ 'userId': instance.supervisor.id} )}}" class="btn btn-danger">
+                                                        Kontaktovať školiteľa
+                                                    </a>
+                                                </td>
                                                 {% set rightSubadmin = false %}
                                                 {% for workplace in app.user.subadminWorkplaces %}
                                                     {% if workplace in workplaces %}

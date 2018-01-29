@@ -71,6 +71,8 @@
                                                 <th>Miesto</th>
                                                 <th>Školiteľ </th>
                                                 <th>Obsadenosť </th>
+                                                <th>Prihlásenie</th>
+                                                <th>E-mail</th>
                                                 <th></th>
                                             </tr>
                                             <tr>
@@ -88,6 +90,11 @@
                                                 {% else %}
                                                     <td class="text-muted">Ste prihlásený</td>
                                                 {% endif %}
+                                                <td>
+                                                    <a href="{{ path('email_new',{ 'userId': courseInstance.supervisor.id} )}}" class="btn btn-danger">
+                                                        Kontaktovať školiteľa
+                                                    </a>
+                                                </td>
                                             </tr>
                                         </table>
                                     </div>

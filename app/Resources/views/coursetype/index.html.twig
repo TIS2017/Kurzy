@@ -103,6 +103,7 @@
                                         <th>Školiteľ </th>
                                         <th>Obsadenosť </th>
                                         <th>Prihlásenie</th>
+                                        <th>E-mail</th>
                                     </tr>
 
                                     {% set rightWorkplace = false %}
@@ -144,11 +145,18 @@
                                                 </td>
                                             {% elseif isEnrolled %}
                                                 <td class="text-muted">Ste prihlásený</td>
+                                            {% elseif not rightWorkplace %}
+                                                <td>Prihlásenie nedostupné</td>
+                                            {% elseif instance.capacity - instance.enrolleds|length == 0 %}
+                                                <td>Obsadené</td>
                                             {% else %}
-{#
-                                                <td></td> TODO: dorobit ked je obsadeny
-#}
+                                                <td></td>
                                             {% endif %}
+                                            <td>
+                                                <a href="{{ path('email_new',{ 'userId': instance.supervisor.id} )}}" class="btn btn-danger">
+                                                    Kontaktovať školiteľa
+                                                </a>
+                                            </td>
                                         </tr>
                                     {% endif %}
                                     {% endfor %}

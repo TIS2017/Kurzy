@@ -33,6 +33,7 @@ class CourseTypeController extends Controller
 
             $name = $form->get('name')->getData();
 
+            /*
             if(count($name[0]) < 1){
                 $array1 = array();
             }
@@ -43,6 +44,14 @@ class CourseTypeController extends Controller
             $courseTypes = $em->getRepository('AppBundle:CourseType')->findBy(
                 $array1
             );
+*/
+            $query = $em->getRepository('AppBundle:CourseType')->createQueryBuilder('p')
+                ->where('p.name LIKE :name')
+                ->setParameter('name', '%'.$name.'%')
+                ->orderBy('p.name', 'ASC')
+                ->getQuery();
+
+            $courseTypes = $query->getResult();
         }
         else {
             $courseTypes = $em->getRepository('AppBundle:CourseType')->findAll();

@@ -54,32 +54,31 @@ class EmailController extends Controller
     /**
      * Creates a new email entity.
      *
-     * @Route("/send/{id}", name="email_group")
+     * @Route("/sendtoAll/{id}", name="email_group")
      * @Method({"GET", "POST"})
      */
     public function groupAction(Request $request, \Swift_Mailer $mailer, CourseInstance $instance)
     {
         $email =  new Email();
         $form = $this->createForm('AppBundle\Form\EmailType', $email);
+
         $form->handleRequest($request);
         $users = array();
         foreach( $instance->getEnrolleds() as $i){
             array_push($users, $i->getUserId()->getSelectedEmail()->getEmail());
         }
 
+
         if ($form->isSubmitted() && $form->isValid()) {
-            foreach($users as $receiver){
                  $message = (new \Swift_Message('From: '.$this->getUser()->getSelectedEmail()->getEmail().': '.$form->get('predmet')->getData()))
                 ->setFrom($this->getUser()->getSelectedEmail()->getEmail())
-                ->setTo($receiver)
+                ->setTo($users)
                 ->setCharset('UTF-8')
                 ->setBody(
                     $form->get('email')->getData());
 
-
-
                 $mailer->send($message);
-            }
+
 
 
             return $this->render('email/send.html.twig');

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\CourseInstance;
 use AppBundle\Entity\Email;
 use AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -32,8 +33,44 @@ class EmailController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $message = (new \Swift_Message('From: '.$this->getUser()->getSelectedEmail()->getEmail().': '.$form->get('predmet')->getData()))
-              //  ->setFrom($this->getUser()->getSelectedEmail()->getEmail())
+                ->setFrom($this->getUser()->getSelectedEmail()->getEmail())
                 ->setTo($user->getSelectedEmail()->getEmail())
+                ->setCharset('UTF-8')
+                ->setBody(
+                    $form->get('email')->getData());
+
+            $mailer->send($message);
+
+            return $this->render('email/send.html.twig');
+
+        }
+
+        return $this->render('email/new.html.twig', array(
+
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * Creates a new email entity.
+     *
+     * @Route("/send/{id}", name="email_group")
+     * @Method({"GET", "POST"})
+     */
+    public function groupAction(Request $request, \Swift_Mailer $mailer, CourseInstance $instance)
+    {
+        $email =  new Email();
+        $form = $this->createForm('AppBundle\Form\EmailType', $email);
+        $form->handleRequest($request);
+        $users = array();
+        foreach( $instance->getEnrolleds() as $key => $i){
+            array_push($users, $i->getUserId()->getSelectedEmail()->getEmail());
+        }
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $message = (new \Swift_Message('From: '.$this->getUser()->getSelectedEmail()->getEmail().': '.$form->get('predmet')->getData()))
+                ->setFrom($this->getUser()->getSelectedEmail()->getEmail())
+                ->setTo($users)
                 ->setCharset('UTF-8')
                 ->setBody(
                     $form->get('email')->getData());

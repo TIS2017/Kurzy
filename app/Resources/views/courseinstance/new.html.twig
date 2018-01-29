@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nový termín kurzu{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/courseinstanceStylesheet.css') }}" class="css">
+{% endblock %}
+
+{% block body %}
+    {% if is_granted("ROLE_MASTER") %}
+
+        <div class="panel panel-default " id="panelInstance">
+            <div class="panel-heading" id="panelInstanceHeading">
+                <h4>Nový termín kurzu</h4>
+            </div>
+
+            <div class="panel-body" id="panelInstanceBody">
+
+        <table id="newInstanceTable">
+            {{ form_start(form) }}
+            <tr>
+                <td style="width: 20%;">
+                    <label for="appbundle_courseinstance_courseTypes">Druh kurzu: </label>
+                </td>
+                <td style="width: 80%;">
+
+                    {{ form_errors(form.courseTypes) }}
+                    {{ form_widget(form.courseTypes) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="appbundle_courseinstance_timeStamp">Dátum a čas konania: </label>
+                </td>
+                <td>
+                    {{ form_errors(form.timeStamp) }}
+                    {{ form_widget(form.timeStamp) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="appbundle_courseinstance_place">Miesto konania: </label>
+                </td>
+                <td>
+                    {{ form_errors(form.place) }}
+                    {{ form_widget(form.place) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="appbundle_courseinstance_capacity">Kapacita: </label>
+                </td>
+                <td>
+                    {{ form_errors(form.capacity) }}
+                    {{ form_widget(form.capacity) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="appbundle_courseinstance_supervisor">Školiteľ: </label>
+                </td>
+                <td>
+                    {{ form_errors(form.supervisor) }}
+                    {{ form_widget(form.supervisor) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="appbundle_courseinstance_disenrollDate">Odhlásiť sa do: </label>
+                </td>
+                <td>
+                    {{ form_errors(form.disenrollDate) }}
+                    {{ form_widget(form.disenrollDate) }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="padding-left: 20%; padding-top: 3%;">
+
+                    <input type="submit"  {% if courseTypes|length == 0 %} disabled {% endif %}value="Vytvoriť" class="btn btn-danger"/>
+                </td>
+            </tr>
+            {{ form_end(form) }}
+        </table>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Odhlásenie z kurzu{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/coursetypeStylesheet.css') }}" class="css">
+{% endblock %}
+
+{% block body %}
+    {% if  is_granted('ROLE_USER') %}
+<div class="panel panel-default " id="panelInstance">
+    <div class="panel-heading" id="panelInstanceHeading">
+        <h4>Odhlásenie z kurzu</h4>
+    </div>
+
+    <div class="panel-body" id="panelInstanceBody" style="padding: 10px;">
+        <div id="question">
+        <h4>Naozaj sa chcete odhlásiť z kurzu
+                <strong>{{ enrolled.courseInstance.courseType }}</strong>?</h4>
+            <div style="margin-top: 15px; margin-bottom: 25px ;">
+                <table class="table-striped" id="enrolledList2">
+                    <tr id="tableHeader1">
+                        <th>Dátum</th>
+                        <th>Čas</th>
+                        <th>Miesto</th>
+                        <th>Školiteľ</th>
+                    </tr>
+                    <tr>
+                        <td>{{ enrolled.courseInstance.timestamp|date('d.m.Y') }}</td>
+                        <td>{{ enrolled.courseInstance.timestamp|date('H:i') }}</td>
+                        <td>{{ enrolled.courseInstance.place }}</td>
+                        <td>{{ enrolled.courseInstance.supervisor }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row" style="margin-top: 10px;">
+                <div class="col-lg-6" style="text-align: right;">
+                {{ form_start(delete_form) }}
+                <input type="submit" value="Potvrdiť" class="btn btn-danger">
+                {{ form_end(delete_form) }}
+                </div>
+                <div class="col-lg-6" style="text-align: left;">
+                <a href="{{ path('coursetype_index') }}" class="btn btn-default">Zrušiť</a>
+            </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+{% endif %}
+{% endblock %}

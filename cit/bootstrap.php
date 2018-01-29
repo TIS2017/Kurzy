@@ -16,9 +16,9 @@ $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/src"), $i
 $connectionOptions = array(    
 	'driver'   => 'pdo_mysql',
     'host'     => 'localhost',
-    'dbname'   => 'test_doctrine',
-    'user'     => 'test_doctrine',
-    'password' => 'test_doctrine'
+    'dbname'   => 'courses',
+    'user'     => 'user',
+    'password' => 'user'
 );
 
 // obtaining the entity manager

@@ -1,0 +1,213 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Kurzy{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/coursetypeStylesheet.css') }}" class="css">
+{% endblock %}
+
+{% block body %}
+    {% if is_granted('ROLE_USER') %}
+        {% set empty = 'true' %}
+
+        <!-- FILTRACIA -->
+        <div class="panel panel-default " id="panelFilter">
+            <div class="panel-body" id="panelFilterBody">
+                <table class="filterTable">
+                    {{ form_start(form) }}
+                    <tr>
+                        <td style="width: 30%;">
+                            <label for="appbundle_coursetype_name">Názov kurzu: </label>
+                        </td>
+
+                        <td>
+                            {{ form_errors(form.name) }}
+                            {{ form_widget(form.name) }}
+                        </td>
+                        <td>
+                            <input type="submit" value="Filtruj" class="btn btn-default btn-sm">
+                        </td>
+                    </tr>
+
+                    {{ form_end(form) }}
+                </table>
+            </div>
+        </div>
+        <!-- /FILTRACIA -->
+
+
+        {% for courseType in courseTypes %}
+            {% if (courseType.visibility or is_granted('ROLE_ADMIN')) and not courseType.deleted %}
+                {% set empty = 'false' %}
+
+            <div class="panel panel-default " id="panelCourse">
+                <div class="panel-heading" id="panelCourseHeading">
+                    <h4><a href={{ path('coursetype_show', { 'id': courseType.id }) }}><h4>{{ courseType.name }}</h4></a></h4>
+                </div>
+
+                <div class="panel-body" id="panelCourseBody">
+
+                    <!-- Nav tabs -->
+                    <div>
+                        <ul class="nav nav-tabs nav-justified" id="courseTabs">
+                            <li class="nav-item active" id="liActive">
+                                <a class="nav-link active" data-toggle="tab" href="#panel1{{ courseType.id }}" role="tab" aria-controls="panel1{{ courseType.id }}" aria-selected="true">O kurze</a>
+                            </li>
+                            <li class="nav-item" style="border-left: 1px solid #FFFFFF;">
+                                <a class="nav-link" data-toggle="tab" href="#panel2{{ courseType.id }}" role="tab" aria-controls="panel2{{ courseType.id }}" aria-selected="false">Termíny</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Tab panels -->
+                    <div class="tab-content card">
+
+
+                        <!--Panel O KURZE-->
+                        <div class="tab-pane active" id="panel1{{ courseType.id }}" role="tabpanel" aria-labelledby="panel1{{ courseType.id }}">
+
+                            <p class="descriptonPar">
+                                {{ courseType.description }}
+                            </p>
+                            <table class="table-striped" style="width: 100%; text-align: center;">
+                                <tr id="tableHeader1">
+                                    <th style="text-align: center;"><b>Soft - mimoaplikačné:</b></th>
+                                    <th style="text-align: center;"><b>Hard - vnútroaplikačné:</b></th>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        {% if courseType.softPrerequisites|length > 0 %}
+                                            <ol>
+                                                {% for prerequisite in courseType.softPrerequisites  %}
+                                                    <li>{{ prerequisite.value }}</li>
+                                                {% endfor %}
+                                            </ol>
+                                        {% else %}
+                                            <ul>
+                                                <li>Tento kurz nemá žiadne mimoaplikačné prerekvizity.</li>
+                                            </ul>
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
+                                        {% if courseType.hardPrerequisites|length > 0 %}
+                                            <ol>
+                                                {% for prerequisite in courseType.hardPrerequisites  %}
+                                                    <li>{{ prerequisite.name }}</li>
+                                                {% endfor %}
+                                            </ol>
+                                        {% else %}
+                                            <ul>
+                                                <li>Tento kurz nemá žiadne vnútroaplikačné prerekvizity.</li>
+                                            </ul>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                        <!--/.Panel O KURZE-->
+
+                        <!--Panel TERMINY-->
+                        <div class="tab-pane" id="panel2{{ courseType.id }}" role="tabpanel" aria-labelledby="panel2{{ courseType.id }}">
+                            <div>
+                            <table class="table-striped" id="instancesTable">
+                                {% set futureInstances = false %}
+                                {% for instance in courseType.courseInstances %}
+                                    {% if date(instance.timestamp) > date() %}
+                                        {% set futureInstances = true %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if not futureInstances %}
+                                    <tr>
+                                        <td colspan="6">Pre tento kurz nie je momentálne vypísaný žiaden termín.</td>
+                                    </tr>
+                                {% else %}
+                                    <tr id="tableHeader2">
+                                        <th>Dátum</th>
+                                        <th>Čas</th>
+                                        <th>Miesto</th>
+                                        <th>Školiteľ </th>
+                                        <th>Obsadenosť </th>
+                                        <th>Prihlásenie</th>
+                                        <th>E-mail</th>
+                                    </tr>
+
+                                    {% set rightWorkplace = false %}
+                                    {% for workplace in workplaces %}
+                                        {% if workplace in courseType.workplaces %}
+                                            {% set rightWorkplace = true %}
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% for instance in courseType.courseInstances %}
+                                    {% if date(instance.timestamp) > date() %}
+                                        <tr>
+                                            <td>{{ instance.timestamp|date('d.m.Y') }}</td>
+                                            <td>{{ instance.timestamp|date('H:i') }}</td>
+                                            <td>{{ instance.place }}</td>
+                                            <td>{{ instance.supervisor }}</td>
+                                            <td>{{ instance.enrolleds|length }}/{{ instance.capacity }}</td>
+
+                                            {% set isEnrolled = false %}
+                                            {% set enroll_id = false %}
+                                            {% for enrolledUser in instance.enrolleds %}
+                                                {% if enrolledUser.userId == app.user %}
+                                                    {% set enroll_id = enrolledUser.id %}
+                                                    {% set isEnrolled = true %}
+                                                {% endif %}
+                                            {% endfor %}
+
+                                            {% if instance.capacity - instance.enrolleds|length > 0 and not isEnrolled and rightWorkplace %}
+                                                <td>
+                                                    <a href="{{ path('enrolled_new', { 'course_instance': instance.id }) }}" class="btn btn-default">
+                                                        Prihlásiť sa
+                                                    </a>
+                                                </td>
+                                            {% elseif isEnrolled and date() < instance.disenrollDate %}
+                                                <td>
+                                                    <a href="{{ path('enrolled_show', { 'id':  enroll_id  }) }}" class="btn btn-danger">
+                                                        Odhlásiť sa
+                                                    </a>
+                                                </td>
+                                            {% elseif isEnrolled %}
+                                                <td class="text-muted">Ste prihlásený</td>
+                                            {% elseif not rightWorkplace %}
+                                                <td>Prihlásenie nedostupné</td>
+                                            {% elseif instance.capacity - instance.enrolleds|length == 0 %}
+                                                <td>Obsadené</td>
+                                            {% else %}
+                                                <td></td>
+                                            {% endif %}
+                                            <td>
+                                                <a href="{{ path('email_new',{ 'userId': instance.supervisor.id} )}}" class="btn btn-danger">
+                                                    Kontaktovať školiteľa
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            </table>
+                            </div>
+                        </div>
+                        <!--/.Panel TERMINY-->
+                    </div>
+                    <!--/.tabs -->
+                </div>
+            </div>
+
+            {% endif %}
+        {% endfor %}
+
+    {% if empty == 'true' %}
+        <div>Momentálne nie sú k dispozícii žiadne kurzy.</div>
+    {% endif %}
+
+{% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+{% endblock %}

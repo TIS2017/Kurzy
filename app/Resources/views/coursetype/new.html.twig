@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nový kurz{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/coursetypeStylesheet.css') }}" class="css">
+{% endblock %}
+
+{% block body %}
+    {% if is_granted("ROLE_SUBADMIN") %}
+
+        <div class="panel panel-default " id="panelType">
+            <div class="panel-heading" id="panelTypeHeading">
+                <h4>Nový kurz</h4>
+            </div>
+
+            <div class="panel-body" id="panelTypeBody">
+                <table id="newTypeTable">
+                {{ form_start(form) }}
+                    <tr>
+                        <td style="width: 20%;">
+                            <label for="appbundle_coursetype_name">Názov kurzu: </label>
+                        </td>
+                        <td>
+                            {{ form_errors(form.name) }}
+                            {{ form_widget(form.name) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%;">
+                            <label for="appbundle_coursetype_description">Sylabus: </label>
+                        </td>
+                        <td>
+                            {{ form_errors(form.description) }}
+                            {{ form_widget(form.description) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%;">
+                            <label for="appbundle_coursetype_softPrerequisites">Soft prerekvizity: </label>
+                        </td>
+                        <td>
+                            {{ form_errors(form.softPrerequisites) }}
+                            {{ form_widget(form.softPrerequisites) }}
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%;">
+                            <label for="appbundle_coursetype_extraSoft">Pridať nové soft prerekvizity:<br> (zadajte oddelené čiarkou)</label>
+                        </td>
+                        <td>
+                            {{ form_errors(form.extraSoft) }}
+                            {{ form_widget(form.extraSoft) }}
+
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td style="width: 20%;">
+                            <label for="appbundle_coursetype_hardPrerequisites">Hard prerekvizity: </label>
+                        </td>
+                        <td>
+                            {{ form_errors(form.hardPrerequisites) }}
+                            {{ form_widget(form.hardPrerequisites) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%;">
+                            <label for="appbundle_coursetype_garantId">Garant: </label>
+                        </td>
+                        <td>
+                            {{ form_errors(form.garantId) }}
+                            {{ form_widget(form.garantId) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%;">
+                            <label for="appbundle_coursetype_visibility">Viditeľnosť: </label>
+                        </td>
+                        <td>
+                            {{ form_errors(form.visibility) }}
+                            {{ form_widget(form.visibility) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%;">
+                            <label for="appbundle_coursetype_workplaces">Súčasť: </label>
+                        </td>
+
+                     <td> </td>
+                    </tr>
+                    {% for wp in form.workplaces %}
+                     <tr>
+                         <td> </td>
+                         <td>{{ form_errors(wp) }}
+                             {{ form_widget(wp) }} {{ form_label(wp) }}</td>
+                     </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="2" style="padding-left: 20%; padding-top: 3%;">
+                            <input type="submit" value="Vytvoriť" class="btn btn-danger"/>
+                        </td>
+                    </tr>
+                {{ form_end(form) }}
+                </table>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,270 @@
+#panelInstance{
+    border-radius: 0;
+    border: 1px solid #b3231b;
+}
+
+#panelInstanceHeading{
+    background-color: #b3231b;
+    text-align: left;
+    margin:0;
+    border-radius: 0;
+    padding: 1px 5px;
+    border: 0;
+    color: #FFFFFF;
+}
+
+#panelInstanceHeading h4{
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#panelInstanceBody{
+    padding: 5px;
+    text-align: center;
+}
+
+#panelElementHeading1, #panelElementHeading2, #panelElementHeading3 {
+    background-color: transparent;
+    color: #0f0f0f;
+    font-weight: bold;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+}
+
+#panelElementBody1, #panelElementBody2{
+    border: 1px solid #000000;
+    text-align: left;
+}
+
+#panelElementBody3{
+    text-align: center;
+    padding: 0;
+    border: 1px solid #000000;
+}
+
+#panelElement1, #panelElement2, #panelElement3{
+    border: none;
+    margin: 10px 20px 10px 20px;
+}
+
+#tableHeader2 {
+    height: 35px;
+    border-bottom: 1px solid #000000;
+    text-align: center;
+}
+
+#tableHeader2 th{
+    text-align: center;
+}
+
+#instancesTable{
+    width: 100%;
+    text-align: center;
+}
+
+#newInstanceTable, #editInstanceTable{
+    text-align: left;
+    border:2px solid #FFFFFF;
+    border-collapse:separate;
+    border-spacing: 5px;
+    width: 100%;
+}
+
+.formElement{
+    border-color: #0f0f0f;
+    border-radius: 0;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0;
+}
+
+#enrolledTabs li{
+    background-color: #C3C0C3;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+}
+
+#enrolledTabs li a{
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: none;
+}
+
+#enrolledTabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+    background-color: #b3231b;
+    border: none;
+    border-radius: 0;
+}
+
+#enrolledTabs>li>a:hover {
+    background-color: #b3231b;
+    border: none;
+    border-radius: 0;
+}
+
+#enrolledPanel{
+    border-radius: 0;
+    border: none;
+}
+
+#actual, #past{
+    border: 3px solid #b3231b;
+    padding: 10px;
+}
+
+
+#enrolledPanelBody{
+    padding: 0;
+}
+
+.courseHeading a:hover{
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+#pastCourseHeading h4, #activeCourseHeading h4{
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-left: 5px;
+}
+
+#pastCourseHeading, #activeCourseHeading {
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 0;
+    background-color: #929292;
+    margin:0;
+    border-radius: 0;
+    padding: 1px 0;
+    border: 0;
+    color: #FFFFFF;
+}
+
+#pastCourseBody{
+    padding: 5px;
+}
+
+#pastCourse{
+    margin: 10px;
+    border: 2px solid #929292;
+    border-radius: 0;
+}
+#actualPanelCourse{
+    border-radius: 0;
+    border: 2px solid rgb(68, 68, 68);
+    margin: 10px;
+}
+
+#actualPanelCourseHeading{
+    background-color: rgb(68, 68, 68);
+    text-align: center;
+    margin:0;
+    border-radius: 0;
+    padding: 1px 0;
+    border: 0;
+}
+
+#actualPanelCourseBody{
+    padding: 0;
+}
+
+#actualPanelCourseHeading a{
+    color: #FFFFFF;
+}
+
+.courseHeading a:hover{
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+#actualPanelCourseHeading h4{
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 0;
+}
+
+.enrolledTable {
+    width: 100%;
+    text-align: center;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+#tableHeader3{
+    height: 35px;
+    text-align: center;
+    background-color: rgb(235, 235, 235);
+}
+
+#tableHeader3 th{
+    text-align: center;
+}
+
+#courseTabs li{
+    background-color: #C3C0C3;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+}
+
+#courseTabs li a{
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: none;
+}
+
+#courseTabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+    background-color: #929292;
+    border: none;
+    border-radius: 0;
+}
+
+#courseTabs>li>a:hover {
+    background-color: #929292;
+    border: none;
+    border-radius: 0;
+}
+
+.descriptonPar{
+    text-align: center;
+    padding: 2px 0;
+}
+
+#enrolledList{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#enrolledList th{
+    height: 35px;
+    text-align: center;
+    background-color: rgb(235, 235, 235);}
+
+#enrolledList tr{
+    padding: 5px;
+}
+
+#panelEnrolleds{
+    margin: 15px;
+    border: 1px solid #929292;
+    border-radius: 0;
+}
+
+#panelEnrolledsHeading{
+    background-color: #929292;
+    color: #F5F5F5;
+    text-align: left;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 0;
+}
+
+#panelEnrolledsBody{
+    padding: 10px 0;
+    padding-top: 2px;
+}

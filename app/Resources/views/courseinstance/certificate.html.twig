@@ -1,0 +1,17 @@
+{% extends 'pdf_template.html.twig' %}
+{% block title %}Certifikát o absolvovaní{% endblock %}
+{% block body %}
+    <p align="center">
+    <h1>Certifikát o absolvovaní</h1>
+    <br>
+    <h2>{{ user }}</h2>
+    úspešne absolvoval/a kurz
+    <h3>{{ courseInstance.courseType }}</h3>
+    </p>
+    <br>
+    {{ courseInstance.timestamp|date('d.m.Y') }}
+    <p align="right">
+
+        <br>podpis školiteľa:___________________
+    </p>
+{% endblock %}

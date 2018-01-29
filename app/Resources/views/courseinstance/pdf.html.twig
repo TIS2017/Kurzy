@@ -1,0 +1,19 @@
+{% extends 'pdf_template.html.twig' %}
+{% block title %}Zoznam prihlásených na kurz {{ courseInstance.courseType }}{% endblock %}
+{% block body %}
+    <h2>Zoznam prihlásených na kurz {{ courseInstance.courseType }}</h2>
+    <div>Dátum a čas konania: {{ courseInstance.timestamp|date('d.m.Y H:i') }}</div>
+    <div>Miesto: {{ courseInstance.place }}</div>
+    <div>
+        {% if courseInstance.enrolleds|length == 0 %}
+            Na tento termín kurzu nie je nikto prihlásený.
+        {% else %}
+            <ol>
+                {% for enroll in courseInstance.enrolleds %}
+                    <li>{{ enroll.userId }}</li>
+                {% endfor %}
+            </ol>
+        {% endif %}
+
+    </div>
+{% endblock %}

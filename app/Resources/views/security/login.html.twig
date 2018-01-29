@@ -11,7 +11,10 @@
             <div class="col-lg-8 col-lg-offset-2">
                 <div class="alert alert-danger" id="errorMessage">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        Zadali ste nesprávne prihlasovacie meno alebo heslo.
+{#
                     {{ error.messageKey|trans(error.messageData, 'security') }}
+#}
                 </div>
             </div>
         </div>

@@ -250,3 +250,24 @@
 #enrolledList2 tr{
     padding: 5px;
 }
+
+#panelFilter{
+    background-color: #F9F9F9;
+    /*
+    border: none;
+    */
+    border-radius: 0;
+}
+
+#filterTable tr{
+    padding: 5px;
+    border: none;
+}
+
+#filterTable {
+    text-align: left;
+    border: 2px solid #FFFFFF;
+    border-collapse: separate;
+    border-spacing: 5px;
+    width: 100%;
+}

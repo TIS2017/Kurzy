@@ -1,12 +1,52 @@
 {% extends 'base.html.twig' %}
-{% block title %}Poslať email{% endblock %}
+{% block title %}Nový e-mail{% endblock %}
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/emailStylesheet.css') }}" class="css">
+{% endblock %}
+
 {% block body %}
-    <h1>Poslať email</h1>
+    <div class="panel panel-default " id="panelEmail">
+        <div class="panel-heading" id="panelEmailHeading">
+            <h4>Nový e-mail</h4>
+        </div>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Odoslať" />
-    {{ form_end(form) }}
+        <div class="panel-body" id="panelEmailBody">
+            <table id="emailTable">
+                {{ form_start(form) }}
+                <tr>
+                    <td style="width: 20%;">
+                        <label for="appbundle_email_predmet">Predmet: </label>
+                    </td>
+                    <td>
+                        {{ form_errors(form.predmet) }}
+                        {{ form_widget(form.predmet) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 20%;">
+                        <label for="appbundle_email_predmet">Správa: </label>
+                    </td>
+                    <td>
+                        {{ form_errors(form.email) }}
+                        {{ form_widget(form.email) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="padding-left: 20%;">
+                        <input type="submit" value="Odoslať" class="btn btn-danger"/>
+                        {{ form_end(form) }}
+                    </td>
+                </tr>
+            </table>
 
-
+{#
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <input type="submit" value="Odoslať" class="btn btn-danger"/>
+                {{ form_end(form) }}
+#}
+        </div>
+    </div>
 {% endblock %}

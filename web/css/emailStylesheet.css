@@ -1,0 +1,37 @@
+#panelEmail{
+    border-radius: 0;
+    border: 1px solid #929292;
+}
+
+#panelEmailHeading{
+    background-color: #929292;
+    text-align: left;
+    margin:0;
+    border-radius: 0;
+    padding: 1px 5px;
+    border: 0;
+    color: #FFFFFF;
+}
+
+#panelEmailHeading h4{
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#panelEmailBody{
+    padding: 20px;
+    text-align: left;
+}
+
+#emailTable tr{
+    padding: 5px;
+    border: none;
+}
+
+#emailTable {
+    text-align: left;
+    border: 2px solid #FFFFFF;
+    border-collapse: separate;
+    border-spacing: 5px;
+    width: 100%;
+}

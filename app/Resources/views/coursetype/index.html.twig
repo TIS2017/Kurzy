@@ -8,10 +8,32 @@
 {% block body %}
     {% if is_granted('ROLE_USER') %}
         {% set empty = 'true' %}
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Filtruj" class="btn btn-default">
-        {{ form_end(form) }}
+
+        <!-- FILTRACIA -->
+        <div class="panel panel-default " id="panelFilter">
+            <div class="panel-body" id="panelFilterBody">
+                <table class="filterTable">
+                    {{ form_start(form) }}
+                    <tr>
+                        <td style="width: 30%;">
+                            <label for="appbundle_coursetype_name">Názov kurzu: </label>
+                        </td>
+
+                        <td>
+                            {{ form_errors(form.name) }}
+                            {{ form_widget(form.name) }}
+                        </td>
+                        <td>
+                            <input type="submit" value="Filtruj" class="btn btn-default btn-sm">
+                        </td>
+                    </tr>
+
+                    {{ form_end(form) }}
+                </table>
+            </div>
+        </div>
+        <!-- /FILTRACIA -->
+
 
         {% for courseType in courseTypes %}
             {% if (courseType.visibility or is_granted('ROLE_ADMIN')) and not courseType.deleted %}

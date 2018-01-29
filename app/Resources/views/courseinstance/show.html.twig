@@ -73,7 +73,7 @@
                                 </td>
                             {% endif %}
                             <td>
-                                <a href="" class="btn btn-danger">
+                                <a href="{{ path('email_new',{ 'userId': courseInstance.enrolleds[i].userId.id} )}}" class="btn btn-danger">
                                     Poslať e-mail
                                 </a>
                             </td>

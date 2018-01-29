@@ -1,16 +1,12 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}Poslať email{% endblock %}
 {% block body %}
-    <h1>Email creation</h1>
+    <h1>Poslať email</h1>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <input type="submit" value="Odoslať" />
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('email_index') }}">Back to the list</a>
-        </li>
-    </ul>
+
 {% endblock %}

@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Email;
+use AppBundle\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -14,48 +16,36 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
  */
 class EmailController extends Controller
 {
-    /**
-     * Lists all email entities.
-     *
-     * @Route("/send", name="email_index")
-     * @Method("GET")
-     */
-    public function indexAction(\Swift_Mailer $mailer) {
-        $message = (new \Swift_Message('Hello Email'))
-            ->setSubject('CIT Kurzy Obsadenost')
-            ->setFrom('team.caviar.it@gmail.com')
-            ->setTo('michal.brcko@gmail.com')
-            ->setCharset('UTF-8')
-            ->setBody(
-                'Na vas kurz je teraz mozne sa prihlasit. Chodte sa prihlasit, lebo zajtra bude neskoro!');
-
-        $mailer->send($message);
-
-        return $this->render('email/send.html.twig');
-    }
 
     /**
      * Creates a new email entity.
      *
-     * @Route("/new", name="email_new")
+     * @Route("/send/{userId}", name="email_new")
+     * @ParamConverter("user", class="AppBundle:User", options={"id" = "userId"})
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, \Swift_Mailer $mailer, User $user)
     {
-        $email = new Email();
+        $email =  new Email();
         $form = $this->createForm('AppBundle\Form\EmailType', $email);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($email);
-            $em->flush();
+            $message = (new \Swift_Message('From: '.$this->getUser()->getSelectedEmail()->getEmail().': '.$form->get('predmet')->getData()))
+              //  ->setFrom($this->getUser()->getSelectedEmail()->getEmail())
+                ->setTo($user->getSelectedEmail()->getEmail())
+                ->setCharset('UTF-8')
+                ->setBody(
+                    $form->get('email')->getData());
 
-            return $this->redirectToRoute('email_show', array('id' => $email->getId()));
+            $mailer->send($message);
+
+            return $this->render('email/send.html.twig');
+
         }
 
         return $this->render('email/new.html.twig', array(
-            'email' => $email,
+
             'form' => $form->createView(),
         ));
     }

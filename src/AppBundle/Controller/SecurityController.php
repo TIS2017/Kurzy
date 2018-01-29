@@ -8,10 +8,12 @@
 
 namespace AppBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use AppBundle\Entity\CourseType;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 
@@ -19,28 +21,18 @@ class SecurityController extends Controller
 {
     /**
      * @Route("/", name="login")
+     * @Method({"GET","POST"})
      */
 
     public function login(Request $request, AuthenticationUtils $authUtils)
     {
 
 
+
+
         if($this->getUser()){
-            $em = $this->getDoctrine()->getManager();
+            return $this->redirect('/coursetype');
 
-            $courseTypes = $em->getRepository('AppBundle:CourseType')->findAll();
-
-            if (count($courseTypes)>0) {
-                $workplaces = $courseTypes[0]->usersWorkplaces($this->getUser());
-            }
-            else {
-                $workplaces = array();
-            }
-
-            return $this->render('coursetype/index.html.twig', array(
-                'courseTypes' => $courseTypes,
-                'workplaces' => $workplaces,
-            ));
         }
         else {
             // get the login error if there is one

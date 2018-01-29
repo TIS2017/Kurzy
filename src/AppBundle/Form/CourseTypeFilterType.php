@@ -21,7 +21,7 @@ class CourseTypeFilterType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', null,['label'=>'Názov kurzu: ', 'required'=>false])->add('myworkplace',ChoiceType::class, ['mapped'=>false,'label'=>false,'choices'=> array('Moja súčasť'=> true, 'Všetky súčasti'=>false),'expanded'=> true, 'multiple'=> false]);
+        $builder->add('name', null,['label'=>'Názov kurzu: ', 'required'=>false]);
     }
 
     /**

@@ -10,7 +10,9 @@ namespace AppBundle\Form;
 
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CourseTypeFilterType extends AbstractType
 {
@@ -19,10 +21,7 @@ class CourseTypeFilterType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('description')->add('softPrerequisites' )->add('extraSoft', null, array('mapped' => false))
-            ->add('visibility')->add('garantId',null, ['required'=>true])
-            ->add('workplaces',null, ['choice_label'=> 'name','expanded'=> true, 'multiple'=> true])
-            ->add('hardPrerequisites');
+        $builder->add('name', null,['label'=>'Názov kurzu: ', 'required'=>false])->add('myworkplace',ChoiceType::class, ['mapped'=>false,'label'=>false,'choices'=> array('Moja súčasť'=> true, 'Všetky súčasti'=>false),'expanded'=> true, 'multiple'=> false]);
     }
 
     /**

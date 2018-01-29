@@ -8,6 +8,11 @@
 {% block body %}
     {% if is_granted('ROLE_USER') %}
         {% set empty = 'true' %}
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Filtruj" class="btn btn-default">
+        {{ form_end(form) }}
+
         {% for courseType in courseTypes %}
             {% if (courseType.visibility or is_granted('ROLE_ADMIN')) and not courseType.deleted %}
                 {% set empty = 'false' %}

@@ -28,6 +28,7 @@ class CourseTypeController extends Controller
         $form = $this->createForm('AppBundle\Form\CourseTypeFilterType', $courseType);
         $form->handleRequest($request);
 
+
         $em = $this->getDoctrine()->getManager();
 
         $courseTypes = $em->getRepository('AppBundle:CourseType')->findAll();
@@ -42,6 +43,7 @@ class CourseTypeController extends Controller
         return $this->render('coursetype/index.html.twig', array(
             'courseTypes' => $courseTypes,
             'workplaces' => $workplaces,
+            'form'=> $form->createView(),
         ));
     }
 

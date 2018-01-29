@@ -24,14 +24,34 @@ class CourseTypeController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $courseType = new Coursetype();
         $form = $this->createForm('AppBundle\Form\CourseTypeFilterType', $courseType);
         $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
 
-        $em = $this->getDoctrine()->getManager();
+            $name = $form->get('name')->getData();
+            $myWorkplace = $form->get('myworkplace')->getData();
 
-        $courseTypes = $em->getRepository('AppBundle:CourseType')->findAll();
+            if(count($name[0]) < 1){
+                $array1 = array();
+            }
+            else {
+                $array1 = array('name' => $name);
+            }
+            /*
+            if(!$myWorkplace) {
+                $myWorkplace = null;
+            }*/
+
+            $courseTypes = $em->getRepository('AppBundle:CourseType')->findBy(
+                $array1
+            );
+        }
+        else {
+            $courseTypes = $em->getRepository('AppBundle:CourseType')->findAll();
+        }
 
         if (count($courseTypes)>0) {
             $workplaces = $courseTypes[0]->usersWorkplaces($this->getUser());

@@ -63,19 +63,24 @@ class EmailController extends Controller
         $form = $this->createForm('AppBundle\Form\EmailType', $email);
         $form->handleRequest($request);
         $users = array();
-        foreach( $instance->getEnrolleds() as $key => $i){
+        foreach( $instance->getEnrolleds() as $i){
             array_push($users, $i->getUserId()->getSelectedEmail()->getEmail());
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $message = (new \Swift_Message('From: '.$this->getUser()->getSelectedEmail()->getEmail().': '.$form->get('predmet')->getData()))
+            foreach($users as $receiver){
+                 $message = (new \Swift_Message('From: '.$this->getUser()->getSelectedEmail()->getEmail().': '.$form->get('predmet')->getData()))
                 ->setFrom($this->getUser()->getSelectedEmail()->getEmail())
-                ->setTo($users)
+                ->setTo($receiver)
                 ->setCharset('UTF-8')
                 ->setBody(
                     $form->get('email')->getData());
 
-            $mailer->send($message);
+
+
+                $mailer->send($message);
+            }
+
 
             return $this->render('email/send.html.twig');
 

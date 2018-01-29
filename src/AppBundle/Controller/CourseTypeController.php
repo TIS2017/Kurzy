@@ -20,10 +20,13 @@ class CourseTypeController extends Controller
      * Lists all courseType entities.
      *
      * @Route("/", name="coursetype_index")
-     * @Method("GET")
+     * @Method({"GET","POST"})
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        $courseType = new Coursetype();
+        $form = $this->createForm('AppBundle\Form\CourseTypeFilterType', $courseType);
+        $form->handleRequest($request);
 
         $em = $this->getDoctrine()->getManager();
 

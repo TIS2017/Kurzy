@@ -32,7 +32,6 @@ class CourseTypeController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             $name = $form->get('name')->getData();
-            $myWorkplace = $form->get('myworkplace')->getData();
 
             if(count($name[0]) < 1){
                 $array1 = array();
@@ -40,10 +39,6 @@ class CourseTypeController extends Controller
             else {
                 $array1 = array('name' => $name);
             }
-            /*
-            if(!$myWorkplace) {
-                $myWorkplace = null;
-            }*/
 
             $courseTypes = $em->getRepository('AppBundle:CourseType')->findBy(
                 $array1
@@ -205,6 +200,6 @@ class CourseTypeController extends Controller
             ->setAction($this->generateUrl('coursetype_delete', array('id' => $courseType->getId())))
             ->setMethod('DELETE')
             ->getForm()
-        ;
+            ;
     }
 }

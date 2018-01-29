@@ -92,7 +92,7 @@
 
             {% if courseInstance.enrolleds|length > 0 %}
                 <a href="{{ path('enrolled_users_pdf', { 'id': courseInstance.id }) }}" class="btn btn-default">Tlačiť zoznam prihlásených</a>
-                <a href="{{ path('email_new',{ 'id': courseInstance.id} )}}" class="btn btn-danger">
+                <a href="{{ path('email_group',{ 'id': courseInstance.id} )}}" class="btn btn-danger">
                     Poslať e-mail všetkým prihláseným
                 </a>
             {% endif %}

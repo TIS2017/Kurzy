@@ -16,22 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
  */
 class EnrolledController extends Controller
 {
-    /**
-     * Lists all enrolled entities.
-     *
-     * @Route("/", name="enrolled_index")
-     * @Method("GET")
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
 
-        $enrolleds = $em->getRepository('AppBundle:Enrolled')->findAll();
-
-        return $this->render('enrolled/index.html.twig', array(
-            'enrolleds' => $enrolleds,
-        ));
-    }
 
     /**
      * Creates a new enrolled entity.

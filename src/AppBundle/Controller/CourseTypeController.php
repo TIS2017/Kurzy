@@ -33,18 +33,6 @@ class CourseTypeController extends Controller
 
             $name = $form->get('name')->getData();
 
-            /*
-            if(count($name[0]) < 1){
-                $array1 = array();
-            }
-            else {
-                $array1 = array('name' => $name);
-            }
-
-            $courseTypes = $em->getRepository('AppBundle:CourseType')->findBy(
-                $array1
-            );
-*/
             $query = $em->getRepository('AppBundle:CourseType')->createQueryBuilder('p')
                 ->where('p.name LIKE :name')
                 ->setParameter('name', '%'.$name.'%')
